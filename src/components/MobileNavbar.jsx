@@ -16,12 +16,12 @@ function MobileNavabar() {
           <div onClick={() => setShowProfile(true)} style={{ cursor: "pointer" }}>
             <img src="./logo-linkedin.png" alt="Profilo" className="rounded-circle border" height="34px" />
           </div>
-          <Form className="flex-grow-1 mx-3">
+          <Form className="flex-grow-1 mx-3 ">
             <InputGroup size="sm" className="bg-light rounded">
-              <InputGroup.Text className="bg-light border-0">
+              <InputGroup.Text className="bg-light border-end-0">
                 <Search size={14} />
               </InputGroup.Text>
-              <Form.Control type="search" placeholder="Cerca" className="bg-light border-0 shadow-none" />
+              <Form.Control type="search" placeholder="Cerca" className="bg-light border-start-0 shadow-none" />
             </InputGroup>
           </Form>
           <Nav.Link href="#messages" className="p-0 text-secondary">
@@ -37,21 +37,21 @@ function MobileNavabar() {
         <Container fluid className="px-0">
           <div className="d-flex justify-content-around w-100">
             <Nav.Link href="#home" className="d-flex flex-column align-items-center text-secondary p-1">
-              <HouseDoorFill className="fs-5" /> <span style={{ fontSize: "10px" }}>Home</span>
+              <HouseDoorFill className="fs-3" /> <span style={{ fontSize: "12px" }}>Home</span>
             </Nav.Link>
             <Nav.Link href="#network" className="d-flex flex-column align-items-center text-secondary p-1">
-              <PersonFillAdd className="fs-5" /> <span style={{ fontSize: "10px" }}>Rete</span>
+              <PersonFillAdd className="fs-3" /> <span style={{ fontSize: "12px" }}>Rete</span>
             </Nav.Link>
 
             <Nav.Link onClick={() => setShowPublish(true)} className="d-flex flex-column align-items-center text-secondary p-1">
-              <PlusSquareFill className="fs-5" /> <span style={{ fontSize: "10px" }}>Pubblica</span>
+              <PlusSquareFill className="fs-3" /> <span style={{ fontSize: "12px" }}>Pubblica</span>
             </Nav.Link>
 
             <Nav.Link href="#notifications" className="d-flex flex-column align-items-center text-secondary p-1">
-              <BellFill className="fs-5" /> <span style={{ fontSize: "10px" }}>Notifiche</span>
+              <BellFill className="fs-3" /> <span style={{ fontSize: "12px" }}>Notifiche</span>
             </Nav.Link>
             <Nav.Link href="#jobs" className="d-flex flex-column align-items-center text-secondary p-1">
-              <BriefcaseFill className="fs-5" /> <span style={{ fontSize: "10px" }}>Lavoro</span>
+              <BriefcaseFill className="fs-3" /> <span style={{ fontSize: "12px" }}>Lavoro</span>
             </Nav.Link>
           </div>
         </Container>

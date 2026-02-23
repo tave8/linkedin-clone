@@ -27,3 +27,7 @@ body {
   color: #915907 !important;
   font-weight: 400;
 }
+
+.lh-1 {
+  line-height: 1;
+}
