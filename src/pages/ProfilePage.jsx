@@ -24,7 +24,6 @@ const ProfilePage = () => {
       <main className="container">
         <Row>
           <Col xs={12} md={9} className="bg-dark">
-            cdccd
             <FirstSection />
             <AnalisiProfile />
             <InfoProfile />
@@ -40,7 +39,6 @@ const ProfilePage = () => {
             <MyFooter />
           </Col>
           <Col xs={12} md={3} className="bg-danger">
-            ciao
             <RightSideBar /> {/*raffy */}
           </Col>
         </Row>
