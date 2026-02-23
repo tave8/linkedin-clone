@@ -11,7 +11,7 @@ const HomePage = () => {
         <NavBar />
         {/* navbar giulia */}
       </header>
-      <main>
+      <main className="sfondo">
         <Row>
           <Col className="d-none col-md-2">
             <LeftSideBar />

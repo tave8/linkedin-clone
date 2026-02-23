@@ -21,7 +21,7 @@ const ProfilePage = () => {
         <NavBar />
         {/* navbar giulia */}
       </header>
-      <main className="container">
+      <main className="container sfondo">
         <Row>
           <Col xs={12} md={9} className="bg-dark">
             cdccd
@@ -39,8 +39,7 @@ const ProfilePage = () => {
             <Interest />
             <MyFooter />
           </Col>
-          <Col xs={12} md={3} className="bg-danger">
-            ciao
+          <Col xs={12} md={3}>
             <RightSideBar /> {/*raffy */}
           </Col>
         </Row>

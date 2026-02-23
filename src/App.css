@@ -13,7 +13,7 @@
 
 #E4E4E7 → grigio chiarissimo freddo
 
-#EAE6DF → beige molto chiaro (effetto sabbia chiara)
+#EAE6DF → beige molto chiaro (effetto sabbia chiara) SFONDO
 
 #EDF3F8 → azzurro ghiaccio molto tenue
 
@@ -30,3 +30,7 @@
 #5F9B41 → verde medio naturale (tipo verde prato)
 
 #8C8C8C → grigio medio-scuro */
+
+.sfondo {
+  background-color: #eae6df;
+}
