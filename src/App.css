@@ -30,3 +30,32 @@
 #5F9B41 → verde medio naturale (tipo verde prato)
 
 #8C8C8C → grigio medio-scuro */
+
+.custom-toggle::after {
+  display: none;
+}
+
+.reaction-bubble {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  border: 2px solid white;
+}
+
+.reaction-bubble:not(:first-child) {
+  margin-left: -6px;
+}
+
+.action-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+  text-decoration: none;
+  transform: scale(1.02);
+}
+
+.post-media {
+  object-fit: cover;
+}

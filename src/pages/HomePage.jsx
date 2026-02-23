@@ -1,8 +1,8 @@
-import Post from "../components/Post";
-import LeftSideBar from "../components/LeftSideBar";
-import NavBar from "../components/NavBar";
-import RightSideBar from "../components/RightSideBar";
-import { Row, Col } from "react-bootstrap";
+import Post from "../components/Post"
+import LeftSideBar from "../components/LeftSideBar"
+import NavBar from "../components/NavBar"
+import RightSideBar from "../components/RightSideBar"
+import { Row, Col } from "react-bootstrap"
 
 const HomePage = () => {
   return (
@@ -25,6 +25,6 @@ const HomePage = () => {
         </Row>
       </main>
     </>
-  );
-};
-export default HomePage;
+  )
+}
+export default HomePage
