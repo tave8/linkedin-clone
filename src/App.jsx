@@ -1,7 +1,9 @@
-import "bootstrap/dist/css/bootstrap.min.css"
-import "./App.css"
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
-import { Container, Row, Col, CardGroup, Card, Spinner, Alert, Button, Image, Form, ListGroup, Navbar, NavDropdown, Nav } from "react-bootstrap"
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { Container, Row, Col, CardGroup, Card, Spinner, Alert, Button, Image, Form, ListGroup, Navbar, NavDropdown, Nav } from "react-bootstrap";
+import HomePage from "./pages/HomePage";
+import ProfilePage from "./pages/ProfilePage";
 
 // redux
 import { store } from "./redux/store"
@@ -11,10 +13,11 @@ import LinkedinAPIDemo from "./components/linkedin-api-demo/LinkedinAPIDemo"
 
 function App() {
   return (
-    <Provider store={store}>
-      <LinkedinAPIDemo />
-    </Provider>
-  )
+    <>
+      <HomePage />
+      <ProfilePage />
+    </>
+  );
 }
 
-export default App
+export default App;
