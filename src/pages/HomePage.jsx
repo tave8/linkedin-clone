@@ -13,7 +13,7 @@ const HomePage = () => {
       </header>
       <main className="sfondo">
         <Row>
-          <Col className="d-none col-md-2">
+          <Col className=" d-none d-lg-block" md={2}>
             <LeftSideBar />
           </Col>
           <Col xs={12} md={7}>

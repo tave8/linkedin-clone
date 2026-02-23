@@ -30,7 +30,7 @@
 #5F9B41 → verde medio naturale (tipo verde prato)
 
 #8C8C8C → grigio medio-scuro */
-
+/* Giorgia */
 .custom-toggle::after {
   display: none;
 }
@@ -59,6 +59,25 @@
 .post-media {
   object-fit: cover;
 }
+/* SX SIDEBAR LEFT */
+.left-profile-card {
+  position: relative;
+}
+
+.left-avatar {
+  position: relative;
+  margin-top: -36px;
+  border: 2px solid white;
+}
+
+.left-page-logo-img {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+/* Fine  Giorgia */
+
 .sfondo {
   background-color: #eae6df;
 }
