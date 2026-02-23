@@ -30,7 +30,7 @@ const ProfilePage = () => {
             <ServicesProfile />
             <ActivityProfile />
             {/* francesco */}
-            <ExperiencesProfile />
+            <ExperiencesProfile /> {/*fatto */}
             <EducationProfile />
             <LicencesProfile />
             <Skills />
@@ -39,7 +39,7 @@ const ProfilePage = () => {
             <MyFooter />
           </Col>
           <Col xs={12} md={3}>
-            <RightSideBar /> {/*raffy */}
+            <RightSideBar /> {/*fatto */}
           </Col>
         </Row>
       </main>

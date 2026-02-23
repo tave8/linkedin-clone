@@ -97,7 +97,7 @@ function SidebarRight() {
         </Card>
 
         {/* footer */}
-        <div className="text-center p-2" style={{ fontSize: "12px", color: "#666" }}>
+        <div className="d text-center p-2" style={{ fontSize: "12px", color: "#666" }}>
           <span className="mx-2">Informazioni</span>
           <span className="mx-2">Accessibilità</span>
           <span className="mx-2">Centro assistenza</span>
@@ -113,7 +113,6 @@ function SidebarRight() {
         </div>
       </div>
 
-      {/* mobile */}
       {/* mobile */}
       <div className="d-lg-none">
         <Card className="mb-3 shadow-sm">
@@ -206,7 +205,7 @@ function SidebarRight() {
         </Card>
 
         {/* footer mobile */}
-        <div className="text-center p-2" style={{ fontSize: "11px", color: "#666" }}>
+        <div className="d-none d-lg-block text-center p-2" style={{ fontSize: "11px", color: "#666" }}>
           <span className="mx-1">Informazioni</span>
           <span className="mx-1">Privacy</span>
           <span className="mx-1">Centro assistenza</span>
