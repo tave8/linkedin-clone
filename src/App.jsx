@@ -9,14 +9,14 @@ import ProfilePage from "./pages/ProfilePage";
 import { store } from "./redux/store"
 import { Provider } from "react-redux"
 
-import LinkedinAPIDemo from "./components/linkedin-api-demo/LinkedinAPIDemo"
+// import LinkedinAPIDemo from "./components/linkedin-api-demo/LinkedinAPIDemo"
 
 function App() {
   return (
-    <>
+    <Provider store={store}>
       <HomePage />
       <ProfilePage />
-    </>
+    </Provider>
   );
 }
 
