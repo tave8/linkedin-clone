@@ -23,7 +23,7 @@ const ProfilePage = () => {
       </header>
       <main className="container sfondo">
         <Row>
-          <Col xs={12} md={9} className="bg-dark">
+          <Col xs={12} md={9}>
             <FirstSection />
             <AnalisiProfile />
             <InfoProfile />
