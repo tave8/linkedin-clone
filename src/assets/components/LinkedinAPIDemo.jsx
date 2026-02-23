@@ -1,4 +1,4 @@
-import { runLinkedinAPIExampleGetProfiles, runLinkedinAPIExampleGetMyProfile } from "../js/linkedin-api/examples"
+import { runLinkedinAPIExampleGetProfiles, runLinkedinAPIExampleGetMyProfile, runLinkedinAPIExampleGetOneProfile } from "../js/linkedin-api/examples"
 
 /**
  * This component only serves to demo the Linkedin API.
@@ -6,6 +6,7 @@ import { runLinkedinAPIExampleGetProfiles, runLinkedinAPIExampleGetMyProfile } f
 const LinkedinAPIDemo = (props) => {
   runLinkedinAPIExampleGetProfiles()
   runLinkedinAPIExampleGetMyProfile()
+  runLinkedinAPIExampleGetOneProfile()
   return <></>
 }
 
