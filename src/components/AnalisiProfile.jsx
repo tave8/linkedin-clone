@@ -8,7 +8,7 @@ import { FaArrowRight } from "react-icons/fa6";
 const AnalisiProfile = () => {
   return (
     <>
-      <section className=" bg-light border border-1 border-secondary-subtle rounded-3 container pt-2">
+      <section className=" bg-light border border-1 border-secondary-subtle rounded-3 container pt-2 mb-3">
         <div>
           <p className="m-0 fs-5 fw-semibold">Analisi</p>
           <p className="d-flex align-items-center m-0">{<FaEye className="me-1" />} Visibile solo a te</p>

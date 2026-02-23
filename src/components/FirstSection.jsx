@@ -7,7 +7,7 @@ import { BsThreeDots } from "react-icons/bs";
 const FirstSection = () => {
   return (
     <>
-      <section className=" bg-light border border-1 border-secondary-subtle rounded-3">
+      <section className=" bg-light border border-1 border-secondary-subtle rounded-3 mb-3">
         <div className="bannerProfile position-relative">
           <img
             src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=922&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
