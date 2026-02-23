@@ -34,6 +34,7 @@
 
 :root {
   --fs-s: clamp(0.6rem, 0.8vw, 1.3rem);
+  --fs-m: clamp(0.8rem, 1vw, 1.6rem);
 }
 /* css for the first section of the profile */
 .bannerProfile {
@@ -101,4 +102,25 @@
   .border-custom-analisi {
     border: 0 !important;
   }
+}
+/*  service profile */
+.border-custom-serviceProfile {
+  background-color: lightgray;
+}
+.border-custom-bt-activity {
+  background-color: #5f9b41;
+  border-radius: 18px;
+  color: white;
+}
+.border-custom-bt-activity2 {
+  background-color: transparent;
+  border-radius: 18px;
+  color: black;
+  border: 1px solid black;
+}
+.fs-custom-m {
+  font-size: var(--fs-m);
+}
+.w-custom-p-activity {
+  width: fit-content;
 }
