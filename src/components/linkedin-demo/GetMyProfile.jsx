@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 
-import { runLinkedinAPIExampleGetProfiles, runLinkedinAPIExampleGetMyProfile, runLinkedinAPIExampleGetOneProfile } from "../assets/js/linkedin-api/examples"
-import { getMyProfileRemoteAction } from "../redux/actions"
+// import { runLinkedinAPIExampleGetProfiles, runLinkedinAPIExampleGetMyProfile, runLinkedinAPIExampleGetOneProfile } from "../assets/js/linkedin-api/examples"
+import { getMyProfileRemoteAction } from "../../redux/actions"
 
 /**
  * This component only serves to demo the Linkedin API.
  */
-const LinkedinAPIDemo = (props) => {
+const LinkedinAPIDemoGetMyProfile = () => {
   const myProfile = useSelector((state) => state.myProfile)
   const dispatch = useDispatch()
 
@@ -17,6 +17,7 @@ const LinkedinAPIDemo = (props) => {
 
   return (
     <>
+      <h1>GET MY PROFILE</h1>
       {myProfile.data && (
         <>
           <p>{myProfile.data.username}</p>
@@ -28,4 +29,4 @@ const LinkedinAPIDemo = (props) => {
   )
 }
 
-export default LinkedinAPIDemo
+export default LinkedinAPIDemoGetMyProfile
