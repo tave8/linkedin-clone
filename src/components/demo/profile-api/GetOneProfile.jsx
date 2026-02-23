@@ -1,17 +1,13 @@
-// import { runLinkedinAPIExampleGetProfiles, runLinkedinAPIExampleGetMyProfile, runLinkedinAPIExampleGetOneProfile } from "../assets/js/linkedin-api/examples"
-import LinkedinAPI from "../../assets/js/linkedin-api/LinkedinAPI"
+import ProfileAPI from "../../../assets/js/profile-api/ProfileAPI"
 import { useState, useEffect } from "react"
 
-/**
- * This component only serves to demo the Linkedin API.
- */
-const LinkedinAPIDemoGetOneProfile = () => {
+const GetOneProfile = () => {
   const [oneProfile, setOneProfile] = useState(null)
   const profileId = "699c4e200bc1de001577b7b6"
 
   useEffect(() => {
-    const linkedinAPI = new LinkedinAPI()
-    linkedinAPI
+    const profileAPI = new ProfileAPI()
+    profileAPI
       .getOneProfileRemote(profileId)
       .then((remoteProfile) => {
         setOneProfile(remoteProfile)
@@ -35,4 +31,4 @@ const LinkedinAPIDemoGetOneProfile = () => {
   )
 }
 
-export default LinkedinAPIDemoGetOneProfile
+export default GetOneProfile
