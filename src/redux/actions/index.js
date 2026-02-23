@@ -1,4 +1,4 @@
-import LinkedinAPI from "../../assets/js/linkedin-api/LinkedinAPI"
+import ProfileAPI from "../../assets/js/profile-api/ProfileAPI"
 
 const DEFAULT_API_USER = "giuseppe"
 
@@ -9,10 +9,10 @@ export const SET_MY_PROFILE = "SET_MY_PROFILE"
 
 export const getMyProfileRemoteAction = (apiUser = DEFAULT_API_USER) => {
   return async (dispatch, getState) => {
-    const linkedinAPI = new LinkedinAPI({
+    const profileAPI = new ProfileAPI({
       apiUser,
     })
-    const myProfile = await linkedinAPI.getMyProfileRemote()
+    const myProfile = await profileAPI.getMyProfileRemote()
     dispatch({
       type: SET_MY_PROFILE,
       payload: myProfile,
@@ -22,10 +22,10 @@ export const getMyProfileRemoteAction = (apiUser = DEFAULT_API_USER) => {
 
 export const updateMyProfileRemoteAction = (newProfile, apiUser = DEFAULT_API_USER) => {
   return async (dispatch, getState) => {
-    const linkedinAPI = new LinkedinAPI({
+    const profileAPI = new ProfileAPI({
       apiUser,
     })
-    const myProfile = await linkedinAPI.updateMyProfileRemote(newProfile)
+    const myProfile = await profileAPI.updateMyProfileRemote(newProfile)
     dispatch({
       type: SET_MY_PROFILE,
       payload: myProfile,
