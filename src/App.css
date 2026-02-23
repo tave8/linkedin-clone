@@ -51,6 +51,7 @@
   object-fit: cover;
   position: absolute;
   bottom: -40%;
+  left: 2%;
 }
 .bottom-custom-bannerProfile {
   bottom: -40%;
@@ -90,4 +91,14 @@
 }
 .bg-custom-slide-firstSection {
   background-color: #cad6f1;
+}
+.border-custom-analisi {
+  border-bottom: 1px solid lightgray;
+}
+/* media query for the card border in the analisi section */
+@media (min-width: 768px) {
+  /* md breakpoint */
+  .border-custom-analisi {
+    border: 0 !important;
+  }
 }
