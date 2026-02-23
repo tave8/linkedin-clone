@@ -7,11 +7,12 @@ import { Container, Row, Col, CardGroup, Card, Spinner, Alert, Button, Image, Fo
 import { store } from "./redux/store"
 import { Provider } from "react-redux"
 
+import LinkedinAPIDemo from "./components/linkedin-api-demo/LinkedinAPIDemo"
+
 function App() {
   return (
     <Provider store={store}>
-      <HomePage />
-      <ProfilePage />
+      <LinkedinAPIDemo />
     </Provider>
   )
 }
