@@ -2,6 +2,7 @@ import { Button, Row, Col } from "react-bootstrap";
 import { FaPen } from "react-icons/fa";
 import { HiOutlineCheckBadge } from "react-icons/hi2";
 import { HiOutlineX } from "react-icons/hi";
+import { BsThreeDots } from "react-icons/bs";
 
 const FirstSection = () => {
   return (
@@ -47,7 +48,9 @@ const FirstSection = () => {
                 <Button className="w-100 btn-profile-firstSection border-custom-bt-firstSection">Aggiungi sezione</Button>
               </Col>
               <Col xs={2} md={1} className="d-flex justify-content-center align-items-center">
-                <Button className="w-100 btn-profile-firstSection border-custom-bt-firstSection-dot py-1 px-2">...</Button>
+                <Button className=" btn-profile-firstSection border-custom-bt-firstSection-dot">
+                  <BsThreeDots size={10} />
+                </Button>
               </Col>
               <Col xs={12} md={4} className="d-flex justify-content-center align-items-center">
                 <Button className="w-100 btn-profile-firstSection border-custom-bt-firstSection">Migliora Profilo</Button>
