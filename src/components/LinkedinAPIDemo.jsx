@@ -8,9 +8,6 @@ import { getMyProfileRemoteAction } from "../redux/actions"
  * This component only serves to demo the Linkedin API.
  */
 const LinkedinAPIDemo = (props) => {
-  // runLinkedinAPIExampleGetProfiles()
-  // runLinkedinAPIExampleGetMyProfile()
-  // runLinkedinAPIExampleGetOneProfile()
   const myProfile = useSelector((state) => state.myProfile)
   const dispatch = useDispatch()
 
@@ -18,7 +15,17 @@ const LinkedinAPIDemo = (props) => {
     dispatch(getMyProfileRemoteAction())
   }, [])
 
-  return <></>
+  return (
+    <>
+      {myProfile.data && (
+        <>
+          <p>{myProfile.data.username}</p>
+          <p>{myProfile.data._id}</p>
+        </>
+      )}
+      {!myProfile.data && <p>Loading...</p>}
+    </>
+  )
 }
 
 export default LinkedinAPIDemo

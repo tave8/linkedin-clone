@@ -3,6 +3,7 @@ import LinkedinAPI from "../../assets/js/linkedin-api/LinkedinAPI"
 const DEFAULT_API_USER = "giuseppe"
 
 //***** ACTIONS: CONSTANTS
+export const SET_MY_PROFILE = "SET_MY_PROFILE"
 
 //***** ACTIONS: FUNCTIONS
 
@@ -12,10 +13,9 @@ export const getMyProfileRemoteAction = (apiUser = DEFAULT_API_USER) => {
       apiUser,
     })
     const myProfile = await linkedinAPI.getMyProfileRemote()
-    console.log(myProfile)
-    // dispatch({
-    //   type: SET_TRACKS_SEARCH_LIST,
-    //   payload: tracksList,
-    // })
+    dispatch({
+      type: SET_MY_PROFILE,
+      payload: myProfile,
+    })
   }
 }
