@@ -12,7 +12,7 @@ import Organization from "../components/Organizations";
 import Interest from "../components/Interest";
 import MyFooter from "../components/MyFooter";
 import RightSideBar from "../components/RightSideBar";
-import { Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 
 const ProfilePage = () => {
   return (
@@ -21,9 +21,9 @@ const ProfilePage = () => {
         <NavBar />
         {/* navbar giulia */}
       </header>
-      <main className="container">
+      <main className="sfondo">
         <Row>
-          <Col xs={12} md={9} className="bg-dark">
+          <Col xs={12} md={9}>
             <FirstSection />
             <AnalisiProfile />
             <InfoProfile />
@@ -38,7 +38,7 @@ const ProfilePage = () => {
             <Interest />
             <MyFooter />
           </Col>
-          <Col xs={12} md={3} className="bg-danger">
+          <Col xs={12} md={3}>
             <RightSideBar /> {/*raffy */}
           </Col>
         </Row>

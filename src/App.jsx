@@ -6,12 +6,19 @@ import { Container, Row, Col, CardGroup, Card, Spinner, Alert, Button, Image, Fo
 import HomePage from "./pages/HomePage"
 import ProfilePage from "./pages/ProfilePage"
 
+// redux
+import { store } from "./redux/store"
+import { Provider } from "react-redux"
+
+import ProfileAPIComponent from "./components/demo/profile-api/ProfileAPI"
+
 function App() {
   return (
-    <>
+    <Provider store={store}>
       <HomePage />
       <ProfilePage />
-    </>
+      {/* <ProfileAPIComponent /> */}
+    </Provider>
   )
 }
 
