@@ -22,7 +22,7 @@ function MyNavbar() {
         <div className="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
           <LinkContainer to="/">
             <Navbar.Brand href="#home" className="me-2">
-              <img src="/logo-likedin.png" alt="Logo" height="34px" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Linkedin_icon.svg/200px-Linkedin_icon.svg.png" alt="Logo" height="34px" />
             </Navbar.Brand>
           </LinkContainer>
 
