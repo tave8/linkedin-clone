@@ -12,7 +12,7 @@ const PostAPIDemo = () => {
       {/* <AddPost /> */}
       {/* <DeletePostById /> */}
       {/* <GetPosts /> */}
-      {/* {<GetMostRecentPosts />} */}
+      {<GetMostRecentPosts />}
       {/* <GetPostById /> */}
       {/*<UpdatePostById /> */}
     </>
