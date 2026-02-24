@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 
-import { updateMyProfileRemoteAction } from "../../../redux/actions"
+import { updateMyProfileAction } from "../../../redux/actions"
 
 const UpdateMyProfile = () => {
   const myProfile = useSelector((state) => state.myProfile)
@@ -16,7 +16,7 @@ const UpdateMyProfile = () => {
   }
 
   useEffect(() => {
-    dispatch(updateMyProfileRemoteAction(newProfile))
+    dispatch(updateMyProfileAction(newProfile))
   }, [])
 
   return (
