@@ -2,16 +2,14 @@
 
 import { SET_MY_PROFILE } from "../actions"
 
-const initialState = {
-  data: null,
-}
+const initialState = {}
 
 const mainReducer = (currState = initialState, action) => {
   switch (action.type) {
     case SET_MY_PROFILE:
       return {
         ...currState,
-        data: action.payload,
+        ...action.payload,
       }
     default:
       return currState

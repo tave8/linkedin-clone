@@ -14,13 +14,13 @@ const GetMyProfile = () => {
   return (
     <>
       <h1>GET MY PROFILE</h1>
-      {myProfile.data && (
+      {myProfile && (
         <>
-          <p>{myProfile.data.username}</p>
-          <p>{myProfile.data._id}</p>
+          <p>{myProfile.username}</p>
+          <p>{myProfile._id}</p>
         </>
       )}
-      {!myProfile.data && <p>Loading...</p>}
+      {!myProfile && <p>Loading...</p>}
     </>
   )
 }
