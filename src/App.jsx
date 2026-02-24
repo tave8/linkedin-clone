@@ -4,7 +4,8 @@ import "./App.css";
 //import { Container, Row, Col, CardGroup, Card, Spinner, Alert, Button, Image, Form, ListGroup, Navbar, NavDropdown, Nav } from "react-bootstrap";
 import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
-import MyNavbar from "./components/DesktopNavbar";
+import MyNavbar from "./components/MyNavbar";
+
 // redux
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
