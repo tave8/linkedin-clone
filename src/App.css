@@ -203,3 +203,14 @@ body {
 .w-custom-p-activity {
   width: fit-content;
 }
+/*Side bar destra raffi*/
+.sidebar-d-scroll {
+  max-height: calc(100vh - 80px);
+  overflow-y: hidden;
+  transition: overflow 0.2s ease;
+}
+
+.sidebar-d-scroll:hover {
+  overflow-y: auto;
+}
+/* Fine Side bar destra raffi*/

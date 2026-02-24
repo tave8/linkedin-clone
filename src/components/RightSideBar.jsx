@@ -3,7 +3,7 @@ import { Card, Button } from "react-bootstrap";
 function SidebarRight() {
   return (
     <>
-      <div className="d-none d-lg-block" style={{ position: "sticky", top: "80px" }}>
+      <div className="d-none d-lg-block sidebar-d-scroll" style={{ position: "sticky", top: "80px" }}>
         {/* desktop*/}
         <Card className="mb-3 shadow-sm">
           <Card.Body>
