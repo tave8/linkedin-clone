@@ -1,14 +1,14 @@
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
 
 function MicroProfileNavbar() {
-  const myProfile = useSelector((state) => state.myProfile)
+  const myProfile = useSelector((state) => state.myProfile);
 
   return (
     <>
       {/* my profile data */}
       {!myProfile.isLoading && !myProfile.isError && (
         <div className="d-flex flex-column p-4">
-          <img src={myProfile.data.image} className="mb-3 rounded-circle" width={80} />
+          <img src={myProfile.data.image} className="mb-3 rounded-circle" width={80} height={80} style={{ objectFit: "cover" }} />
           <h4>
             {myProfile.data.name} {myProfile.data.surname}
           </h4>
@@ -31,7 +31,7 @@ function MicroProfileNavbar() {
         </div>
       )}
     </>
-  )
+  );
 }
 
-export default MicroProfileNavbar
+export default MicroProfileNavbar;

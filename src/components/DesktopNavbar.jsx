@@ -6,8 +6,11 @@ import { LinkContainer } from "react-router-bootstrap";
 import Form from "react-bootstrap/Form";
 import { InputGroup } from "react-bootstrap";
 import { BellFill, ChatRightDotsFill, HouseDoorFill, PersonFillAdd, Search, BriefcaseFill, Grid3x2GapFill } from "react-bootstrap-icons";
+import { useSelector } from "react-redux";
 
 function MyNavbar() {
+  const myProfile = useSelector((state) => state.myProfile);
+
   const NAV_LINKS = [
     { id: 1, label: "Home", icon: <HouseDoorFill />, href: "/" },
     { id: 2, label: "La mia rete", icon: <PersonFillAdd />, href: "#network" },
@@ -50,7 +53,7 @@ function MyNavbar() {
             <NavDropdown
               title={
                 <div className="d-flex flex-column align-items-center">
-                  <img src="/logo-linkedin.png" alt="Tu" className="rounded-circle" width="24" height="24" />
+                  <img src={myProfile.data.image} alt="Tu" className="rounded-circle" width="24" height="24" style={{ objectFit: "cover" }} />
                   <span className="small">Tu ▼</span>
                 </div>
               }

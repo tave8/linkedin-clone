@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Calendar3, Plus, Image, X } from "react-bootstrap-icons";
 import { Button, Offcanvas, Stack } from "react-bootstrap";
 import PostAPI from "../assets/js/post-api/PostAPI";
+import { useSelector } from "react-redux";
 
 function PublishOffcanvas({ show, handleClose, handleShow, ...props }) {
   const [text, setText] = useState("");
+  const myProfile = useSelector((state) => state.myProfile);
 
   const handlePublish = () => {
     const postAPI = new PostAPI();
@@ -54,7 +56,7 @@ function PublishOffcanvas({ show, handleClose, handleShow, ...props }) {
               <X size={35} color="black" />
             </div>
 
-            <img src="/logo-linkedin.png" width={32} height={32} className="rounded-circle border" alt="profile" />
+            <img src={myProfile.data.image} width={32} height={32} className="rounded-circle border" alt="profile" style={{ objectFit: "cover" }} />
           </div>
 
           <Button variant="outline-primary" size="sm" className="rounded-pill px-3 fw-bold" disabled={!text.trim()} onClick={handlePublish}>
