@@ -1,4 +1,5 @@
 import Helper from "../Helper"
+import OpenAI from "../open-ai/OpenAI"
 
 const defaultParams = {
   apiUser: "giuseppe",
@@ -248,6 +249,63 @@ export default class PostAPI extends Helper {
 
     // if the response text does not follow any previous case
     throw new Error(`This API response case was not caught. Response status code: ${resp.status}; response text: ${text}`)
+  }
+
+  /**
+   * Generate and add AI-generated posts with random profiles
+   * (profile = API token owner)
+   */
+  async generateAndAddAIPostsWithRandomProfiles(_postThemes, howMany = 1) {
+    if (!_postThemes) {
+      throw new Error("Post themes cannot be empty or nully.")
+    }
+    let postThemes
+    // if  _postThemes is already an array, keep it
+    if (Array.isArray(_postThemes)) {
+      postThemes = _postThemes
+    }
+    // otherwise I assume it's a string, so add it to an array of 1 element
+    else if (typeof _postThemes == "string") {
+      postThemes = [_postThemes]
+    }
+    // unknown datatype: neither array nor string
+    else {
+      throw new Error(`Post themes has value "${_postThemes}". ` + `It must be either an array or a string, it's of type "${typeof _postThemes}" instead.`)
+    }
+
+    const openAIPromises = []
+    const openAI = new OpenAI({ simplify: true })
+
+    for (let i = 0; i < howMany; i++) {
+      // choose a random theme from the themes array
+      const postTheme = postThemes[Math.floor(Math.random() * postThemes.length)] 
+      const prompt =
+        `Create a post about "${postTheme}". ` +
+        `Be professional and very creative. ` +
+        `Post length must vary a lot between 20 and 100 words. Give me the post directly. `
+      const promise = openAI.ask(prompt)
+      openAIPromises.push(promise)
+    }
+
+    /**
+     * openAIAnswer: {
+     *    message: string
+     * }
+     */
+    const openAIPosts = (await Promise.all(openAIPromises)).map((openAIAnswer) => openAIAnswer.message)
+
+    const postsPromises = openAIPosts.map((postText) => {
+      const postAPI = new PostAPI({
+        apiUser: this.constructor.getRandomApiUser(),
+      })
+      return postAPI.addPost({
+        text: postText,
+      })
+    })
+
+    const posts = await Promise.all(postsPromises)
+
+    return posts
   }
 
   /**

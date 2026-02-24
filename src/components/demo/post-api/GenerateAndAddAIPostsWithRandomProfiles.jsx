@@ -2,14 +2,14 @@ import { useEffect, useState } from "react"
 
 import PostAPI from "../../../assets/js/post-api/PostAPI"
 
-const GetMostRecentPosts = () => {
+const GenerateAndAddAIPosts = () => {
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
     const postAPI = new PostAPI()
-    // console.log(postAPI)
+    const postThemes = ["programming & software", "cooking", "career growth"]
     postAPI
-      .getMostRecentPosts()
+      .generateAndAddAIPostsWithRandomProfiles(postThemes)
       .then((posts) => {
         console.log(posts)
         setPosts(posts)
@@ -21,7 +21,7 @@ const GetMostRecentPosts = () => {
 
   return (
     <>
-      <h1>GET MOST RECENT POSTS</h1>
+      <h1>GENERATE & ADD AI POSTS</h1>
       {posts.length > 0 && (
         <>
           {posts.map((post) => {
@@ -40,4 +40,4 @@ const GetMostRecentPosts = () => {
   )
 }
 
-export default GetMostRecentPosts
+export default GenerateAndAddAIPosts

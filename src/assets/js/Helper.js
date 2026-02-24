@@ -18,4 +18,14 @@ export default class Helper {
       throw new Error(`API user "${apiUser}" does not exist in API users.`)
     }
   }
+
+  /**
+   * Returns a random API user.
+   */
+  static getRandomApiUser() {
+    const apiTokens = this.API_TOKENS
+    const users = Object.keys(apiTokens)
+    const randomUser = users[Math.floor(Math.random() * users.length)]
+    return randomUser
+  }
 }
