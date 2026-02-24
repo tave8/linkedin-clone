@@ -8,7 +8,7 @@ function MicroProfileNavbar() {
       {/* my profile data */}
       {!myProfile.isLoading && !myProfile.isError && (
         <div className="d-flex flex-column p-4">
-          <img src={myProfile.data.image} className="mb-3 rounded-circle" width={80} height={80} style={{ objectFit: "cover" }} />
+          <img src={myProfile.data.image} className="mb-3 rounded-circle border" width={80} height={80} style={{ objectFit: "cover" }} />
           <h4>
             {myProfile.data.name} {myProfile.data.surname}
           </h4>

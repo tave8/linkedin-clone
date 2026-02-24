@@ -53,7 +53,7 @@ function MyNavbar() {
             <NavDropdown
               title={
                 <div className="d-flex flex-column align-items-center">
-                  <img src={myProfile.data.image} alt="Tu" className="rounded-circle" width="24" height="24" style={{ objectFit: "cover" }} />
+                  <img src={myProfile.data.image} alt="Tu" className="rounded-circle border" width="24" height="24" style={{ objectFit: "cover" }} />
                   <span className="small">Tu ▼</span>
                 </div>
               }
