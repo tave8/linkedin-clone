@@ -57,7 +57,7 @@ function PublishOffcanvas({ show, handleClose, handleShow, ...props }) {
             <img src="/logo-linkedin.png" width={32} height={32} className="rounded-circle border" alt="profile" />
           </div>
 
-          <Button variant="outline-secondary" size="sm" className="rounded-pill px-3 fw-bold" disabled={!text.trim()} onClick={handlePublish}>
+          <Button variant="outline-primary" size="sm" className="rounded-pill px-3 fw-bold" disabled={!text.trim()} onClick={handlePublish}>
             Pubblica
           </Button>
         </Offcanvas.Header>
