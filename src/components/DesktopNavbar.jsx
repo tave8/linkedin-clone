@@ -20,7 +20,7 @@ function MyNavbar() {
       <Container>
         <div className="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
           <Navbar.Brand href="#home" className="me-2">
-            <img src="/logo-likedin.png" alt="Logo" height="34px" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Linkedin_icon.svg/200px-Linkedin_icon.svg.png" alt="Logo" height="34px" />
           </Navbar.Brand>
 
           <Form className="flex-grow-1" style={{ maxWidth: "280px" }}>
