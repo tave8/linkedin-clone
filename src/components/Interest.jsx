@@ -50,7 +50,7 @@ function Interest() {
     scuole: [
       {
         id: 1,
-        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Alma_Mater_Studiorum_-_University_of_Bologna_seal.svg/200px-Alma_Mater_Studiorum_-_University_of_Bologna_seal.svg.png",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Seal_of_the_University_of_Bologna.svg/250px-Seal_of_the_University_of_Bologna.svg.png",
         name: "Università di Bologna",
         followers: "120.000 follower",
       },
