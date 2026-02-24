@@ -26,17 +26,16 @@ function App() {
         {<LoadMyDefaultProfileComponent />}
         {/***** END: LOAD DEFAULT DATA ********/}
 
-        {/* <MyNavbar />
+        <MyNavbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/Profile" element={<ProfilePage />} />
-        </Routes> */}
-        
+        </Routes>
       </BrowserRouter>
 
       {/****** START: DEMO components ******/}
       {/* <ProfileAPIDemoComponent /> */}
-      <PostAPIDemoComponent />
+      {/* <PostAPIDemoComponent /> */}
       {/* <ChangeProfileDemoComponent /> */}
       {/****** END: DEMO components ********/}
     </Provider>

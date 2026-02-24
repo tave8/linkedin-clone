@@ -16,7 +16,7 @@ const PostAPIDemo = () => {
       {/* {<GetMostRecentPosts />} */}
       {/* <GetPostById /> */}
       {/*<UpdatePostById /> */}
-      <GenerateAndAddAIPostsWithRandomProfiles />
+      {/* <GenerateAndAddAIPostsWithRandomProfiles /> */}
     </>
   )
 }
