@@ -1,7 +1,27 @@
+import { useState } from "react";
 import { Calendar3, Plus, Image, X } from "react-bootstrap-icons";
 import { Button, Offcanvas, Stack } from "react-bootstrap";
+import PostAPI from "../assets/js/post-api/PostAPI";
 
 function PublishOffcanvas({ show, handleClose, handleShow, ...props }) {
+  const [text, setText] = useState("");
+
+  const handlePublish = () => {
+    const postAPI = new PostAPI();
+    const newPostFields = { text };
+
+    postAPI
+      .addPost(newPostFields)
+      .then((post) => {
+        console.log("Post pubblicato:", post);
+        setText("");
+        handleClose();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   return (
     <>
       <Button
@@ -37,7 +57,7 @@ function PublishOffcanvas({ show, handleClose, handleShow, ...props }) {
             <img src="/logo-linkedin.png" width={32} height={32} className="rounded-circle border" alt="profile" />
           </div>
 
-          <Button variant="outline-secondary" size="sm" className="rounded-pill px-3 fw-bold" disabled>
+          <Button variant="outline-secondary" size="sm" className="rounded-pill px-3 fw-bold" disabled={!text.trim()} onClick={handlePublish}>
             Pubblica
           </Button>
         </Offcanvas.Header>

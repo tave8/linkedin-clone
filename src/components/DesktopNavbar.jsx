@@ -9,7 +9,7 @@ import { BellFill, ChatRightDotsFill, HouseDoorFill, PersonFillAdd, Search, Brie
 
 function MyNavbar() {
   const NAV_LINKS = [
-    { id: 1, label: "Home", icon: <HouseDoorFill />, href: "#home" },
+    { id: 1, label: "Home", icon: <HouseDoorFill />, href: "/" },
     { id: 2, label: "La mia rete", icon: <PersonFillAdd />, href: "#network" },
     { id: 3, label: "Lavoro", icon: <BriefcaseFill />, href: "#jobs" },
     { id: 4, label: "Messaggi", icon: <ChatRightDotsFill />, href: "#messages" },
@@ -21,8 +21,8 @@ function MyNavbar() {
       <Container>
         <div className="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
           <LinkContainer to="/">
-            <Navbar.Brand href="#home" className="me-2">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Linkedin_icon.svg/200px-Linkedin_icon.svg.png" alt="Logo" height="34px" />
+            <Navbar.Brand className="me-2">
+              <img src="./logo-linkedin.png" alt="Logo" height="34px" />
             </Navbar.Brand>
           </LinkContainer>
 
