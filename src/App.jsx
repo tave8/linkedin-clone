@@ -24,11 +24,11 @@ function App() {
         {<LoadMyDefaultProfileComponent />}
         {/***** END: LOAD DEFAULT DATA ********/}
 
-        {/* <MyNavbar />
+        <MyNavbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/Profile" element={<ProfilePage />} />
-        </Routes> */}
+        </Routes>
         
       </BrowserRouter>
 
