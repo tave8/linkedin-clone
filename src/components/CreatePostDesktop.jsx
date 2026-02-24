@@ -1,5 +1,4 @@
 import React from "react";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
@@ -13,7 +12,7 @@ function CreatePostDesktop() {
   const myProfile = useSelector((state) => state.myProfile);
 
   return (
-    <Card className="mb-3 border-0 shadow-sm">
+    <Card className="mb-3 border-0 shadow-sm d-none d-lg-block">
       <Card.Body>
         <div className="d-flex align-items-center mb-3">
           <img
@@ -32,20 +31,24 @@ function CreatePostDesktop() {
 
         <Row className="g-0 d-flex justify-content-evenly">
           <Col md={3}>
-            <Button variant="light" className="w-100 d-flex align-items-center justify-content-center py-2">
+            <Button variant="light" className="w-100 d-flex align-items-center justify-content-center py-2" onClick={() => setModalShow(true)}>
               <span>
                 <FastForwardBtnFill className="me-1 mb-1" style={{ color: "#378FE9" }} width={20} height={20} /> Video
               </span>
             </Button>
           </Col>
           <Col md={3}>
-            <Button variant="light" className="w-100 d-flex align-items-center justify-content-center py-2 text-decoration-none text-dark">
+            <Button
+              variant="light"
+              className="w-100 d-flex align-items-center justify-content-center py-2 text-decoration-none text-dark"
+              onClick={() => setModalShow(true)}
+            >
               <Image className="me-1" style={{ color: "#5F9B41" }} width={18} height={18} />
               Foto
             </Button>
           </Col>
           <Col md={3}>
-            <Button variant="light" className="w-100 d-flex align-items-center justify-content-center py-2">
+            <Button variant="light" className="w-100 d-flex align-items-center justify-content-center py-2" onClick={() => setModalShow(true)}>
               <span>
                 <CardText className="me-1 mb-1" style={{ color: "#E06847" }} width={18} height={18} /> Articolo
               </span>

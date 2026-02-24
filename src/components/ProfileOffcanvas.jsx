@@ -20,10 +20,10 @@ function ProfileOffcanvas({ show, handleClose }) {
       </div>
       <div className="p-4 border-top border-bottom d-flex flex-column justify-content-start">
         <p>
-          <strong>16</strong> visitatori del profilo
+          <span className="text-primary fw-bold">16</span> visitatori del profilo
         </p>
         <p>
-          <strong>15</strong> impression del post
+          <span className="text-primary fw-bold">15</span> impression del post
         </p>
       </div>
       <Offcanvas.Body className="p-4 fs-5 fw-bold">
