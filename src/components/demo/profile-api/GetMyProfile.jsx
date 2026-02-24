@@ -1,26 +1,26 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 
-import { getMyProfileRemoteAction } from "../../../redux/actions"
+import { getMyProfileAction } from "../../../redux/actions"
 
 const GetMyProfile = () => {
   const myProfile = useSelector((state) => state.myProfile)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getMyProfileRemoteAction())
+    dispatch(getMyProfileAction())
   }, [])
 
   return (
     <>
       <h1>GET MY PROFILE</h1>
-      {myProfile.data && (
+      {myProfile && (
         <>
-          <p>{myProfile.data.username}</p>
-          <p>{myProfile.data._id}</p>
+          <p>{myProfile.username}</p>
+          <p>{myProfile._id}</p>
         </>
       )}
-      {!myProfile.data && <p>Loading...</p>}
+      {!myProfile && <p>Loading...</p>}
     </>
   )
 }

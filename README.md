@@ -1,16 +1,215 @@
-# React + Vite
+# API Classes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## ProfileAPI
 
-Currently, two official plugins are available:
+### Get profile by ID
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Promise
 
-## React Compiler
+```js
+const profileAPI = new ProfileAPI()
+const profileId = "699c4e200bc1de001577b7b6"
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+profileAPI
+  .getProfileById(profileId)
+  .then((profile) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
 
-## Expanding the ESLint configuration
+### Get my profile
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Promise
+
+```js
+const profileAPI = new ProfileAPI()
+
+profileAPI
+  .getMyProfile()
+  .then((profile) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+### Update my profile
+
+Promise
+
+```js
+const profileAPI = new ProfileAPI()
+const newProfileFields = {
+  username: "<my new username>",
+  bio: "<my new bio>",
+  // more fields if needed
+}
+
+profileAPI
+  .updateMyProfile(newProfileFields)
+  .then((profile) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+### Get profiles
+
+Promise
+
+Default limit: 10
+
+```js
+const profileAPI = new ProfileAPI()
+
+profileAPI
+  .getProfiles()
+  .then((profiles) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+### Get most recent profiles
+
+Promise
+
+Default limit: 10
+
+```js
+const profileAPI = new ProfileAPI()
+
+profileAPI
+  .getMostRecentProfiles()
+  .then((profiles) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+## PostAPI
+
+### Get post by ID
+
+Promise
+
+```js
+const postAPI = new PostAPI()
+const postId = "xxx"
+
+postAPI
+  .getPostById(postId)
+  .then((post) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+### Get posts
+
+Promise
+
+Default limit: 10
+
+```js
+const postAPI = new PostAPI()
+
+postAPI
+  .getPosts()
+  .then((posts) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+### Get most recent posts
+
+Promise
+
+Default limit: 10
+
+```js
+const postAPI = new PostAPI()
+
+postAPI
+  .getMostRecentPosts()
+  .then((posts) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+### Add post
+
+Promise
+
+```js
+const postAPI = new PostAPI()
+const newPostFields = {
+    text: "xxx"
+}
+
+postAPI
+  .addPost(newPostFields)
+  .then((post) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+### Update post
+
+Promise
+
+```js
+const postAPI = new PostAPI()
+const postId = "xxx"
+const newPostFields = {
+    text: "xxx"
+}
+
+postAPI
+  .updatePostById(postId, newPostFields)
+  .then((post) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+### Delete post
+
+Promise
+
+```js
+const postAPI = new PostAPI()
+const postId = "xxx"
+
+postAPI
+  .deletePostById(postId)
+  .then((textResponse) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```

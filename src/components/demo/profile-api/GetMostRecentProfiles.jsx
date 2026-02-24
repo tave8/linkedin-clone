@@ -1,13 +1,13 @@
 import ProfileAPI from "../../../assets/js/profile-api/ProfileAPI"
 import { useState, useEffect } from "react"
 
-const GetProfiles = () => {
+const GetMostRecentProfiles = () => {
   const [profiles, setProfiles] = useState([])
 
   useEffect(() => {
     const profileAPI = new ProfileAPI()
     profileAPI
-      .getProfiles()
+      .getMostRecentProfiles()
       .then((remoteProfiles) => {
         setProfiles(remoteProfiles)
       })
@@ -18,7 +18,7 @@ const GetProfiles = () => {
 
   return (
     <>
-      <h1>GET PROFILES</h1>
+      <h1>GET MOST RECENT PROFILES</h1>
       {profiles.length > 0 && (
         <>
           {profiles.map((profile) => {
@@ -35,4 +35,4 @@ const GetProfiles = () => {
   )
 }
 
-export default GetProfiles
+export default GetMostRecentProfiles

@@ -1,27 +1,25 @@
 import Post from "../components/Post";
 import LeftSideBar from "../components/LeftSideBar";
 import RightSideBar from "../components/RightSideBar";
-import { Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 
 const HomePage = () => {
   return (
     <>
-      {/*<header>
-        <NavBar />
-         navbar giulia 
-      </header>*/}
       <main className="sfondo">
-        <Row>
-          <Col className=" d-none d-lg-block" md={2}>
-            <LeftSideBar />
-          </Col>
-          <Col xs={12} md={7}>
-            <Post /> {/* giorgia */}
-          </Col>
-          <Col className="d-none col-md-3">
-            <RightSideBar />
-          </Col>
-        </Row>
+        <Container className="pt-3" fluid>
+          <Row className="justify-content-center">
+            <Col className="d-none d-lg-block" md={2}>
+              <LeftSideBar />
+            </Col>
+            <Col xs={12} md={6}>
+              <Post />
+            </Col>
+            <Col className="d-none d-md-block" md={3}>
+              <RightSideBar />
+            </Col>
+          </Row>
+        </Container>
       </main>
     </>
   );

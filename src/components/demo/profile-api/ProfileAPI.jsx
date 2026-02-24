@@ -1,6 +1,7 @@
 import GetMyProfile from "./GetMyProfile"
-import GetOneProfile from "./GetOneProfile"
+import GetProfileById from "./GetProfileById"
 import GetProfiles from "./GetProfiles"
+import GetMostRecentProfiles from "./GetMostRecentProfiles"
 import UpdateMyProfile from "./UpdateMyProfile"
 
 const ProfileAPIDemo = () => {
@@ -8,9 +9,10 @@ const ProfileAPIDemo = () => {
     <>
       {/* comment/uncomment the components you're interested in */}
       <GetMyProfile />
-      <GetOneProfile />
+      <GetProfileById />
       <UpdateMyProfile />
       <GetProfiles />
+      <GetMostRecentProfiles />
     </>
   )
 }

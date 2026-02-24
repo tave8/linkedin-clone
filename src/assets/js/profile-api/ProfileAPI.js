@@ -29,9 +29,10 @@ export default class ProfileAPI {
   }
 
   /**
-   * Get remote profiles.
+   * Get profiles.
+   * Default limit: 10
    */
-  async getProfilesRemote() {
+  async getProfiles(limit = 10) {
     const url = this.constructor.API_URL_PROFILES
     const config = this.getFetchConfig()
     const resp = await fetch(url, config)
@@ -44,13 +45,44 @@ export default class ProfileAPI {
       throw err
     }
     const data = await resp.json()
+    // if limit is a number and is greater than 0, limit the result
+    if (Number.isFinite(limit) && limit > 0) {
+      return data.slice(0, limit)
+    }
     return data
   }
 
   /**
-   * Get my remote profile.
+   * Get most recent profiles.
+   * Default limit: 10
    */
-  async getMyProfileRemote() {
+  async getMostRecentProfiles(limit=10) {
+    const url = this.constructor.API_URL_PROFILES
+    const config = this.getFetchConfig()
+    const resp = await fetch(url, config)
+    try {
+      if (!resp.ok) {
+        throw new Error(`Error during fetch. Response status code: ${resp.status}`)
+      }
+    } catch (err) {
+      console.error(resp)
+      throw err
+    }
+    const data = await resp.json()
+    // if limit is a number and is greater than 0, limit the result
+    if (Number.isFinite(limit) && limit > 0) {
+      // get the last limit result
+      const lastNItems = data.slice(-limit)
+      // reverse the N items
+      return lastNItems.reverse()
+    }
+    return data
+  }
+
+  /**
+   * Get my profile.
+   */
+  async getMyProfile() {
     const url = this.constructor.API_URL_MY_PROFILE
     const config = this.getFetchConfig()
     const resp = await fetch(url, config)
@@ -69,7 +101,7 @@ export default class ProfileAPI {
   /**
    * Get 1 remote profile.
    */
-  async getOneProfileRemote(profileId) {
+  async getProfileById(profileId) {
     if (!profileId) {
       throw new Error(`User id is required when getting one remote profile. Input profileId is "${profileId}"`)
     }
@@ -89,9 +121,9 @@ export default class ProfileAPI {
   }
 
   /**
-   * Update my remote profile.
+   * Update my profile.
    */
-  async updateMyProfileRemote(newProfile) {
+  async updateMyProfile(newProfile) {
     if (!this.constructor.isObject(newProfile)) {
       throw new Error(`New profile data is required to be a valid JS object. It is of type "${typeof newProfile}" instead.`)
     }
