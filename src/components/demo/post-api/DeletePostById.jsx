@@ -6,7 +6,7 @@ const DeletePostById = () => {
   const [doneDeleteOperation, setDoneDeleteOperation] = useState(false)
   const [hasDeletedPost, setHasDeletedPost] = useState(false)
 
-  const postId = "699d93bdb5582000158c342f"
+  const postId = "699d9dc1b5582000158c3434"
   const fakePostId = "xyz"
   // edit targetId
   const targetId = postId

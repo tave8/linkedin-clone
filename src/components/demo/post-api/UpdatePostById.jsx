@@ -1,36 +1,44 @@
-import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
+import PostAPI from "../../../assets/js/post-api/PostAPI"
 
-import { updateMyProfileAction } from "../../../redux/actions"
+const UpdatePostById = () => {
+  const [post, setPost] = useState(null)
 
-const UpdateMyProfile = () => {
-  const myProfile = useSelector((state) => state.myProfile)
-  const dispatch = useDispatch()
+  // this post causes server timeout (503 error)
+  // const postId = "699d9dc1b5582000158c3433"
+  // this post exists, at this moment
+  const postId = "699d9dc1b5582000158c3434"
+  // const fakePostId = "xyz"
+  const targetId = postId
 
-  const newProfile = {
-    // image: "sdasd",
-    // area: "world",
-    // name: "giuseppere re re ",
-    // username: "tave8",
-    // email: "sds"
+  const newPost = {
+    text: "MY NEW POST!!",
   }
 
   useEffect(() => {
-    dispatch(updateMyProfileAction(newProfile))
+    const postAPI = new PostAPI()
+    postAPI
+      .updatePostById(targetId, newPost)
+      .then((post) => {
+        setPost(post)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
   }, [])
 
   return (
     <>
-      <h1>UPDATE MY PROFILE</h1>
-      {myProfile.data && (
+      <h1>UPDATE POST</h1>
+      {post && (
         <div>
-          <p>{myProfile.data.username}</p>
-          <p>{myProfile.data._id}</p>
+          <p>{post.text}</p>
+          <p>{post.username}</p>
         </div>
       )}
-      {!myProfile.data && <p>Loading...</p>}
+      {!post && <p>Loading...</p>}
     </>
   )
 }
 
-export default UpdateMyProfile
+export default UpdatePostById

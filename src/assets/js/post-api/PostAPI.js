@@ -150,6 +150,12 @@ export default class PostAPI {
 
   /**
    * Update post by ID.
+   * 
+   * NOTE: Request can take indefinitely because of (supposed)
+   * server not responding.
+   * Example: 
+   *  ID: 699d9dc1b5582000158c3433 --> server doesn't respond
+   *  an existing ID: server responds
    */
   async updatePostById(postId, newPost) {
     if (!postId) {
@@ -158,13 +164,15 @@ export default class PostAPI {
     if (!this.constructor.isObject(newPost)) {
       throw new Error(`New profile data is required to be a valid JS object. It is of type "${typeof newPost}" instead.`)
     }
-    const url = this.constructor.API_URL_POSTS
+    const url = this.constructor.API_URL_POSTS + `/${postId}`
     const moreConfig = {
       method: "PUT",
       body: JSON.stringify(newPost),
     }
     const config = this.getFetchConfig(moreConfig)
+
     const resp = await fetch(url, config)
+    
     try {
       if (!resp.ok) {
         throw new Error(`Error during fetch. Response status code: ${resp.status}`)
@@ -173,8 +181,30 @@ export default class PostAPI {
       console.error(resp)
       throw err
     }
-    const data = await resp.json()
-    return this.constructor.prettifyPost(data)
+
+    const contentType = resp.headers.get("content-type")
+
+    // response body is json
+    if (contentType && contentType.includes("application/json")) {
+      const data = await resp.json()
+
+      // if (data == null) {
+      //   throw new Error(`Post with ID "${postId}" was not found. Response status code: ${resp.status}`)
+      // }
+
+      // success. return updated post
+      return this.constructor.prettifyPost(data)
+    }
+
+    // response body is text
+    const text = await resp.text()
+
+    // if the response text is "ID non valido": ERROR
+    if (text.trim().toLowerCase() == "id non valido") {
+      throw new Error(`The API server said that this ID is not valid. Response status code: ${resp.status}`)
+    }
+
+    throw new Error(`This error was not caught. Response status code: ${resp.status}`)
   }
 
   /**

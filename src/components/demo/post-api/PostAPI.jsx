@@ -3,6 +3,7 @@ import DeletePostById from "./DeletePostById"
 import GetPosts from "./GetPosts"
 import GetMostRecentPosts from "./GetMostRecentPosts"
 import GetPostById from "./GetPostById"
+import UpdatePostById from "./UpdatePostById"
 
 const PostAPIDemo = () => {
   return (
@@ -11,8 +12,9 @@ const PostAPIDemo = () => {
       {/* <AddPost /> */}
       {/* <DeletePostById /> */}
       {/* <GetPosts /> */}
-      <GetMostRecentPosts />
-      <GetPostById />
+      {/* {<GetMostRecentPosts />} */}
+      {/* <GetPostById /> */}
+      {/*<UpdatePostById /> */}
     </>
   )
 }

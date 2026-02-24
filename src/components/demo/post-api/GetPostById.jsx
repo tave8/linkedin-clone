@@ -6,7 +6,7 @@ const GetPostById = () => {
 
   const postId = "699d9dc1b5582000158c3434"
   const fakePostId = "xyz"
-  const targetId = fakePostId
+  const targetId = postId
 
   useEffect(() => {
     const postAPI = new PostAPI()
