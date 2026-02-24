@@ -17,15 +17,15 @@ import PostAPIDemoComponent from "./components/demo/post-api/PostAPI"
 function App() {
   return (
     <Provider store={store}>
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <MyNavbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/Profile" element={<ProfilePage />} />
         </Routes>
-      </BrowserRouter> */}
+      </BrowserRouter>
       {/* <ProfileAPIDemoComponent /> */}
-      <PostAPIDemoComponent />
+      {/* <PostAPIDemoComponent /> */}
     </Provider>
   )
 }
