@@ -5,22 +5,21 @@ import ActivityProfile from "../components/ActivityProfile";
 import ExperiencesProfile from "../components/ExperiencesProfile";
 import EducationProfile from "../components/EducationProfile";
 import LicencesProfile from "../components/LicencesProfile";
-import NavBar from "../components/NavBar";
 import InfoProfile from "../components/InfoProfile";
 import Skills from "../components/Skills";
 import Organization from "../components/Organizations";
 import Interest from "../components/Interest";
 import MyFooter from "../components/MyFooter";
 import RightSideBar from "../components/RightSideBar";
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
 const ProfilePage = () => {
   return (
     <>
-      <header>
+      {/* <header>
         <NavBar />
-        {/* navbar giulia */}
-      </header>
+         navbar giulia 
+      </header>*/}
       <main className="sfondo">
         <Row>
           <Col xs={12} md={9}>

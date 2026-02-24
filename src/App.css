@@ -1,4 +1,32 @@
 /* tutto il CSS va qui */
+
+body {
+  background-color: #f3f2ef;
+}
+
+.form-control:focus {
+  background-color: #edf3f8 !important;
+}
+
+.nav-link {
+  color: rgba(0, 0, 0, 0.6) !important;
+  font-size: 0.82rem;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+}
+
+.nav-link:hover {
+  color: rgba(0, 0, 0, 0.9) !important;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.gold-text {
+  color: #915907 !important;
+  font-weight: 400;
+}
 /* #808080 → grigio medio
 
 #915907 → marrone caldo / marrone senape scuro
