@@ -2,7 +2,7 @@ const defaultParams = {
   apiUser: "giuseppe",
 }
 
-export default class LinkedinAPI {
+export default class ProfileAPI {
   static API_URL_PROFILES = "https://striveschool-api.herokuapp.com/api/profile"
   static API_URL_MY_PROFILE = "https://striveschool-api.herokuapp.com/api/profile/me"
   static API_TOKENS = {
