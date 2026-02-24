@@ -30,12 +30,17 @@ const ProfilePage = () => {
             <ActivityProfile />
             {/* francesco */}
             <ExperiencesProfile /> {/*fatto */}
-            <EducationProfile />
+            <EducationProfile /> {/*fatto */}
             <LicencesProfile />
+            {/*fatto */}
             <Skills />
+            {/*fatto */}
             <Organization />
+            {/*fatto */}
             <Interest />
+            {/*fatto */}
             <MyFooter />
+            {/*fatto */}
           </Col>
           <Col xs={12} md={3}>
             <RightSideBar /> {/*fatto */}
