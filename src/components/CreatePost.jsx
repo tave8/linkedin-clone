@@ -1,8 +1,25 @@
-import Button from "react-bootstrap/Button";
+/*import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { useState } from "react";
+import PostAPI from "../assets/js/post-api/PostAPI";*/
 
-function CreatePost(props) {
-  return (
+function CreatePost(/*props*/) {
+  /*const [text, setText] = useState("");
+  const handlePublish = () => {
+    const postAPI = new PostAPI();
+    const newPostFields = { text };
+
+    postAPI
+      .addPost(newPostFields)
+      .then((post) => {
+        console.log("Post pubblicato:", post);
+        setText("");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };*/
+  return; /*(
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">Modal heading</Modal.Title>
@@ -18,7 +35,7 @@ function CreatePost(props) {
         <Button onClick={props.onHide}>Close</Button>
       </Modal.Footer>
     </Modal>
-  );
+  );*/
 }
 
 export default CreatePost;
