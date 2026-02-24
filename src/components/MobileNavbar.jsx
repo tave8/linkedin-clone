@@ -14,7 +14,12 @@ function MobileNavabar() {
       <Navbar bg="white" className="border-bottom fixed-top px-2 py-2">
         <Container fluid className="d-flex align-items-center">
           <div onClick={() => setShowProfile(true)} style={{ cursor: "pointer" }}>
-            <img src="/logo-linkedin.png" alt="Profilo" className="rounded-circle border" height="34px" />
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Linkedin_icon.svg/200px-Linkedin_icon.svg.png"
+              alt="Logo"
+              className="rounded-circle border"
+              height="34px"
+            />
           </div>
           <Form className="flex-grow-1 mx-3 ">
             <InputGroup size="sm" className="bg-light rounded">
