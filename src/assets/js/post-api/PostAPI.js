@@ -1,19 +1,20 @@
+import Helper from "../Helper"
+
 const defaultParams = {
   apiUser: "giuseppe",
 }
 
-export default class PostAPI {
+export default class PostAPI extends Helper {
   static API_URL_POSTS = "https://striveschool-api.herokuapp.com/api/posts"
-
-  static API_TOKENS = {
-    giuseppe:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTljNGUyMDBiYzFkZTAwMTU3N2I3YjYiLCJpYXQiOjE3NzE4NTEzMjEsImV4cCI6MTc3MzA2MDkyMX0.YZ-u3PFGt5dmN5wQAI25NIOezRDpba2YuomGaZmjfDk",
-  }
 
   /**
    */
   constructor(params = defaultParams) {
+    super()
     const finalParams = { ...structuredClone(defaultParams), ...params }
+
+    this.constructor.verifyIfExistsApiUser(finalParams.apiUser)
+
     this.apiUser = finalParams.apiUser
   }
 

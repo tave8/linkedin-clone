@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux"
 import { useEffect } from "react"
+import { Button } from "react-bootstrap"
 
 import { setMyProfileApiUserAndLoadProfileGlobally } from "../../redux/actions/index"
 
@@ -22,7 +23,15 @@ const LoadMyDefaultProfile = () => {
     dispatch(setMyProfileApiUserAndLoadProfileGlobally("giuseppe"))
   }, [])
 
-  return <></>
+  return (
+    <Button
+      onClick={() => {
+        dispatch(setMyProfileApiUserAndLoadProfileGlobally("giorgia"))
+      }}
+    >
+      change profile
+    </Button>
+  )
 }
 
 export default LoadMyDefaultProfile
