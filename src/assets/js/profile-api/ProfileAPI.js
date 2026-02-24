@@ -30,8 +30,9 @@ export default class ProfileAPI {
 
   /**
    * Get profiles.
+   * Default limit: 10
    */
-  async getProfiles() {
+  async getProfiles(limit = 10) {
     const url = this.constructor.API_URL_PROFILES
     const config = this.getFetchConfig()
     const resp = await fetch(url, config)
@@ -44,6 +45,37 @@ export default class ProfileAPI {
       throw err
     }
     const data = await resp.json()
+    // if limit is a number and is greater than 0, limit the result
+    if (Number.isFinite(limit) && limit > 0) {
+      return data.slice(0, limit)
+    }
+    return data
+  }
+
+  /**
+   * Get most recent profiles.
+   * Default limit: 10
+   */
+  async getMostRecentProfiles(limit=10) {
+    const url = this.constructor.API_URL_PROFILES
+    const config = this.getFetchConfig()
+    const resp = await fetch(url, config)
+    try {
+      if (!resp.ok) {
+        throw new Error(`Error during fetch. Response status code: ${resp.status}`)
+      }
+    } catch (err) {
+      console.error(resp)
+      throw err
+    }
+    const data = await resp.json()
+    // if limit is a number and is greater than 0, limit the result
+    if (Number.isFinite(limit) && limit > 0) {
+      // get the last limit result
+      const lastNItems = data.slice(-limit)
+      // reverse the N items
+      return lastNItems.reverse()
+    }
     return data
   }
 

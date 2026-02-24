@@ -19,7 +19,7 @@ const GetProfileById = () => {
 
   return (
     <>
-      <h1>GET 1 PROFILE</h1>
+      <h1>GET PROFILE BY ID</h1>
       {oneProfile && (
         <div>
           <p>{oneProfile.username}</p>

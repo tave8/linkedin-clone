@@ -2,7 +2,7 @@
 
 ## ProfileAPI
 
-### Get profile by id
+### Get profile by ID
 
 Promise
 
@@ -59,11 +59,30 @@ profileAPI
 
 ### Get profiles
 
+Default limit: 10
+
 ```js
 const profileAPI = new ProfileAPI()
 
 profileAPI
     .getProfiles()
+    .then(profiles => {
+        // your code
+    })
+    .catch(err => {
+        console.error(err)
+    })
+```
+
+### Get most recent profiles
+
+Default limit: 10
+
+```js
+const profileAPI = new ProfileAPI()
+
+profileAPI
+    .getMostRecentProfiles()
     .then(profiles => {
         // your code
     })
