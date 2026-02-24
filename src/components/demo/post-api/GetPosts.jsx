@@ -27,8 +27,9 @@ const GetPosts = () => {
           {posts.map((post) => {
             return (
               <div key={post._id}>
-                <p>{post.text}</p>
-                <p>{post.username}</p>
+                <p>
+                  {post.text} - ID: {post._id} ({post.username})
+                </p>
               </div>
             )
           })}

@@ -86,8 +86,29 @@ export default class PostAPI {
       console.error(resp)
       throw err
     }
-    const data = await resp.json()
-    return data
+
+    const contentType = resp.headers.get("content-type")
+
+    // response body is json
+    if (contentType && contentType.includes("application/json")) {
+      const data = await resp.json()
+
+      if (data == null) {
+        throw new Error(`Post with ID "${postId}" was not found. Response status code: ${resp.status}`)
+      }
+
+      return this.constructor.prettifyPost(data)
+    }
+
+    // response body is text
+    const text = await resp.text()
+
+    // if the response text is "ID non valido": ERROR
+    if (text.trim().toLowerCase() == "id non valido") {
+      throw new Error(`The API server said that this ID is not valid. Response status code: ${resp.status}`)
+    }
+
+    throw new Error(`This error was not caught. Response status code: ${resp.status}`)
   }
 
   /**
@@ -104,12 +125,15 @@ export default class PostAPI {
     }
 
     const url = this.constructor.API_URL_POSTS
+
     const moreConfig = {
       method: "POST",
       body: JSON.stringify(newPost),
     }
+
     const config = this.getFetchConfig(moreConfig)
     const resp = await fetch(url, config)
+
     try {
       if (!resp.ok) {
         throw new Error(`Error during fetch. Response status code: ${resp.status}`)
@@ -118,8 +142,10 @@ export default class PostAPI {
       console.error(resp)
       throw err
     }
+
     const data = await resp.json()
-    return data
+
+    return this.constructor.prettifyPost(data)
   }
 
   /**
@@ -148,7 +174,7 @@ export default class PostAPI {
       throw err
     }
     const data = await resp.json()
-    return data
+    return this.constructor.prettifyPost(data)
   }
 
   /**
@@ -212,17 +238,25 @@ export default class PostAPI {
     return this.constructor.API_TOKENS[this.apiUser]
   }
 
+  static prettifyPost(post) {
+    const createdAtObj = new Date(post.createdAt)
+    const createdAtForUI = createdAtObj.toLocaleString("it-IT")
+
+    const moreFields = {
+      createdAtForUI,
+      // add here more fields. they will appear in each post resource
+    }
+
+    return {
+      ...post,
+      ...moreFields,
+    }
+  }
+
   static prettifyPosts(posts) {
+    const class_ = this
     return posts.map((post) => {
-      const createdAtObj = new Date(post.createdAt)
-      const createdAtForUI = createdAtObj.toLocaleString("it-IT")
-      const moreFields = {
-        createdAtForUI,
-      }
-      return {
-        ...post,
-        ...moreFields,
-      }
+      return class_.prettifyPost(post)
     })
   }
 
