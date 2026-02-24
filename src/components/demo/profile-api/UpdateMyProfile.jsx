@@ -1,34 +1,59 @@
-import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import ProfileAPI from "../../../assets/js/profile-api/ProfileAPI"
 
-import { updateMyProfileAction } from "../../../redux/actions"
-
+/**
+ * PROFILE model
+  {
+    "name": "Mario",
+    "surname": "Rossi",
+    "email": "mario@rossi.it",
+    "username": "mario88",
+    "bio": "Freelance developer",
+    "title": "Full Stack Web Developer",
+    "area": "Milan",
+    "image": ..., // SERVER GENERATED, modificabile
+    "createdAt": "2019-09-20T08:53:07.094Z", // SERVER GENERATED
+    "updatedAt": "2019-09-20T09:00:46.977Z", // SERVER GENERATED
+    "__v": 0, // SERVER GENERATED
+    "_id": "5d84937322b7b54d848eb41b", // SERVER GENERATED
+  }
+ */
 const UpdateMyProfile = () => {
-  const myProfile = useSelector((state) => state.myProfile)
-  const dispatch = useDispatch()
+  const [profile, setProfile] = useState(null)
 
   const newProfile = {
-    // image: "sdasd",
-    // area: "world",
-    // name: "giuseppere re re ",
-    // username: "tave8",
-    // email: "sds"
+    image: "https://i.postimg.cc/8kn0m39H/photo-giuseppe-white-bg-trim.png",
+    title: "Backend Software Developer",
+    area: "Karlsruhe, Germany",
+    username: "tave8",
+    name: "Giuseppe",
+    surname: "Tavella",
+    email: "giuseppetavella8@gmail.com"
   }
 
+
   useEffect(() => {
-    dispatch(updateMyProfileAction(newProfile))
+    const profileAPI = new ProfileAPI()
+    profileAPI
+      .updateMyProfile(newProfile)
+      .then((post) => {
+        setProfile(post)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
   }, [])
 
   return (
     <>
       <h1>UPDATE MY PROFILE</h1>
-      {myProfile && (
+      {profile && (
         <div>
-          <p>{myProfile.username}</p>
-          <p>{myProfile._id}</p>
+          <p>{profile.username}</p>
+          <p>{profile._id}</p>
         </div>
       )}
-      {!myProfile && <p>Loading...</p>}
+      {!profile && <p>Loading...</p>}
     </>
   )
 }
