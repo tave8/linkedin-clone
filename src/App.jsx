@@ -8,16 +8,21 @@ import MyNavbar from "./components/DesktopNavbar";
 // redux
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
 //import ProfileAPIComponent from "./components/demo/profile-api/ProfileAPI";
 
 function App() {
   return (
     <Provider store={store}>
-      <MyNavbar />
-      <HomePage />
-      <ProfilePage />
-      {/* <ProfileAPIComponent /> */}
+      <BrowserRouter>
+        <MyNavbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/Profile" element={<ProfilePage />} />
+          {/* <ProfileAPIComponent /> */}
+        </Routes>
+      </BrowserRouter>
     </Provider>
   );
 }

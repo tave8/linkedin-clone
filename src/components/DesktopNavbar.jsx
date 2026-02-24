@@ -2,6 +2,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { LinkContainer } from "react-router-bootstrap";
 import Form from "react-bootstrap/Form";
 import { InputGroup } from "react-bootstrap";
 import { BellFill, ChatRightDotsFill, HouseDoorFill, PersonFillAdd, Search, BriefcaseFill, Grid3x2GapFill } from "react-bootstrap-icons";
@@ -19,9 +20,11 @@ function MyNavbar() {
     <Navbar expand="lg" className="bg-white border-bottom sticky-top py-0" variant="light">
       <Container>
         <div className="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-          <Navbar.Brand href="#home" className="me-2">
-            <img src="/logo-likedin.png" alt="Logo" height="34px" />
-          </Navbar.Brand>
+          <LinkContainer to="/">
+            <Navbar.Brand href="#home" className="me-2">
+              <img src="/logo-likedin.png" alt="Logo" height="34px" />
+            </Navbar.Brand>
+          </LinkContainer>
 
           <Form className="flex-grow-1" style={{ maxWidth: "280px" }}>
             <InputGroup size="sm">
@@ -54,8 +57,11 @@ function MyNavbar() {
               id="profile-dropdown"
               className="px-2"
             >
-              <NavDropdown.Header>Account</NavDropdown.Header>
-              <NavDropdown.Item href="#settings">Impostazioni e Privacy</NavDropdown.Item>
+              <NavDropdown.Header href="#settings">Impostazioni e Privacy</NavDropdown.Header>
+              <LinkContainer to="/Profile">
+                <NavDropdown.Item>Account</NavDropdown.Item>
+              </LinkContainer>
+
               <NavDropdown.Item href="#help">Guida</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#logout">Esci</NavDropdown.Item>

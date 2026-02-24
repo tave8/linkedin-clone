@@ -18,7 +18,7 @@ const HomePage = () => {
           <Col xs={12} md={7}>
             <Post /> {/* giorgia */}
           </Col>
-          <Col className="d-none col-md-3">
+          <Col className="d-none d-md-block col-md-3">
             <RightSideBar />
           </Col>
         </Row>
