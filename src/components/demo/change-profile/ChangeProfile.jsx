@@ -1,37 +1,66 @@
-import { useDispatch } from "react-redux"
-import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { Button } from "react-bootstrap"
 
-import { setMyProfileApiUserAndLoadProfileGlobally } from "../../redux/actions/index"
+import { setMyProfileApiUserAndLoadProfileGlobally } from "../../../redux/actions/index"
 
-/**
- * This component only serves to get the
- * default profile from API and then
- * set it as the my default profile in redux store,
- * so my profile is globally available in
- * other components.
- *
- * Thefore it is assumed that the order in which
- * this component mounts matters, so it is assumed
- * that this component will have to be placed as the
- * first, or among the first, components in App.
- */
-const LoadMyDefaultProfile = () => {
+const ChangeProfile = () => {
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(setMyProfileApiUserAndLoadProfileGlobally("giuseppe"))
-  }, [])
+  const myProfile = useSelector((state) => state.myProfile)
 
   return (
-    <Button
-      onClick={() => {
-        dispatch(setMyProfileApiUserAndLoadProfileGlobally("giorgia"))
-      }}
-    >
-      change profile
-    </Button>
+    <>
+      {/* CHANGE PROFILES */}
+      <div>
+        <Button
+          onClick={() => {
+            dispatch(setMyProfileApiUserAndLoadProfileGlobally("giuseppe"))
+          }}
+        >
+          change profile: giuseppe
+        </Button>
+        <Button
+          onClick={() => {
+            dispatch(setMyProfileApiUserAndLoadProfileGlobally("giorgia"))
+          }}
+        >
+          change profile: giorgia
+        </Button>
+        <Button
+          onClick={() => {
+            dispatch(setMyProfileApiUserAndLoadProfileGlobally("raffaele"))
+          }}
+        >
+          change profile: raffaele
+        </Button>
+      </div>
+      {/* SHOW CURRENT PROFILE */}
+      {/* my profile data */}
+      {!myProfile.isLoading && !myProfile.isError && (
+        <div className="d-flex flex-column p-4">
+          <img src={myProfile.data.image} className="mb-3 rounded-circle" width={80} />
+          <h4>
+            {myProfile.data.name} {myProfile.data.surname}
+          </h4>
+          <h6>{myProfile.data.title}</h6>
+          <p className="text-secondary">{myProfile.data.area}</p>
+        </div>
+      )}
+
+      {/* loading */}
+      {myProfile.isLoading && (
+        <div>
+          <p>loading..</p>
+        </div>
+      )}
+
+      {/* error */}
+      {myProfile.isError && (
+        <div>
+          <p>error while loading your profile</p>
+        </div>
+      )}
+    </>
   )
 }
 
-export default LoadMyDefaultProfile
+export default ChangeProfile
