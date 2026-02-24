@@ -12,6 +12,7 @@ import { Provider } from "react-redux"
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom"
 
 import ProfileAPIDemoComponent from "./components/demo/profile-api/ProfileAPI"
+import PostAPIDemoComponent from "./components/demo/post-api/PostAPI"
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       {/* <ProfileAPIDemoComponent /> */}
+      {/* <PostAPIDemoComponent /> */}
     </Provider>
   )
 }
