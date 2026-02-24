@@ -8,7 +8,7 @@ const HomePage = () => {
     <>
       <main className="sfondo">
         <Container className="pt-3" fluid>
-          <Row>
+          <Row className="justify-content-center">
             <Col className="d-none d-lg-block" md={2}>
               <LeftSideBar />
             </Col>
