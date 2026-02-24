@@ -22,13 +22,13 @@ const UpdateMyProfile = () => {
   return (
     <>
       <h1>UPDATE MY PROFILE</h1>
-      {myProfile.data && (
+      {myProfile && (
         <div>
-          <p>{myProfile.data.username}</p>
-          <p>{myProfile.data._id}</p>
+          <p>{myProfile.username}</p>
+          <p>{myProfile._id}</p>
         </div>
       )}
-      {!myProfile.data && <p>Loading...</p>}
+      {!myProfile && <p>Loading...</p>}
     </>
   )
 }
