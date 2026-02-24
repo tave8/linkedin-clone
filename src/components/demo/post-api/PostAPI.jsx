@@ -1,5 +1,6 @@
 import AddPost from "./AddPost"
 import DeletePostById from "./DeletePostById"
+import GetPosts from "./GetPosts"
 import GetMostRecentPosts from "./GetMostRecentPosts"
 
 const PostAPIDemo = () => {
@@ -8,7 +9,8 @@ const PostAPIDemo = () => {
       {/* comment/uncomment the components you're interested in */}
       {/* <AddPost /> */}
       {/* <DeletePostById /> */}
-      <GetMostRecentPosts />
+      <GetPosts />
+      {/* <GetMostRecentPosts /> */}
     </>
   )
 }

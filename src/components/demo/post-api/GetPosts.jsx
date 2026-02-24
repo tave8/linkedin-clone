@@ -1,15 +1,18 @@
-import ProfileAPI from "../../../assets/js/profile-api/ProfileAPI"
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 
-const GetProfiles = () => {
-  const [profiles, setProfiles] = useState([])
+import PostAPI from "../../../assets/js/post-api/PostAPI"
+
+const GetPosts = () => {
+  const [posts, setPosts] = useState([])
 
   useEffect(() => {
-    const profileAPI = new ProfileAPI()
-    profileAPI
-      .getProfiles()
-      .then((remoteProfiles) => {
-        setProfiles(remoteProfiles)
+    const postAPI = new PostAPI()
+    console.log(postAPI)
+    postAPI
+      .getPosts()
+      .then((posts) => {
+        console.log(posts)
+        setPosts(posts)
       })
       .catch((err) => {
         console.error(err)
@@ -18,21 +21,22 @@ const GetProfiles = () => {
 
   return (
     <>
-      <h1>GET PROFILES</h1>
-      {profiles.length > 0 && (
+      <h1>GET POSTS</h1>
+      {posts.length > 0 && (
         <>
-          {profiles.map((profile) => {
+          {posts.map((post) => {
             return (
-              <div key={profile._id}>
-                <p>{profile.username}</p>
+              <div key={post._id}>
+                <p>{post.text}</p>
+                <p>{post.username}</p>
               </div>
             )
           })}
         </>
       )}
-      {profiles.length == 0 && <p>Loading...</p>}
+      {posts.length == 0 && <p>Loading...</p>}
     </>
   )
 }
 
-export default GetProfiles
+export default GetPosts
