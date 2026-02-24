@@ -1,17 +1,24 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import "./App.css";
-import MyNavbar from "./components/MyNavbar";
-import PublishOffcanvas from "./components/PublishOffcanvas";
-import MicroProfileNavbar from "./components/MicroProfileNavbar";
-import ProfileOffcanvas from "./components/ProfileOffcanvas";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { Container, Row, Col, CardGroup, Card, Spinner, Alert, Button, Image, Form, ListGroup, Navbar, NavDropdown, Nav } from "react-bootstrap";
+import HomePage from "./pages/HomePage";
+import ProfilePage from "./pages/ProfilePage";
+
+// redux
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
+
+import ProfileAPIComponent from "./components/demo/profile-api/ProfileAPI";
 
 function App() {
   return (
-    <>
-      <MyNavbar />
-      <ProfileOffcanvas />
-      <PublishOffcanvas />
-    </>
+    <Provider store={store}>
+      <HomePage />
+      <ProfilePage />
+      {/* <ProfileAPIComponent /> */}
+    </Provider>
   );
 }
 

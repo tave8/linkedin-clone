@@ -27,7 +27,157 @@ body {
   color: #915907 !important;
   font-weight: 400;
 }
+/* #808080 → grigio medio
 
-.lh-1 {
-  line-height: 1;
+#915907 → marrone caldo / marrone senape scuro
+
+#000000 → nero
+
+#0A66C2 → blu acceso (tipo blu LinkedIn 😉)
+
+#BBB1A1 → beige grigiastro
+
+#E06847 → arancione corallo / terracotta chiaro
+
+#E4E4E7 → grigio chiarissimo freddo
+
+#EAE6DF → beige molto chiaro (effetto sabbia chiara) SFONDO
+
+#EDF3F8 → azzurro ghiaccio molto tenue
+
+#F4F2EE → bianco sporco caldo
+
+#F8FAFD → quasi bianco con leggero tono azzurro
+
+#FFFFFF → bianco puro
+
+#378FE9 → azzurro brillante
+
+#56687A → blu grigio / grigio ardesia
+
+#5F9B41 → verde medio naturale (tipo verde prato)
+
+#8C8C8C → grigio medio-scuro */
+/* Giorgia */
+.custom-toggle::after {
+  display: none;
+}
+
+.reaction-bubble {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  border: 2px solid white;
+}
+
+.reaction-bubble:not(:first-child) {
+  margin-left: -6px;
+}
+
+.action-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+  text-decoration: none;
+  transform: scale(1.02);
+}
+
+.post-media {
+  object-fit: cover;
+}
+/* SX SIDEBAR LEFT */
+.left-profile-card {
+  position: relative;
+}
+
+.left-avatar {
+  position: relative;
+  margin-top: -36px;
+  border: 2px solid white;
+}
+
+.left-page-logo-img {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+/* Fine  Giorgia */
+
+.sfondo {
+  background-color: #eae6df;
+}
+/* root var */
+
+:root {
+  --fs-s: clamp(0.6rem, 0.8vw, 1.3rem);
+}
+/* css for the first section of the profile */
+.bannerProfile {
+  background-image: url("https://images.unsplash.com/32/Mc8kW4x9Q3aRR3RkP5Im_IMG_4417.jpg?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-position: center;
+  background-size: cover;
+  height: 15vh;
+  width: 100%;
+}
+.profileImg {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
+  position: absolute;
+  bottom: -40%;
+  left: 2%;
+}
+.bottom-custom-bannerProfile {
+  bottom: -40%;
+}
+.mt-custom-ProfileName {
+  margin-top: 10vh;
+}
+.fs-custom-profile-p {
+  font-size: var(--fs-s);
+}
+.p-Verification-badge {
+  color: #0a66c2;
+  border: 2px dashed #0a66c2;
+  width: fit-content;
+}
+.blu-profile-p {
+  color: #0a66c2;
+}
+.btn-profile-firstSection {
+  font-size: var(--fs-s);
+}
+.border-custom-bt-firstSection {
+  background-color: transparent;
+  border-radius: 18px;
+  color: #0a66c2;
+}
+.border-custom-bt-firstSection1 {
+  background-color: #0a66c2;
+  border-radius: 18px;
+  color: white;
+}
+.border-custom-bt-firstSection-dot {
+  background-color: transparent;
+  border-radius: 18px;
+  color: black;
+  border: 1px solid black;
+}
+.bg-custom-slide-firstSection {
+  background-color: #cad6f1;
+}
+.border-custom-analisi {
+  border-bottom: 1px solid lightgray;
+}
+/* media query for the card border in the analisi section */
+@media (min-width: 768px) {
+  /* md breakpoint */
+  .border-custom-analisi {
+    border: 0 !important;
+  }
 }
