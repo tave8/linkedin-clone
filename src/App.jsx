@@ -17,13 +17,13 @@ function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        {/* <MyNavbar /> */}
+        <MyNavbar />
         <Routes>
-          {/* <Route path="/" element={<HomePage />} />
-          <Route path="/Profile" element={<ProfilePage />} /> */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="/Profile" element={<ProfilePage />} />
         </Routes>
       </BrowserRouter>
-      <ProfileAPIDemoComponent />
+      {/* <ProfileAPIDemoComponent /> */}
     </Provider>
   )
 }
