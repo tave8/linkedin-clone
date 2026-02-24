@@ -36,9 +36,9 @@ export default class PostAPI {
     const data = await resp.json()
     // if limit is a number and is greater than 0, limit the result
     if (Number.isFinite(limit) && limit > 0) {
-      return data.slice(0, limit)
+      return this.constructor.prettifyPosts(data.slice(0, limit))
     }
-    return data
+    return this.constructor.prettifyPosts(data)
   }
 
   /**
@@ -63,9 +63,9 @@ export default class PostAPI {
       // get the last limit result
       const lastNItems = data.slice(-limit)
       // reverse the N items
-      return lastNItems.reverse()
+      return this.constructor.prettifyPosts(lastNItems.reverse())
     }
-    return data
+    return this.constructor.prettifyPosts(data)
   }
 
   /**
@@ -210,6 +210,20 @@ export default class PostAPI {
 
   getApiToken() {
     return this.constructor.API_TOKENS[this.apiUser]
+  }
+
+  static prettifyPosts(posts) {
+    return posts.map((post) => {
+      const createdAtObj = new Date(post.createdAt)
+      const createdAtForUI = createdAtObj.toLocaleString("it-IT")
+      const moreFields = {
+        createdAtForUI,
+      }
+      return {
+        ...post,
+        ...moreFields,
+      }
+    })
   }
 
   static isObject(x) {

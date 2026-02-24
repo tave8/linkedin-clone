@@ -1,15 +1,18 @@
-import ProfileAPI from "../../../assets/js/profile-api/ProfileAPI"
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 
-const GetMostRecentProfiles = () => {
-  const [profiles, setProfiles] = useState([])
+import PostAPI from "../../../assets/js/post-api/PostAPI"
+
+const GetMostRecentPosts = () => {
+  const [posts, setPosts] = useState([])
 
   useEffect(() => {
-    const profileAPI = new ProfileAPI()
-    profileAPI
-      .getMostRecentProfiles()
-      .then((remoteProfiles) => {
-        setProfiles(remoteProfiles)
+    const postAPI = new PostAPI()
+    console.log(postAPI)
+    postAPI
+      .getMostRecentPosts()
+      .then((posts) => {
+        console.log(posts)
+        setPosts(posts)
       })
       .catch((err) => {
         console.error(err)
@@ -18,21 +21,22 @@ const GetMostRecentProfiles = () => {
 
   return (
     <>
-      <h1>GET MOST RECENT PROFILES</h1>
-      {profiles.length > 0 && (
+      <h1>GET MOST RECENT POSTS</h1>
+      {posts.length > 0 && (
         <>
-          {profiles.map((profile) => {
+          {posts.map((post) => {
             return (
-              <div key={profile._id}>
-                <p>{profile.username}</p>
+              <div key={post._id}>
+                <p>{post.text}</p>
+                <p>{post.username}</p>
               </div>
             )
           })}
         </>
       )}
-      {profiles.length == 0 && <p>Loading...</p>}
+      {posts.length == 0 && <p>Loading...</p>}
     </>
   )
 }
 
-export default GetMostRecentProfiles
+export default GetMostRecentPosts
