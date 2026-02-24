@@ -11,6 +11,8 @@ import { store } from "./redux/store"
 import { Provider } from "react-redux"
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom"
 
+import LoadMyDefaultProfileComponent from "./components/helpers/LoadMyDefaultProfile"
+
 import ProfileAPIDemoComponent from "./components/demo/profile-api/ProfileAPI"
 import PostAPIDemoComponent from "./components/demo/post-api/PostAPI"
 
@@ -18,14 +20,21 @@ function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <MyNavbar />
+        {/***** START: LOAD DEFAULT DATA ******/}
+        { <LoadMyDefaultProfileComponent />  }
+        {/***** END: LOAD DEFAULT DATA ********/}
+
+        {/* <MyNavbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/Profile" element={<ProfilePage />} />
-        </Routes>
+        </Routes>  */}
       </BrowserRouter>
-      {/* <ProfileAPIDemoComponent /> */}
-      {/* <PostAPIDemoComponent /> */}
+
+      {/****** START: API DEMO components ******/}
+      <ProfileAPIDemoComponent />
+      <PostAPIDemoComponent />
+      {/****** END: API DEMO components ********/}
     </Provider>
   )
 }

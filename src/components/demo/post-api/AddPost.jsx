@@ -6,7 +6,7 @@ const UpdateMyProfile = () => {
   const [post, setPost] = useState(null)
 
   const newPostFields = {
-    text: "my new post!",
+    text: "CIAO GIORGIA",
   }
 
   useEffect(() => {
