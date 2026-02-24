@@ -1,26 +1,33 @@
-import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
-
-import { getMyProfileAction } from "../../../redux/actions"
+import { useEffect, useState } from "react"
+import ProfileAPI from "../../../assets/js/profile-api/ProfileAPI"
 
 const GetMyProfile = () => {
-  const myProfile = useSelector((state) => state.myProfile)
-  const dispatch = useDispatch()
+  const [profile, setProfile] = useState(null)
 
   useEffect(() => {
-    dispatch(getMyProfileAction())
+    const profileAPI = new ProfileAPI()
+    const profileId = "699c4e200bc1de001577b7b6"
+
+    profileAPI
+      .getProfileById(profileId)
+      .then((remoteProfile) => {
+        setProfile(remoteProfile)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
   }, [])
 
   return (
     <>
       <h1>GET MY PROFILE</h1>
-      {myProfile && (
+      {profile && (
         <>
-          <p>{myProfile.username}</p>
-          <p>{myProfile._id}</p>
+          <p>{profile.username}</p>
+          <p>{profile._id}</p>
         </>
       )}
-      {!myProfile && <p>Loading...</p>}
+      {!profile && <p>Loading...</p>}
     </>
   )
 }

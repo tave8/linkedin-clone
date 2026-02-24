@@ -8,11 +8,11 @@ const ProfileAPIDemo = () => {
   return (
     <>
       {/* comment/uncomment the components you're interested in */}
-      <GetMyProfile />
-      <GetProfileById />
-      <UpdateMyProfile />
-      <GetProfiles />
-      <GetMostRecentProfiles />
+      {/* <GetMyProfile /> */}
+      {/* <GetProfileById /> */}
+      {/* <UpdateMyProfile /> */}
+      {/* <GetProfiles /> */}
+      {/* <GetMostRecentProfiles /> */}
     </>
   )
 }

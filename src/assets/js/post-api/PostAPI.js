@@ -150,10 +150,10 @@ export default class PostAPI {
 
   /**
    * Update post by ID.
-   * 
+   *
    * NOTE: Request can take indefinitely because of (supposed)
    * server not responding.
-   * Example: 
+   * Example:
    *  ID: 699d9dc1b5582000158c3433 --> server doesn't respond
    *  an existing ID: server responds
    */
@@ -172,7 +172,7 @@ export default class PostAPI {
     const config = this.getFetchConfig(moreConfig)
 
     const resp = await fetch(url, config)
-    
+
     try {
       if (!resp.ok) {
         throw new Error(`Error during fetch. Response status code: ${resp.status}`)
@@ -270,7 +270,13 @@ export default class PostAPI {
 
   static prettifyPost(post) {
     const createdAtObj = new Date(post.createdAt)
-    const createdAtForUI = createdAtObj.toLocaleString("it-IT")
+    const createdAtForUI = createdAtObj.toLocaleString("it-IT", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    })
 
     const moreFields = {
       createdAtForUI,
