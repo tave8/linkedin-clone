@@ -1,36 +1,41 @@
-import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
-import { updateMyProfileAction } from "../../../redux/actions"
+import PostAPI from "../../../assets/js/post-api/PostAPI"
 
-const UpdateMyProfile = () => {
-  const myProfile = useSelector((state) => state.myProfile)
-  const dispatch = useDispatch()
+const DeletePostById = () => {
+  const [doneDeleteOperation, setDoneDeleteOperation] = useState(false)
+  const [hasDeletedPost, setHasDeletedPost] = useState(false)
 
-  const newProfile = {
-    // image: "sdasd",
-    // area: "world",
-    // name: "giuseppere re re ",
-    // username: "tave8",
-    // email: "sds"
-  }
+  const postId = "699d93bdb5582000158c342f"
+  const fakePostId = "xyz"
+  // edit targetId
+  const targetId = postId
 
   useEffect(() => {
-    dispatch(updateMyProfileAction(newProfile))
+    const postAPI = new PostAPI()
+    postAPI
+      .deletePostById(targetId)
+      .then((post) => {
+        console.log(post)
+        // setPost(post)
+        setDoneDeleteOperation(true)
+        setHasDeletedPost(true)
+      })
+      .catch((err) => {
+        setDoneDeleteOperation(true)
+        setHasDeletedPost(false)
+        console.error(err)
+      })
   }, [])
 
   return (
     <>
-      <h1>UPDATE MY PROFILE</h1>
-      {myProfile.data && (
-        <div>
-          <p>{myProfile.data.username}</p>
-          <p>{myProfile.data._id}</p>
-        </div>
-      )}
-      {!myProfile.data && <p>Loading...</p>}
+      <h1>DELETE POST BY ID</h1>
+      {hasDeletedPost && <p>deleted post with ID {targetId}</p>}
+      {!doneDeleteOperation && <p>Loading...</p>}
+      {doneDeleteOperation && !hasDeletedPost && <p>error while deleting post</p>}
     </>
   )
 }
 
-export default UpdateMyProfile
+export default DeletePostById

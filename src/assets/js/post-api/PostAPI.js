@@ -165,6 +165,10 @@ export default class PostAPI {
     const config = this.getFetchConfig(moreConfig)
     const resp = await fetch(url, config)
     try {
+      // maybe a post with this ID does not exist?
+      if (resp.status == 400) {
+        throw new Error(`Error during fetch. A post with this ID likely does not exist. Response status code: ${resp.status}`)
+      }
       if (!resp.ok) {
         throw new Error(`Error during fetch. Response status code: ${resp.status}`)
       }
@@ -172,8 +176,21 @@ export default class PostAPI {
       console.error(resp)
       throw err
     }
-    const data = await resp.json()
-    return data
+
+    const text = await resp.text()
+
+    // if the response text is "ID non valido": ERROR
+    if (text.trim().toLowerCase() == "id non valido") {
+      throw new Error(`The API server said that this ID is not valid. Response status code: ${resp.status}`)
+    }
+
+    // if the response text is "Removed": SUCCESS
+    if (text.trim().toLowerCase() == "removed") {
+      return text
+    }
+
+    // if the response text does not follow any previous case
+    throw new Error(`This API response case was not caught. Response status code: ${resp.status}; response text: ${text}`)
   }
 
   /**

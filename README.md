@@ -200,15 +200,13 @@ postAPI
 
 Promise
 
-Default limit: 10
-
 ```js
 const postAPI = new PostAPI()
 const postId = "xxx"
 
 postAPI
   .deletePostById(postId)
-  .then(() => {
+  .then((textResponse) => {
     // your code
   })
   .catch((err) => {
