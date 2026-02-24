@@ -1,16 +1,15 @@
-import Post from "../components/Post"
-import LeftSideBar from "../components/LeftSideBar"
-import NavBar from "../components/NavBar"
-import RightSideBar from "../components/RightSideBar"
-import { Row, Col } from "react-bootstrap"
+import Post from "../components/Post";
+import LeftSideBar from "../components/LeftSideBar";
+import RightSideBar from "../components/RightSideBar";
+import { Row, Col } from "react-bootstrap";
 
 const HomePage = () => {
   return (
     <>
-      <header>
+      {/*<header>
         <NavBar />
-        {/* navbar giulia */}
-      </header>
+         navbar giulia 
+      </header>*/}
       <main className="sfondo">
         <Row>
           <Col className=" d-none d-lg-block" md={2}>
@@ -25,6 +24,6 @@ const HomePage = () => {
         </Row>
       </main>
     </>
-  )
-}
-export default HomePage
+  );
+};
+export default HomePage;
