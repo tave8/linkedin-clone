@@ -12,18 +12,20 @@ import { Provider } from "react-redux"
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom"
 
 import ProfileAPIDemoComponent from "./components/demo/profile-api/ProfileAPI"
+import PostAPIDemoComponent from "./components/demo/post-api/PostAPI"
 
 function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      {/* <BrowserRouter>
         <MyNavbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/Profile" element={<ProfilePage />} />
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
       {/* <ProfileAPIDemoComponent /> */}
+      <PostAPIDemoComponent />
     </Provider>
   )
 }

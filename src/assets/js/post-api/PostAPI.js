@@ -3,25 +3,14 @@ const defaultParams = {
 }
 
 export default class PostAPI {
-  static API_URL_PROFILES = "https://striveschool-api.herokuapp.com/api/profile"
-  static API_URL_MY_PROFILE = "https://striveschool-api.herokuapp.com/api/profile/me"
+  static API_URL_POSTS = "https://striveschool-api.herokuapp.com/api/posts"
+
   static API_TOKENS = {
     giuseppe:
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTljNGUyMDBiYzFkZTAwMTU3N2I3YjYiLCJpYXQiOjE3NzE4NTEzMjEsImV4cCI6MTc3MzA2MDkyMX0.YZ-u3PFGt5dmN5wQAI25NIOezRDpba2YuomGaZmjfDk",
   }
 
   /**
-   * ## Usage
-   *
-   * ### usage 1
-   * new LinkedinAPI()
-   *
-   * ### usage 2
-   * new LinkedinAPI({
-   *    apiUser: "giuseppe"
-   * })
-   *
-   *
    */
   constructor(params = defaultParams) {
     const finalParams = { ...structuredClone(defaultParams), ...params }
@@ -29,11 +18,11 @@ export default class PostAPI {
   }
 
   /**
-   * Get profiles.
+   * Get posts.
    * Default limit: 10
    */
-  async getProfiles(limit = 10) {
-    const url = this.constructor.API_URL_PROFILES
+  async getPosts(limit = 10) {
+    const url = this.constructor.API_URL_POSTS
     const config = this.getFetchConfig()
     const resp = await fetch(url, config)
     try {
@@ -53,11 +42,11 @@ export default class PostAPI {
   }
 
   /**
-   * Get most recent profiles.
+   * Get most recent posts.
    * Default limit: 10
    */
-  async getMostRecentProfiles(limit=10) {
-    const url = this.constructor.API_URL_PROFILES
+  async getMostRecentPosts(limit = 10) {
+    const url = this.constructor.API_URL_POSTS
     const config = this.getFetchConfig()
     const resp = await fetch(url, config)
     try {
@@ -80,10 +69,13 @@ export default class PostAPI {
   }
 
   /**
-   * Get my profile.
+   * Get post by ID.
    */
-  async getMyProfile() {
-    const url = this.constructor.API_URL_MY_PROFILE
+  async getPostById(postId) {
+    if (!postId) {
+      throw new Error(`Post id is required when getting one remote profile. Input postId is "${postId}"`)
+    }
+    const url = this.constructor.API_URL_POSTS + `/${postId}`
     const config = this.getFetchConfig()
     const resp = await fetch(url, config)
     try {
@@ -99,14 +91,18 @@ export default class PostAPI {
   }
 
   /**
-   * Get 1 remote profile.
+   * Add post.
    */
-  async getProfileById(profileId) {
-    if (!profileId) {
-      throw new Error(`User id is required when getting one remote profile. Input profileId is "${profileId}"`)
+  async addPost(newPost) {
+    if (!this.constructor.isObject(newPost)) {
+      throw new Error(`New post is required to be a valid JS object. It is of type "${typeof newPost}" instead.`)
     }
-    const url = this.constructor.API_URL_PROFILES + `/${profileId}`
-    const config = this.getFetchConfig()
+    const url = this.constructor.API_URL_POSTS
+    const moreConfig = {
+      method: "POST",
+      body: JSON.stringify(newPost),
+    }
+    const config = this.getFetchConfig(moreConfig)
     const resp = await fetch(url, config)
     try {
       if (!resp.ok) {
@@ -121,16 +117,44 @@ export default class PostAPI {
   }
 
   /**
-   * Update my profile.
+   * Update post by ID.
    */
-  async updateMyProfile(newProfile) {
-    if (!this.constructor.isObject(newProfile)) {
-      throw new Error(`New profile data is required to be a valid JS object. It is of type "${typeof newProfile}" instead.`)
+  async updatePostById(postId, newPost) {
+    if (!postId) {
+      throw new Error(`Post id is required when getting one remote profile. Input postId is "${postId}"`)
     }
-    const url = this.constructor.API_URL_PROFILES
+    if (!this.constructor.isObject(newPost)) {
+      throw new Error(`New profile data is required to be a valid JS object. It is of type "${typeof newPost}" instead.`)
+    }
+    const url = this.constructor.API_URL_POSTS
     const moreConfig = {
       method: "PUT",
-      body: JSON.stringify(newProfile),
+      body: JSON.stringify(newPost),
+    }
+    const config = this.getFetchConfig(moreConfig)
+    const resp = await fetch(url, config)
+    try {
+      if (!resp.ok) {
+        throw new Error(`Error during fetch. Response status code: ${resp.status}`)
+      }
+    } catch (err) {
+      console.error(resp)
+      throw err
+    }
+    const data = await resp.json()
+    return data
+  }
+
+  /**
+   * Delete post by ID.
+   */
+  async deletePostById(postId) {
+    if (!postId) {
+      throw new Error(`Post id is required when deleting post. Input postId is "${postId}"`)
+    }
+    const url = this.constructor.API_URL_POSTS + `/${postId}`
+    const moreConfig = {
+      method: "DELETE",
     }
     const config = this.getFetchConfig(moreConfig)
     const resp = await fetch(url, config)
