@@ -64,7 +64,14 @@ function PublishOffcanvas({ show, handleClose, handleShow, ...props }) {
 
         <Offcanvas.Body className="d-flex flex-column">
           <div className="flex-grow-1">
-            <textarea className="form-control border-0 shadow-none p-0 fs-5" placeholder="Di cosa vorresti parlare?" rows="5" style={{ resize: "none" }} />
+            <textarea
+              className="form-control border-0 shadow-none p-0 fs-5"
+              placeholder="Di cosa vorresti parlare?"
+              rows="5"
+              style={{ resize: "none" }}
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+            />
           </div>
 
           <div className="py-3 border-top">
