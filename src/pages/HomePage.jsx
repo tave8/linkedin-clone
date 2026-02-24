@@ -1,7 +1,7 @@
-import Post from "../components/Post";
-import LeftSideBar from "../components/LeftSideBar";
-import RightSideBar from "../components/RightSideBar";
-import { Container, Row, Col } from "react-bootstrap";
+import Post from "../components/Post"
+import LeftSideBar from "../components/LeftSideBar"
+import RightSideBar from "../components/RightSideBar"
+import { Container, Row, Col } from "react-bootstrap"
 
 const HomePage = () => {
   return (
@@ -9,7 +9,7 @@ const HomePage = () => {
       <main className="sfondo">
         <Container className="pt-3" fluid>
           <Row>
-            <Col className="d-none d-lg-block" md={2}>
+            <Col className="d-none d-lg-block" md={3}>
               <LeftSideBar />
             </Col>
             <Col xs={12} md={6}>
@@ -22,6 +22,6 @@ const HomePage = () => {
         </Container>
       </main>
     </>
-  );
-};
-export default HomePage;
+  )
+}
+export default HomePage
