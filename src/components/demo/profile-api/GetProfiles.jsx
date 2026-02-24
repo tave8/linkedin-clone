@@ -7,7 +7,7 @@ const GetProfiles = () => {
   useEffect(() => {
     const profileAPI = new ProfileAPI()
     profileAPI
-      .getProfilesRemote()
+      .getProfiles()
       .then((remoteProfiles) => {
         setProfiles(remoteProfiles)
       })

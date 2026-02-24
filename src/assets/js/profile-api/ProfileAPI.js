@@ -29,9 +29,9 @@ export default class ProfileAPI {
   }
 
   /**
-   * Get remote profiles.
+   * Get profiles.
    */
-  async getProfilesRemote() {
+  async getProfiles() {
     const url = this.constructor.API_URL_PROFILES
     const config = this.getFetchConfig()
     const resp = await fetch(url, config)
@@ -48,9 +48,9 @@ export default class ProfileAPI {
   }
 
   /**
-   * Get my remote profile.
+   * Get my profile.
    */
-  async getMyProfileRemote() {
+  async getMyProfile() {
     const url = this.constructor.API_URL_MY_PROFILE
     const config = this.getFetchConfig()
     const resp = await fetch(url, config)
@@ -69,7 +69,7 @@ export default class ProfileAPI {
   /**
    * Get 1 remote profile.
    */
-  async getOneProfileRemote(profileId) {
+  async getProfileById(profileId) {
     if (!profileId) {
       throw new Error(`User id is required when getting one remote profile. Input profileId is "${profileId}"`)
     }
@@ -89,9 +89,9 @@ export default class ProfileAPI {
   }
 
   /**
-   * Update my remote profile.
+   * Update my profile.
    */
-  async updateMyProfileRemote(newProfile) {
+  async updateMyProfile(newProfile) {
     if (!this.constructor.isObject(newProfile)) {
       throw new Error(`New profile data is required to be a valid JS object. It is of type "${typeof newProfile}" instead.`)
     }

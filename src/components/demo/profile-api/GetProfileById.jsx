@@ -1,14 +1,14 @@
 import ProfileAPI from "../../../assets/js/profile-api/ProfileAPI"
 import { useState, useEffect } from "react"
 
-const GetOneProfile = () => {
+const GetProfileById = () => {
   const [oneProfile, setOneProfile] = useState(null)
   const profileId = "699c4e200bc1de001577b7b6"
 
   useEffect(() => {
     const profileAPI = new ProfileAPI()
     profileAPI
-      .getOneProfileRemote(profileId)
+      .getProfileById(profileId)
       .then((remoteProfile) => {
         setOneProfile(remoteProfile)
       })
@@ -31,4 +31,4 @@ const GetOneProfile = () => {
   )
 }
 
-export default GetOneProfile
+export default GetProfileById

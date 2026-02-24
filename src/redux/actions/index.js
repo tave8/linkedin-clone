@@ -7,12 +7,12 @@ export const SET_MY_PROFILE = "SET_MY_PROFILE"
 
 //***** ACTIONS: FUNCTIONS
 
-export const getMyProfileRemoteAction = (apiUser = DEFAULT_API_USER) => {
+export const getMyProfileAction = (apiUser = DEFAULT_API_USER) => {
   return async (dispatch, getState) => {
     const profileAPI = new ProfileAPI({
       apiUser,
     })
-    const myProfile = await profileAPI.getMyProfileRemote()
+    const myProfile = await profileAPI.getMyProfile()
     dispatch({
       type: SET_MY_PROFILE,
       payload: myProfile,
@@ -20,12 +20,12 @@ export const getMyProfileRemoteAction = (apiUser = DEFAULT_API_USER) => {
   }
 }
 
-export const updateMyProfileRemoteAction = (newProfile, apiUser = DEFAULT_API_USER) => {
+export const updateMyProfileAction = (newProfile, apiUser = DEFAULT_API_USER) => {
   return async (dispatch, getState) => {
     const profileAPI = new ProfileAPI({
       apiUser,
     })
-    const myProfile = await profileAPI.updateMyProfileRemote(newProfile)
+    const myProfile = await profileAPI.updateMyProfile(newProfile)
     dispatch({
       type: SET_MY_PROFILE,
       payload: myProfile,
