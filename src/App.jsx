@@ -24,8 +24,8 @@ function App() {
           <Route path="/Profile" element={<ProfilePage />} />
         </Routes>
       </BrowserRouter> */}
-      <ProfileAPIDemoComponent />
-      {/* <PostAPIDemoComponent /> */}
+      {/* <ProfileAPIDemoComponent /> */}
+      <PostAPIDemoComponent />
     </Provider>
   )
 }

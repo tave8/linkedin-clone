@@ -94,9 +94,15 @@ export default class PostAPI {
    * Add post.
    */
   async addPost(newPost) {
+    // new post is not an object
     if (!this.constructor.isObject(newPost)) {
       throw new Error(`New post is required to be a valid JS object. It is of type "${typeof newPost}" instead.`)
     }
+    // required "text" property
+    if (!newPost.text) {
+      throw new Error(`New post is required to have at least the "text" property. "${JSON.stringify(newPost)}" given`)
+    }
+
     const url = this.constructor.API_URL_POSTS
     const moreConfig = {
       method: "POST",
