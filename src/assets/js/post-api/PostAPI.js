@@ -1,11 +1,11 @@
-import Helper from "../Helper"
+import APIHelper from "../APIHelper"
 import OpenAI from "../open-ai/OpenAI"
 
 const defaultParams = {
   apiUser: "giuseppe",
 }
 
-export default class PostAPI extends Helper {
+export default class PostAPI extends APIHelper {
   static API_URL_POSTS = "https://striveschool-api.herokuapp.com/api/posts"
 
   /**
@@ -278,7 +278,7 @@ export default class PostAPI extends Helper {
 
     for (let i = 0; i < howMany; i++) {
       // choose a random theme from the themes array
-      const postTheme = postThemes[Math.floor(Math.random() * postThemes.length)] 
+      const postTheme = postThemes[Math.floor(Math.random() * postThemes.length)]
       const prompt =
         `Create a post about "${postTheme}". ` +
         `Be professional and very creative. ` +

@@ -2,7 +2,7 @@
  * API Helper class
  * Only static methods.
  */
-export default class Helper {
+export default class APIHelper {
   static API_TOKENS = {
     giuseppe:
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTljNGUyMDBiYzFkZTAwMTU3N2I3YjYiLCJpYXQiOjE3NzE4NTEzMjEsImV4cCI6MTc3MzA2MDkyMX0.YZ-u3PFGt5dmN5wQAI25NIOezRDpba2YuomGaZmjfDk",

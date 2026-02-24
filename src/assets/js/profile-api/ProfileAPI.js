@@ -1,10 +1,10 @@
-import Helper from "../Helper"
+import APIHelper from "../APIHelper"
 
 const defaultParams = {
   apiUser: "giuseppe",
 }
 
-export default class ProfileAPI extends Helper {
+export default class ProfileAPI extends APIHelper {
   static API_URL_PROFILES = "https://striveschool-api.herokuapp.com/api/profile"
   static API_URL_MY_PROFILE = "https://striveschool-api.herokuapp.com/api/profile/me"
 
