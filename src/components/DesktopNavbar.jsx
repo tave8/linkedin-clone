@@ -7,6 +7,8 @@ import Form from "react-bootstrap/Form";
 import { InputGroup } from "react-bootstrap";
 import { BellFill, ChatRightDotsFill, HouseDoorFill, PersonFillAdd, Search, BriefcaseFill, Grid3x2GapFill } from "react-bootstrap-icons";
 import { useSelector } from "react-redux";
+import { Row } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 function MyNavbar() {
   const myProfile = useSelector((state) => state.myProfile);
@@ -60,14 +62,33 @@ function MyNavbar() {
               id="profile-dropdown"
               className="px-2"
             >
-              <NavDropdown.Header href="#settings">Impostazioni e Privacy</NavDropdown.Header>
-              <LinkContainer to="/Profile">
-                <NavDropdown.Item>Account</NavDropdown.Item>
-              </LinkContainer>
-
-              <NavDropdown.Item href="#help">Guida</NavDropdown.Item>
+              <NavDropdown.Header href="#settings" style={{ width: "280px" }}></NavDropdown.Header>
+              <div className="px-3 py-2" style={{ width: "280px" }}>
+                <div className="d-flex flex-column">
+                  <img src={myProfile.data.image} className="mb-2 rounded-circle border" width={60} height={60} style={{ objectFit: "cover" }} />
+                  <h5 className="mb-0">
+                    {myProfile.data.name} {myProfile.data.surname}
+                  </h5>
+                  <p className="mb-0 h6">{myProfile.data.title}</p>
+                  <p className="text-secondary small mb-3">{myProfile.data.area}</p>
+                  <LinkContainer to="/Profile" style={{ textDecoration: "none", color: "#0A66C2", border: "1px solid #0A66C2" }}>
+                    <Button className="rounded-5 fw-bold w-100" variant="outline" style={{ fontSize: "0.85rem" }}>
+                      Visualizza Profilo
+                    </Button>
+                  </LinkContainer>
+                </div>
+              </div>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#logout">Esci</NavDropdown.Item>
+              <div className="px-3 py-2">
+                <h6>Account</h6>
+                <p className="small text-secondary mb-0">Impostazioni e Privacy</p>
+                <p className="small text-secondary mb-0">Guida</p>
+                <p className="small text-secondary mb-0">Lingua</p>
+              </div>
+              <NavDropdown.Divider />
+              <div className="px-3">
+                <p className="mb-1">Esci</p>
+              </div>
             </NavDropdown>
 
             <div className="mx-2" style={{ height: "40px", alignSelf: "center" }}></div>
