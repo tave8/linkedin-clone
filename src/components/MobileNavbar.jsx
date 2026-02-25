@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Container, Nav, Navbar, Form, InputGroup } from "react-bootstrap";
 import { BellFill, ChatRightDotsFill, HouseDoorFill, PersonFillAdd, Search, BriefcaseFill, PlusSquareFill } from "react-bootstrap-icons";
-
+import { LinkContainer } from "react-router-bootstrap";
 import ProfileOffcanvas from "./ProfileOffcanvas";
 import PublishOffcanvas from "./PublishOffcanvas";
 
@@ -41,23 +41,29 @@ function MobileNavabar() {
       <nav className="navbar fixed-bottom bg-white border-top py-2">
         <Container fluid className="px-0">
           <div className="d-flex justify-content-around w-100">
-            <Nav.Link href="#home" className="d-flex flex-column align-items-center text-secondary p-1">
-              <HouseDoorFill className="fs-3" /> <span style={{ fontSize: "12px" }}>Home</span>
-            </Nav.Link>
+            <LinkContainer to="/">
+              <Nav.Link className="d-flex flex-column align-items-center text-secondary p-1">
+                <HouseDoorFill className="fs-3" /> <span style={{ fontSize: "12px" }}>Home</span>
+              </Nav.Link>
+            </LinkContainer>
             <Nav.Link href="#network" className="d-flex flex-column align-items-center text-secondary p-1">
               <PersonFillAdd className="fs-3" /> <span style={{ fontSize: "12px" }}>Rete</span>
             </Nav.Link>
-
-            <Nav.Link onClick={() => setShowPublish(true)} className="d-flex flex-column align-items-center text-secondary p-1">
-              <PlusSquareFill className="fs-3" /> <span style={{ fontSize: "12px" }}>Pubblica</span>
-            </Nav.Link>
-
-            <Nav.Link href="#notifications" className="d-flex flex-column align-items-center text-secondary p-1">
-              <BellFill className="fs-3" /> <span style={{ fontSize: "12px" }}>Notifiche</span>
-            </Nav.Link>
-            <Nav.Link href="#jobs" className="d-flex flex-column align-items-center text-secondary p-1">
-              <BriefcaseFill className="fs-3" /> <span style={{ fontSize: "12px" }}>Lavoro</span>
-            </Nav.Link>
+            <LinkContainer to="/pubblica">
+              <Nav.Link onClick={() => setShowPublish(true)} className="d-flex flex-column align-items-center text-secondary p-1">
+                <PlusSquareFill className="fs-3" /> <span style={{ fontSize: "12px" }}>Pubblica</span>
+              </Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/notifiche">
+              <Nav.Link href="#notifications" className="d-flex flex-column align-items-center text-secondary p-1">
+                <BellFill className="fs-3" /> <span style={{ fontSize: "12px" }}>Notifiche</span>
+              </Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/job">
+              <Nav.Link className="d-flex flex-column align-items-center text-secondary p-1">
+                <BriefcaseFill className="fs-3" /> <span style={{ fontSize: "12px" }}>Lavoro</span>
+              </Nav.Link>
+            </LinkContainer>
           </div>
         </Container>
       </nav>
