@@ -34,16 +34,13 @@ const HomePage = () => {
             <LeftSideBar />
           </Col>
           <Col xs={12} md={6}>
+            <CreatePostDesktop />
+            {/* <Post /> */}
             {posts.map((singlePost) => (
               <Post key={singlePost._id} post={singlePost} onClose={handleClosePost} />
             ))}
           </Col>
 
-          <Col className="d-none d-lg-block" md={2}></Col>
-          <Col xs={12} md={6}>
-            <CreatePostDesktop />
-            <Post />
-          </Col>
           <Col className="d-none d-md-block" md={3}>
             <RightSideBar />
           </Col>
