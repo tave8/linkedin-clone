@@ -1,30 +1,30 @@
-import "bootstrap/dist/css/bootstrap.min.css"
-import "bootstrap-icons/font/bootstrap-icons.css"
-import "./App.css"
-import { useState } from "react"
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "./App.css";
+import { useState } from "react";
 
 //import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 //import { Container, Row, Col, CardGroup, Card, Spinner, Alert, Button, Image, Form, ListGroup, Navbar, NavDropdown, Nav } from "react-bootstrap";
-import HomePage from "./pages/HomePage"
-import ProfilePage from "./pages/ProfilePage"
-import MyNavbar from "./components/MyNavbar"
-import JobsPage from "./pages/JobsPage"
+import HomePage from "./pages/HomePage";
+import ProfilePage from "./pages/ProfilePage";
+import MyNavbar from "./components/MyNavbar";
+import JobsPage from "./pages/JobsPage";
 
 // redux
-import { store } from "./redux/store"
-import { Provider } from "react-redux"
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom"
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
-import LoadMyDefaultProfileComponent from "./components/helpers/LoadMyDefaultProfile"
+import LoadMyDefaultProfileComponent from "./components/helpers/LoadMyDefaultProfile";
 //import CreatePostDesktop from "./components/CreatePostDesktop";
-import ProfileAPIDemoComponent from "./components/demo/profile-api/ProfileAPI"
-import PostAPIDemoComponent from "./components/demo/post-api/PostAPI"
-import CommentAPIDemoComponent from "./components/demo/comment-api/CommentAPI"
+import ProfileAPIDemoComponent from "./components/demo/profile-api/ProfileAPI";
+import PostAPIDemoComponent from "./components/demo/post-api/PostAPI";
+import CommentAPIDemoComponent from "./components/demo/comment-api/CommentAPI";
 
-import ChangeProfileDemoComponent from "./components/demo/change-profile/ChangeProfile"
+import ChangeProfileDemoComponent from "./components/demo/change-profile/ChangeProfile";
 
 function App() {
-  const [isDemoMode, setIsDemoMode] = useState(true)
+  const [isDemoMode, setIsDemoMode] = useState(false);
 
   return (
     <Provider store={store}>
@@ -56,7 +56,7 @@ function App() {
         </>
       )}
     </Provider>
-  )
+  );
 }
 
-export default App
+export default App;

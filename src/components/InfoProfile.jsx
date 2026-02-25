@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 const InfoProfile = (props) => {
   const myProfile = useSelector((state) => state.myProfile);
   const [modalShow, setModalShow] = useState(false);
-  const bioRef = useRef(myProfile.data.bio);
+  const bioRef = useRef(null);
   function MyVerticallyCenteredModal(props) {
     return (
       <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
