@@ -14,11 +14,11 @@ function MyNavbar() {
   const myProfile = useSelector((state) => state.myProfile);
 
   const NAV_LINKS = [
-    { id: 1, label: "Home", icon: <HouseDoorFill />, href: "/" },
-    { id: 2, label: "La mia rete", icon: <PersonFillAdd />, href: "#network" },
-    { id: 3, label: "Lavoro", icon: <BriefcaseFill />, href: "#jobs" },
-    { id: 4, label: "Messaggi", icon: <ChatRightDotsFill />, href: "#messages" },
-    { id: 5, label: "Notifiche", icon: <BellFill />, href: "#notifications" },
+    { id: 1, label: "Home", icon: <HouseDoorFill />, to: "/" },
+    { id: 2, label: "La mia rete", icon: <PersonFillAdd />, to: "/network" },
+    { id: 3, label: "Lavoro", icon: <BriefcaseFill />, to: "/job" },
+    { id: 4, label: "Messaggi", icon: <ChatRightDotsFill />, to: "/messages" },
+    { id: 5, label: "Notifiche", icon: <BellFill />, to: "/notifications" },
   ];
 
   return (
@@ -46,10 +46,12 @@ function MyNavbar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto align-items-center">
             {NAV_LINKS.map((link) => (
-              <Nav.Link key={link.id} href={link.href} className="d-flex flex-column align-items-center px-3 py-2 py-lg-1">
-                <span className="fs-5">{link.icon}</span>
-                <span className="small">{link.label}</span>
-              </Nav.Link>
+              <LinkContainer to={link.to} key={link.id}>
+                <Nav.Link className="d-flex flex-column align-items-center px-3 py-2 py-lg-1">
+                  <span className="fs-5">{link.icon}</span>
+                  <span className="small">{link.label}</span>
+                </Nav.Link>
+              </LinkContainer>
             ))}
 
             <NavDropdown

@@ -101,7 +101,6 @@ profileAPI
 
 Promise
 
-
 ```js
 const profileAPI = new ProfileAPI()
 
@@ -114,7 +113,6 @@ profileAPI
     console.error(err)
   })
 ```
-
 
 ## PostAPI
 
@@ -253,4 +251,82 @@ postAPI
   })
 ```
 
+## CommentAPI
+
+Comments are added to posts. For posts, see PostAPI.
+
+Post model
+
 ```
+{
+    "_id": "67f4ee8381b0dd00150a7a4a",
+    "comment": "LUCA TI AMOOO",
+    "rate": 5,
+    "elementId": "0235",
+    "author": "re.luca95@gmail.com",
+    "createdAt": "2025-04-08T09:38:11.122Z",
+    "createdAtForUI": "8 apr 2025, 09:38",
+    "updatedAt": "2025-04-08T09:38:11.122Z",
+    "__v": 0
+}
+```
+
+### Add comment
+
+Promise
+
+```js
+const commentAPI = new CommentAPI()
+const newCommentFields = {
+  comment: "<my comment>",
+  postId: "<post id>",
+}
+
+commentAPI
+  .addComment(newCommentFields)
+  .then((comment) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+### Get comments
+
+Promise
+
+```js
+const commentAPI = new CommentAPI()
+
+commentAPI
+  .getComments()
+  .then((comments) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+### Get most recent comments of a post
+
+Promise
+
+```js
+const commentAPI = new CommentAPI()
+const postId = "xxx"
+
+commentAPI
+  .getMostRecentCommentsOfPost(postId)
+  .then((comments) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+### Update comment by id
+
+### Delete comment by id

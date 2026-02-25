@@ -10,12 +10,16 @@ export default class APIHelper {
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTlkYzhjYWI1NTgyMDAwMTU4YzM0NDkiLCJpYXQiOjE3NzE5NTAxNDgsImV4cCI6MTc3MzE1OTc0OH0.2-bzpOCmAM0tWJhh1g0xo5p9IJiiyBsVppyQLZNnZlQ",
     raffaele:
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTlkZDA3OWI1NTgyMDAwMTU4YzM0NWIiLCJpYXQiOjE3NzE5NTAyMDEsImV4cCI6MTc3MzE1OTgwMX0.6N69jUGpcpXnvr_GZjSy0M4K8eFP-kzHLI-J6RGgzE4",
+    giulia:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTllZTY4MTJjNGI4YjAwMTUxYWI3MDQiLCJpYXQiOjE3NzIwMjEzNzcsImV4cCI6MTc3MzIzMDk3N30.YgtjZoD54znFx3J_bjX5GwCCnnntz2NRZhGd0C-SoR8",
+    francesco:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTllZjc3NTJjNGI4YjAwMTUxYWI3MTUiLCJpYXQiOjE3NzIwMjU3MTcsImV4cCI6MTc3MzIzNTMxN30.BUmyxKvmm-b9e-ZaaxnegMHl2uzuOpY3K0vrG7z_QN4",
   }
 
   static verifyIfExistsApiUser(apiUser) {
     const exists = this.API_TOKENS[apiUser] != undefined && this.API_TOKENS[apiUser] != null
     if (!exists) {
-      throw new Error(`API user "${apiUser}" does not exist in API users.`)
+      throw new Error(`API user "${apiUser}" does not exist in "shared" API users.`)
     }
   }
 

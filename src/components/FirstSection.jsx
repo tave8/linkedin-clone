@@ -4,40 +4,33 @@ import { HiOutlineCheckBadge } from "react-icons/hi2";
 import { HiOutlineX } from "react-icons/hi";
 import { BsThreeDots } from "react-icons/bs";
 
-const FirstSection = () => {
+const FirstSection = (props) => {
   return (
     <>
       <section className=" bg-light border border-1 border-secondary-subtle rounded-3 mb-3">
         <div className="bannerProfile position-relative">
-          <img
-            src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=922&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt=""
-            className="profileImg"
-          />
-          <Button className="position-absolute  bottom-50 end-0 bg-light rounded-circle d-flex justify-content-center align-items-center p-2 border border-0">
+          <img src={props.profile.data.image} alt="" className="profileImg" />
+          <Button className="position-absolute  bottom-50 end-0 bg-light rounded-circle d-flex justify-content-center align-items-center p-2 border border-0 me-3">
             <FaPen color="black" size={15} />
           </Button>
-          <Button className="position-absolute  bottom-custom-bannerProfile end-0 bg-light rounded-circle d-flex justify-content-center align-items-center p-2 border border-0 bg-transparent">
+          <Button className="position-absolute  bottom-custom-bannerProfile end-0 bg-light rounded-circle d-flex justify-content-center align-items-center p-2 border border-0 bg-transparent me-3">
             <FaPen color="black" size={15} />
           </Button>
         </div>
         {/* name and description */}
-        <Row className="container g-0 p-1">
+        <Row className="container g-0 p-2 justify-content-center">
           <Col xs={12} md={8} className="mt-custom-ProfileName">
             <div>
               <Row>
                 <Col xs={12} md={6}>
-                  <h1 className="ms-1 mb-0 fs-4">Lara Unicorno</h1>
+                  <h1 className=" mb-0 fs-4">{props.profile.data.name + " " + props.profile.data.surname}</h1>
                 </Col>
                 <Col xs={12} md={6} className="d-flex justify-content-start align-items-center">
                   <p className="m-0 fs-custom-profile-p px-1 p-Verification-badge rounded-5">{<HiOutlineCheckBadge />} Aggiungi badge di verifica</p>
                 </Col>
               </Row>
-              <p className="m-0 mt-1 lh-sm">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia suscipit architecto velit. Beatae at veniam a distinctio, earum magnam libero
-                illo? Optio explicabo, ab assumenda deserunt quos iste tempora eum?
-              </p>
-              <p className="opacity-50">Firenze</p>
+              <p className="m-0 mt-1 lh-sm">{props.profile.data.title}</p>
+              <p className="opacity-50">{props.profile.data.area}</p>
               <p className="blu-profile-p">piu di 500 collegamenti</p>
             </div>
             <Row className="g-3">

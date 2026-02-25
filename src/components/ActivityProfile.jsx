@@ -7,7 +7,7 @@ import { FaRecycle } from "react-icons/fa6";
 import { FaLocationArrow } from "react-icons/fa";
 import { FaRegCommentDots } from "react-icons/fa6";
 
-const ActivityProfile = () => {
+const ActivityProfile = (props) => {
   return (
     <>
       <section className=" bg-light border border-1 border-secondary-subtle rounded-3 container pt-2 mb-3">
@@ -27,7 +27,7 @@ const ActivityProfile = () => {
           <Col xs={12} md={5} className="border border-1 border-secondary-subtle rounded-3 p-2">
             <div className="d-flex justify-content-between">
               <p className="fw-semibold mb-0 fs-custom-m w-custom-p-activity">
-                Giulia Crepaldi <span className="fw-normal">ha diffuso questo post</span>
+                {props.profile.data.name} <span className="fw-normal">ha diffuso questo post</span>
               </p>
               <BsThreeDots size={10} />
             </div>
@@ -56,7 +56,7 @@ const ActivityProfile = () => {
           <Col xs={12} md={5} className="border border-1 border-secondary-subtle rounded-3 p-2">
             <div className="d-flex justify-content-between">
               <p className="fw-semibold mb-0 fs-custom-m w-custom-p-activity">
-                Giulia Crepaldi <span className="fw-normal">ha diffuso questo post</span>
+                {props.profile.data.name} <span className="fw-normal">ha diffuso questo post</span>
               </p>
               <BsThreeDots size={10} />
             </div>

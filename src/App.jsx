@@ -8,6 +8,7 @@ import { useState } from "react"
 import HomePage from "./pages/HomePage"
 import ProfilePage from "./pages/ProfilePage"
 import MyNavbar from "./components/MyNavbar"
+import JobsPage from "./pages/JobsPage"
 
 // redux
 import { store } from "./redux/store"
@@ -18,11 +19,12 @@ import LoadMyDefaultProfileComponent from "./components/helpers/LoadMyDefaultPro
 //import CreatePostDesktop from "./components/CreatePostDesktop";
 import ProfileAPIDemoComponent from "./components/demo/profile-api/ProfileAPI"
 import PostAPIDemoComponent from "./components/demo/post-api/PostAPI"
+import CommentAPIDemoComponent from "./components/demo/comment-api/CommentAPI"
 
 import ChangeProfileDemoComponent from "./components/demo/change-profile/ChangeProfile"
 
 function App() {
-  const [isDemoMode, setIsDemoMode] = useState(false)
+  const [isDemoMode, setIsDemoMode] = useState(true)
 
   return (
     <Provider store={store}>
@@ -37,6 +39,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/Profile" element={<ProfilePage />} />
+              <Route path="/job" element={<JobsPage />} />
             </Routes>
           </>
         )}
@@ -45,9 +48,10 @@ function App() {
       {isDemoMode && (
         <>
           {/****** START: DEMO components ******/}
-          <ProfileAPIDemoComponent />
+          {/* <ProfileAPIDemoComponent /> */}
           {/* <PostAPIDemoComponent /> */}
           {/* <ChangeProfileDemoComponent /> */}
+          <CommentAPIDemoComponent />
           {/****** END: DEMO components ********/}
         </>
       )}
