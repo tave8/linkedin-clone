@@ -1,3 +1,5 @@
+import ProfileAPI from "./profile-api/ProfileAPI"
+
 /**
  * API Helper class
  * Only static methods.
@@ -34,21 +36,44 @@ export default class APIHelper {
   }
 
   /**
-   * Get API Users.
+   * Get my profiles.
    * returns [
    *    {
-   *      name: string
+   *      apiUser: string
+   *      name: string  // legacy
+   *      firstName: string
+   *      lastName: string
+   *      imageUrl: string
    *    },
    *    ...
    * ]
    */
-  static async getAPIUsers() {
+  static async getMyProfiles() {
     const apiTokens = this.API_TOKENS
-    const users = Object.keys(apiTokens)
-    return users.map((user) => {
-      return {
-        name: user,
-      }
+    const apiUsers = Object.keys(apiTokens)
+    const myProfilePromises = apiUsers.map((apiUser) => {
+      const profileAPI = new ProfileAPI({
+        apiUser,
+      })
+      const promise = profileAPI.getMyProfile()
+      return promise
     })
+    try {
+      const myProfiles = await Promise.all(myProfilePromises)
+      return myProfiles.map((myProfile, i) => {
+        const apiUser = apiUsers[i]
+        return {
+          // deprecated, use apiUser instead
+          name: apiUser,
+          apiUser: apiUser,
+          firstName: myProfile.name,
+          lastName: myProfile.surname,
+          imageUrl: myProfile.image,
+        }
+      })
+    } catch (err) {
+      console.error(err)
+      throw new Error(`Error while fetching "myProfiles". Details: ${err}`)
+    }
   }
 }

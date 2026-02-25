@@ -37,6 +37,25 @@ profileAPI
   })
 ```
 
+### Get my profiles
+
+Giuseppe, Giorgia, Raffaele, Giulia, Franceso
+
+Promise
+
+```js
+const profileAPI = new ProfileAPI()
+
+profileAPI
+  .getMyProfiles()
+  .then((myProfiles) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
 ### Update my profile
 
 Promise
@@ -90,23 +109,6 @@ const profileAPI = new ProfileAPI()
 profileAPI
   .getMostRecentProfiles()
   .then((profiles) => {
-    // your code
-  })
-  .catch((err) => {
-    console.error(err)
-  })
-```
-
-### Get API users (Giuseppe, Giorgia, Raffaele, Giulia, Franceso)
-
-Promise
-
-```js
-const profileAPI = new ProfileAPI()
-
-profileAPI
-  .getAPIUsers()
-  .then((APIUsers) => {
     // your code
   })
   .catch((err) => {

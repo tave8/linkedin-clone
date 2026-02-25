@@ -149,8 +149,15 @@ export default class ProfileAPI extends APIHelper {
     return data
   }
 
+  /**
+   * DEPRECATED
+   */
   async getAPIUsers() {
-    return this.constructor.getAPIUsers()
+    return this.getMyProfiles()
+  }
+
+  async getMyProfiles() {
+    return this.constructor.getMyProfiles()
   }
 
   /**
