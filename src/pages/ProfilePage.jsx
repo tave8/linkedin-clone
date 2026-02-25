@@ -12,19 +12,22 @@ import Interest from "../components/Interest";
 import MyFooter from "../components/MyFooter";
 import RightSideBar from "../components/RightSideBar";
 import { Container, Row, Col } from "react-bootstrap";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const ProfilePage = () => {
+  const myProfile = useSelector((state) => state.myProfile);
   return (
     <>
       <main className="sfondo">
         <Container>
           <Row className="justify-content-center">
             <Col xs={12} md={9}>
-              <FirstSection />
+              <FirstSection profile={myProfile} />
               <AnalisiProfile />
-              <InfoProfile />
+              <InfoProfile profile={myProfile} />
               <ServicesProfile />
-              <ActivityProfile />
+              <ActivityProfile profile={myProfile} />
               {/* francesco */}
               <ExperiencesProfile />
               <EducationProfile />
