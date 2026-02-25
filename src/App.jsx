@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./App.css"
+import { useState } from "react"
 //import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 //import { Container, Row, Col, CardGroup, Card, Spinner, Alert, Button, Image, Form, ListGroup, Navbar, NavDropdown, Nav } from "react-bootstrap";
 import HomePage from "./pages/HomePage"
@@ -19,6 +20,8 @@ import PostAPIDemoComponent from "./components/demo/post-api/PostAPI"
 import ChangeProfileDemoComponent from "./components/demo/change-profile/ChangeProfile"
 
 function App() {
+  const [isDemoMode, setIsDemoMode] = useState(false)
+
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -26,18 +29,26 @@ function App() {
         {<LoadMyDefaultProfileComponent />}
         {/***** END: LOAD DEFAULT DATA ********/}
 
-        <MyNavbar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/Profile" element={<ProfilePage />} />
-        </Routes>
+        {!isDemoMode && (
+          <>
+            <MyNavbar />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/Profile" element={<ProfilePage />} />
+            </Routes>
+          </>
+        )}
       </BrowserRouter>
 
-      {/****** START: DEMO components ******/}
-      {/* <ProfileAPIDemoComponent /> */}
-      {/* <PostAPIDemoComponent /> */}
-      {/* <ChangeProfileDemoComponent /> */}
-      {/****** END: DEMO components ********/}
+      {isDemoMode && (
+        <>
+        {/****** START: DEMO components ******/}
+          {/* <ProfileAPIDemoComponent /> */}
+          {/* <PostAPIDemoComponent /> */}
+          <ChangeProfileDemoComponent />
+          {/****** END: DEMO components ********/}
+        </>
+      )}
     </Provider>
   )
 }
