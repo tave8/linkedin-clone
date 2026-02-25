@@ -6,7 +6,7 @@ const JobsPage = function () {
   const [query, setQuery] = useState("");
   const [job, setjob] = useState([]);
 
-  const URL = `https://strive-benchmark.herokuapp.com/api/jobs?search=${query} `;
+  const URL = `https://strive-benchmark.herokuapp.com/api/jobs?search=${query}`;
 
   useEffect(() => {
     fetch(URL)
@@ -90,7 +90,7 @@ const JobsPage = function () {
             </Col>
           )}
 
-          {job.map((j) => (
+          {job.slice(0, 40).map((j) => (
             <Col xs={12} key={j._id}>
               <Card className="border shadow-sm">
                 <Card.Body className="p-4">
@@ -116,7 +116,7 @@ const JobsPage = function () {
                               {j.job_type}
                             </Badge>
                           </div>
-                          <span className="fw-semibold">{j.salary}</span>
+                          <span className="fw-semibold">{j.salary ? j.salary : "Non specificato"}</span>
                           <Button variant="outline-dark" size="sm">
                             Candidati →
                           </Button>
