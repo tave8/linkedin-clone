@@ -1,6 +1,29 @@
 import { Card, Button } from "react-bootstrap";
-
+import { useEffect, useState } from "react";
+import ProfileAPI from "../assets/js/profile-api/ProfileAPI";
 function SidebarRight() {
+  const [user, setuser] = useState([]);
+  const [loading, setloading] = useState(true);
+  useEffect(() => {
+    const profileAPI = new ProfileAPI();
+
+    profileAPI
+      .getAPIUsers()
+      .then((users) => {
+        console.log(users);
+        setuser(users);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setloading(false);
+      });
+  }, []);
+
+  if (loading) return <p>....LOADING</p>;
+
+  //return
   return (
     <>
       <div className="d-none d-lg-block sidebar-d-scroll" style={{ position: "sticky", top: "80px" }}>
@@ -45,54 +68,27 @@ function SidebarRight() {
         <Card className="mb-3 shadow-sm">
           <Card.Body>
             <Card.Title className="fw-bold">I tuoi Account</Card.Title>
-
-            <div className="d-flex align-items-center mb-3">
-              <img
-                src="https://i.pinimg.com/236x/59/32/68/59326808847921f7118ea8fd2d32fa0f.jpg"
-                alt="profile"
-                className="rounded-circle me-2"
-                style={{ width: "50px", height: "50px", objectFit: "cover" }}
-              />
-              <div className="flex-grow-1">
-                <div className="fw-bold">Mario Rossi</div>
-                <div className="text-muted small">Frontend Developer</div>
-                <Button size="sm" variant="link" className="mt-1 border border-secondary text-muted text-decoration-none">
-                  Collegati
-                </Button>
-              </div>
-            </div>
-
-            <div className="d-flex align-items-center mb-3">
-              <img
-                src="https://i.pinimg.com/236x/59/32/68/59326808847921f7118ea8fd2d32fa0f.jpg"
-                alt="profile"
-                className="rounded-circle me-2"
-                style={{ width: "50px", height: "50px", objectFit: "cover" }}
-              />
-              <div className="flex-grow-1">
-                <div className="fw-bold">Giulia Bianchi</div>
-                <div className="text-muted small">Designer</div>
-                <Button size="sm" variant="link" className="mt-1 border border-secondary text-muted text-decoration-none">
-                  Collegati
-                </Button>
-              </div>
-            </div>
-
-            <div className="d-flex align-items-center">
-              <img
-                src="https://i.pinimg.com/236x/59/32/68/59326808847921f7118ea8fd2d32fa0f.jpg"
-                alt="profile"
-                className="rounded-circle me-2"
-                style={{ width: "50px", height: "50px", objectFit: "cover" }}
-              />
-              <div className="flex-grow-1">
-                <div className="fw-bold">Luca Ferrari</div>
-                <div className="text-muted small">Backend Developer</div>
-                <Button size="sm" variant="link" className="mt-1 border border-secondary text-muted text-decoration-none">
-                  Collegati
-                </Button>
-              </div>
-            </div>
+            {user.map((us) => {
+              return (
+                <div key={us._id} className="d-flex align-items-center mb-3">
+                  <img
+                    src={us.image || "https://i.pinimg.com/236x/59/32/68/59326808847921f7118ea8fd2d32fa0f.jpg"}
+                    alt="profile"
+                    className="rounded-circle me-2"
+                    style={{ width: "50px", height: "50px", objectFit: "cover" }}
+                  />
+                  <div className="flex-grow-1">
+                    <div className="fw-bold">
+                      {us.name} {us.surname}
+                    </div>
+                    <div className="text-muted small">{us.title}</div>
+                    <Button size="sm" variant="link" className="mt-1 border border-secondary text-muted text-decoration-none">
+                      Collegati
+                    </Button>
+                  </div>
+                </div>
+              );
+            })}
           </Card.Body>
         </Card>
 
@@ -145,62 +141,29 @@ function SidebarRight() {
         <Card className="mb-3 shadow-sm">
           <Card.Body>
             <Card.Title className="fw-bold" style={{ fontSize: "14px" }}>
-              Persone che potresti conoscere
+              I tuoi Account
             </Card.Title>
-
-            <div className="d-flex align-items-center mb-3">
-              <img
-                src="https://i.pinimg.com/236x/59/32/68/59326808847921f7118ea8fd2d32fa0f.jpg"
-                alt="profile"
-                className="rounded-circle me-2"
-                style={{ width: "45px", height: "45px", objectFit: "cover" }}
-              />
-              <div className="flex-grow-1">
-                <div className="fw-bold" style={{ fontSize: "13px" }}>
-                  Mario Rossi
+            {user.map((us) => {
+              return (
+                <div key={us._id} className="d-flex align-items-center mb-3">
+                  <img
+                    src={us.image || "https://i.pinimg.com/236x/59/32/68/59326808847921f7118ea8fd2d32fa0f.jpg"}
+                    alt="profile"
+                    className="rounded-circle me-2"
+                    style={{ width: "45px", height: "45px", objectFit: "cover" }}
+                  />
+                  <div className="flex-grow-1">
+                    <div className="fw-bold" style={{ fontSize: "13px" }}>
+                      {us.name} {us.surname}
+                    </div>
+                    <div className="text-muted small">{us.title}</div>
+                    <Button size="sm" variant="link" className="mt-1 border border-secondary text-muted text-decoration-none px-2 py-0">
+                      Collegati
+                    </Button>
+                  </div>
                 </div>
-                <div className="text-muted small">Frontend Developer</div>
-                <Button size="sm" variant="link" className="mt-1 border border-secondary text-muted text-decoration-none px-2 py-0">
-                  Collegati
-                </Button>
-              </div>
-            </div>
-
-            <div className="d-flex align-items-center mb-3">
-              <img
-                src="https://i.pinimg.com/236x/59/32/68/59326808847921f7118ea8fd2d32fa0f.jpg"
-                alt="profile"
-                className="rounded-circle me-2"
-                style={{ width: "45px", height: "45px", objectFit: "cover" }}
-              />
-              <div className="flex-grow-1">
-                <div className="fw-bold" style={{ fontSize: "13px" }}>
-                  Giulia Bianchi
-                </div>
-                <div className="text-muted small">Designer</div>
-                <Button size="sm" variant="link" className="mt-1 border border-secondary text-muted text-decoration-none px-2 py-0">
-                  Collegati
-                </Button>
-              </div>
-            </div>
-
-            <div className="d-flex align-items-center">
-              <img
-                src="https://i.pinimg.com/236x/59/32/68/59326808847921f7118ea8fd2d32fa0f.jpg"
-                alt="profile"
-                className="rounded-circle me-2"
-                style={{ width: "45px", height: "45px", objectFit: "cover" }}
-              />
-              <div className="flex-grow-1">
-                <div className="fw-bold" style={{ fontSize: "13px" }}>
-                  Luca Ferrari
-                </div>
-                <div className="text-muted small">Backend Developer</div>
-                <Button size="sm" variant="link" className="mt-1 border border-secondary text-muted text-decoration-none px-2 py-0">
-                  Collegati
-                </Button>
-              </div>
-            </div>
+              );
+            })}
           </Card.Body>
         </Card>
 

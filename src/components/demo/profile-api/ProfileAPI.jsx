@@ -3,6 +3,7 @@ import GetProfileById from "./GetProfileById"
 import GetProfiles from "./GetProfiles"
 import GetMostRecentProfiles from "./GetMostRecentProfiles"
 import UpdateMyProfile from "./UpdateMyProfile"
+import GetAPIUsers from "./GetAPIUsers"
 
 const ProfileAPIDemo = () => {
   return (
@@ -13,6 +14,7 @@ const ProfileAPIDemo = () => {
       {/* <UpdateMyProfile /> */}
       {/* <GetProfiles /> */}
       {/* <GetMostRecentProfiles /> */}
+      <GetAPIUsers />
     </>
   )
 }

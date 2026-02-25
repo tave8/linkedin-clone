@@ -1,7 +1,29 @@
+import { useState } from "react";
 import { Calendar3, Plus, Image, X } from "react-bootstrap-icons";
 import { Button, Offcanvas, Stack } from "react-bootstrap";
+import PostAPI from "../assets/js/post-api/PostAPI";
+import { useSelector } from "react-redux";
 
 function PublishOffcanvas({ show, handleClose, handleShow, ...props }) {
+  const [text, setText] = useState("");
+  const myProfile = useSelector((state) => state.myProfile);
+
+  const handlePublish = () => {
+    const postAPI = new PostAPI();
+    const newPostFields = { text };
+
+    postAPI
+      .addPost(newPostFields)
+      .then((post) => {
+        console.log("Post pubblicato:", post);
+        setText("");
+        handleClose();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   return (
     <>
       <Button
@@ -34,17 +56,24 @@ function PublishOffcanvas({ show, handleClose, handleShow, ...props }) {
               <X size={35} color="black" />
             </div>
 
-            <img src="/logo-linkedin.png" width={32} height={32} className="rounded-circle border" alt="profile" />
+            <img src={myProfile.data.image} width={32} height={32} className="rounded-circle border" alt="profile" style={{ objectFit: "cover" }} />
           </div>
 
-          <Button variant="outline-secondary" size="sm" className="rounded-pill px-3 fw-bold" disabled>
+          <Button variant="outline-primary" size="sm" className="rounded-pill px-3 fw-bold" disabled={!text.trim()} onClick={handlePublish}>
             Pubblica
           </Button>
         </Offcanvas.Header>
 
         <Offcanvas.Body className="d-flex flex-column">
           <div className="flex-grow-1">
-            <textarea className="form-control border-0 shadow-none p-0 fs-5" placeholder="Di cosa vorresti parlare?" rows="5" style={{ resize: "none" }} />
+            <textarea
+              className="form-control border-0 shadow-none p-0 fs-5"
+              placeholder="Di cosa vorresti parlare?"
+              rows="5"
+              style={{ resize: "none" }}
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+            />
           </div>
 
           <div className="py-3 border-top">

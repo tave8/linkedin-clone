@@ -137,6 +137,10 @@ export default class ProfileAPI extends APIHelper {
     return data
   }
 
+  async getAPIUsers() {
+    return this.constructor.getAPIUsers()
+  }
+
   /**
    * Get the default + (optional) custom fetch config.
    */

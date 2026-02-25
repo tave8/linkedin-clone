@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 function MyNavbar() {
   const [width, setWidth] = useState(window.innerWidth);
-  const isMobile = width < 768;
+  const isMobile = width <= 768;
 
   useEffect(() => {
     const updateSize = () => {

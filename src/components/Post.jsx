@@ -1,12 +1,50 @@
 import { Card, Container, Row, Col, Image, Button, Dropdown } from "react-bootstrap"
+import { useState } from "react"
+import PostComments from "./PostComments"
 
-const Post = () => {
+// qui perche se no ogni volta che renderizza cambiano
+const generateRandomStats = () => {
+  return {
+    likes: Math.floor(Math.random() * 500) + 50,
+    comments: Math.floor(Math.random() * 100),
+    shares: Math.floor(Math.random() * 30),
+  }
+}
+
+const Post = (props) => {
+  const [liked, setLiked] = useState(false)
+
   const handleClose = () => {
-    console.log("Hai cliccato X (chiudi post)")
+    props.onClose(props.post._id)
   }
 
   const handleMenuAction = (action) => {
     console.log("Menu action:", action)
+  }
+
+  const [stats, setStats] = useState(generateRandomStats())
+  const handleLike = () => {
+    const newLiked = !liked
+    setLiked(newLiked)
+
+    setStats((prev) => ({
+      ...prev,
+      likes: newLiked ? prev.likes + 1 : prev.likes - 1,
+    }))
+  }
+
+  const [expanded, setExpanded] = useState(false)
+
+  const words = props.post.text.split(" ")
+  const isLong = words.length > 12
+  const shortText = words.slice(0, 12).join(" ")
+
+  const [showTranslationMsg, setShowTranslationMsg] = useState(false)
+
+  const [showComments, setShowComments] = useState(false)
+
+  const handleToggleComments = () => {
+    setShowComments((prev) => !prev)
   }
 
   return (
@@ -17,13 +55,21 @@ const Post = () => {
           <Row className="align-items-start g-2 px-3">
             {/* Avatar */}
             <Col xs="auto">
-              <Image src="https://placecats.com/200/200" roundedCircle width={50} height={50} alt="Avatar" />
+              <Image
+                src={props.post.image || "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"}
+                roundedCircle
+                width={50}
+                height={50}
+                alt="Avatar"
+              />
             </Col>
 
             {/* Nome + info */}
             <Col>
-              <div className="fw-semibold lh-sm d-flex align-items-center gap-2">
-                <span>Nikolai Golos</span>
+              <div className="fw-semibold lh-sm d-flex align-items-center gap-2 ">
+                <span>
+                  {props.post.user.name} {props.post.user.surname}{" "}
+                </span>
 
                 <i className="bi bi-linkedin text-warning small"></i>
 
@@ -31,14 +77,14 @@ const Post = () => {
 
                 <span className="text-muted small">1°</span>
               </div>
-              <div className="text-muted small lh-sm">Product & Growth at Fluently AI ..</div>
+              <div className="text-muted small lh-sm">{props.post.user.title}</div>
               <div>
                 <a href="#" className="text-primary small fw-semibold text-decoration-none">
                   Visita il mio sito web
                 </a>
               </div>
-              <div className="text-muted small d-flex align-items-center gap-1">
-                <span>2g</span>
+              <div className="text-muted small d-flex align-items-center gap-1 post-meta">
+                <span>{props.post.createdAtForUI}</span>
                 <span>• Modificato</span>
                 <span>•</span>
                 <i className="bi bi-globe2"></i>
@@ -58,7 +104,7 @@ const Post = () => {
                     Salva
                   </Dropdown.Item>
 
-                  <Dropdown.Item onClick={() => handleMenuAction("nascondi")}>
+                  <Dropdown.Item onClick={() => props.onClose(props.post._id)}>
                     <i className="bi bi-eye-slash me-2"></i>
                     Nascondi
                   </Dropdown.Item>
@@ -82,15 +128,19 @@ const Post = () => {
           {/* TESTO */}
           <Row className="mt-3 px-3 lh-5">
             <Col>
-              <div>
-                Stop paying for apps in the AppStore 🔥
-                <br />
-                With AI you can recreate ~90% of App Store apps.
-              </div>
+              <div>{expanded || !isLong ? props.post.text : shortText + "..."}</div>
 
-              <div className="text-muted small fw-semibold mt-2" style={{ cursor: "pointer" }}>
+              {isLong && (
+                <div className="text-muted small fw-semibold mt-2" style={{ cursor: "pointer" }} onClick={() => setExpanded((prev) => !prev)}>
+                  {expanded ? "Mostra meno" : "Mostra altro"}
+                </div>
+              )}
+
+              <div className="text-muted small fw-semibold mt-2" style={{ cursor: "pointer" }} onClick={() => setShowTranslationMsg((prev) => !prev)}>
                 Mostra traduzione
               </div>
+
+              {showTranslationMsg && <div className="mt-2 small text-primary"> Sorry, I don't speak English yet!😁</div>}
             </Col>
           </Row>
 
@@ -98,7 +148,7 @@ const Post = () => {
           <Row className="mt-3 g-0">
             <Col className="p-0">
               <div className=" overflow-hidden">
-                <Image src="https://placecats.com/600/400" alt="Media" fluid className="px-0  w-100 post-media" />
+                <Image src={props.post.image || "https://placecats.com/600/400"} alt="Media" fluid className="px-0 w-100 post-media" />
               </div>
             </Col>
           </Row>
@@ -121,23 +171,30 @@ const Post = () => {
                   </div>
                 </div>
 
-                <span className="text-muted ">256</span>
+                <span className="text-muted ">{stats.likes}</span>
               </div>
             </Col>
             <Col xs={8} className="text-muted small text-end ms-auto ">
-              86 commenti <span className="mx-1">•</span> 13 diffusioni post
+              {stats.comments} commenti
+              <span className="mx-1">•</span> {stats.shares} diffusioni post
             </Col>
           </Row>
 
           <hr className="my-2" />
 
           {/* ACTION BAR */}
-          <Row className="g-0 align-items-center mx-3 flex-nowrap">
+          <Row className="g-0 align-items-center mt-2 flex-nowrap mb-2 ms-2 action-bar">
             <Col xs="auto" className="pe-2">
               <Dropdown align="start">
                 <Dropdown.Toggle as={Button} variant="link" className="p-0 text-decoration-none avatar-toggle custom-toggle" id="avatar-menu">
                   <div className="d-flex align-items-center">
-                    <Image src="https://placecats.com/50/50" roundedCircle width={32} height={32} alt="User" />
+                    <Image
+                      src={props.post.image || "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"}
+                      roundedCircle
+                      width={32}
+                      height={32}
+                      alt="User"
+                    />
                     <i className="bi bi-caret-down-fill ms-1 small text-muted"></i>
                   </div>
                 </Dropdown.Toggle>
@@ -160,18 +217,22 @@ const Post = () => {
             </Col>
             <Col>
               <Button
+                onClick={handleLike}
                 variant="link"
-                className=" action-btn w-100 text-muted d-flex flex-column flex-sm-row align-items-center justify-content-center gap-1 text-decoration-none"
+                className={`action-btn w-100 d-flex flex-column flex-sm-row align-items-center justify-content-center gap-1 text-decoration-none ${
+                  liked ? "text-primary" : "text-muted"
+                }`}
               >
-                <i className="bi bi-hand-thumbs-up"></i>
-                <span className="small fw-semibold ">Consiglia</span>
+                <i className={`bi ${liked ? "bi-hand-thumbs-up-fill" : "bi-hand-thumbs-up"}`}></i>
+                <span className="small fw-semibold">Consiglia</span>
               </Button>
             </Col>
 
             <Col>
               <Button
                 variant="link"
-                className=" action-btn w-100 text-muted d-flex flex-column flex-sm-row align-items-center justify-content-center gap-1 text-decoration-none"
+                onClick={handleToggleComments}
+                className="action-btn w-100 text-muted d-flex flex-column flex-sm-row align-items-center justify-content-center gap-1 text-decoration-none"
               >
                 <i className="bi bi-chat"></i>
                 <span className="small fw-semibold">Commenta</span>
@@ -191,13 +252,20 @@ const Post = () => {
             <Col>
               <Button
                 variant="link"
-                className=" action-btn w-100 text-muted d-flex flex-column flex-sm-row align-items-center justify-content-center gap-1 text-decoration-none"
+                className=" action-btn w-100 text-muted d-flex flex-column flex-sm-row align-items-center justify-content-center gap-1 text-decoration-none "
               >
                 <i className="bi bi-send"></i>
                 <span className="small fw-semibold">Invia</span>
               </Button>
             </Col>
           </Row>
+          {showComments && (
+            <Row className="g-0">
+              <Col xs={12}>
+                <PostComments />
+              </Col>
+            </Row>
+          )}
         </Container>
       </Card.Body>
     </Card>
