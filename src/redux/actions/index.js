@@ -18,6 +18,15 @@ export const setMyProfileApiUserAndLoadProfileGlobally = (apiUser) => {
   }
 }
 
+export const setMyProfileDataGlobally = (newProfileData) => {
+  return async (dispatch, getState) => {
+    dispatch({
+      type: SET_MY_PROFILE_DATA,
+      payload: newProfileData,
+    })
+  }
+}
+
 export const loadMyDefaultProfileGlobally = () => {
   return async (dispatch, getState) => {
     const apiUser = getState().myProfile.apiUser
