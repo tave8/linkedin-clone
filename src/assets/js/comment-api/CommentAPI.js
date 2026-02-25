@@ -155,106 +155,65 @@ export default class CommentAPI extends APIHelper {
   }
 
   /**
-   * Get post by ID.
-   */
-  //   async getPostById(postId) {
-  //     if (!postId) {
-  //       throw new Error(`Post id is required when getting one remote profile. Input postId is "${postId}"`)
-  //     }
-  //     const url = this.constructor.API_URL_POSTS + `/${postId}`
-  //     const config = this.getFetchConfig()
-  //     const resp = await fetch(url, config)
-  //     try {
-  //       if (!resp.ok) {
-  //         throw new Error(`Error during fetch. Response status code: ${resp.status}`)
-  //       }
-  //     } catch (err) {
-  //       console.error(resp)
-  //       throw err
-  //     }
-
-  //     const contentType = resp.headers.get("content-type")
-
-  //     // response body is json
-  //     if (contentType && contentType.includes("application/json")) {
-  //       const data = await resp.json()
-
-  //       if (data == null) {
-  //         throw new Error(`Post with ID "${postId}" was not found. Response status code: ${resp.status}`)
-  //       }
-
-  //       return this.constructor.prettifyPost(data)
-  //     }
-
-  //     // response body is text
-  //     const text = await resp.text()
-
-  //     // if the response text is "ID non valido": ERROR
-  //     if (text.trim().toLowerCase() == "id non valido") {
-  //       throw new Error(`The API server said that this ID is not valid. Response status code: ${resp.status}`)
-  //     }
-
-  //     throw new Error(`This error was not caught. Response status code: ${resp.status}`)
-  //   }
-
-  /**
-   * Update post by ID.
+   * Update comment by ID.
    *
-   * NOTE: Request can take indefinitely because of (supposed)
-   * server not responding.
-   * Example:
-   *  ID: 699d9dc1b5582000158c3433 --> server doesn't respond
-   *  an existing ID: server responds
+   * newComment {
+   *    comment: "<my new comment>"
+   * }
    */
-  //   async updatePostById(postId, newPost) {
-  //     if (!postId) {
-  //       throw new Error(`Post id is required when getting one remote profile. Input postId is "${postId}"`)
-  //     }
-  //     if (!this.constructor.isObject(newPost)) {
-  //       throw new Error(`New profile data is required to be a valid JS object. It is of type "${typeof newPost}" instead.`)
-  //     }
-  //     const url = this.constructor.API_URL_POSTS + `/${postId}`
-  //     const moreConfig = {
-  //       method: "PUT",
-  //       body: JSON.stringify(newPost),
-  //     }
-  //     const config = this.getFetchConfig(moreConfig)
+  async updateCommentById(commentId, newComment) {
+    if (!commentId) {
+      throw new Error(`Comment id is required when getting one comment. Input commentId is "${commentId}"`)
+    }
+    if (!this.constructor.isObject(newComment)) {
+      throw new Error(`New comment data is required to be a valid JS object. It is of type "${typeof newComment}" instead.`)
+    }
+    // required "comment" property
+    if (!newComment.comment) {
+      throw new Error(`New comment is required to have "comment" property. "${JSON.stringify(newComment)}" given`)
+    }
+    const url = this.constructor.API_URL_COMMENTS + `/${commentId}`
+    const moreConfig = {
+      method: "PUT",
+      body: JSON.stringify(newComment),
+    }
+    const config = this.getFetchConfig(moreConfig)
 
-  //     const resp = await fetch(url, config)
+    const resp = await fetch(url, config)
 
-  //     try {
-  //       if (!resp.ok) {
-  //         throw new Error(`Error during fetch. Response status code: ${resp.status}`)
-  //       }
-  //     } catch (err) {
-  //       console.error(resp)
-  //       throw err
-  //     }
+    try {
+      if (!resp.ok) {
+        throw new Error(`Error during fetch. Response status code: ${resp.status}`)
+      }
+    } catch (err) {
+      console.error(resp)
+      throw err
+    }
 
-  //     const contentType = resp.headers.get("content-type")
+    const contentType = resp.headers.get("content-type")
 
-  //     // response body is json
-  //     if (contentType && contentType.includes("application/json")) {
-  //       const data = await resp.json()
+    // response body is json
+    if (contentType && contentType.includes("application/json")) {
+      const data = await resp.json()
 
-  //       // if (data == null) {
-  //       //   throw new Error(`Post with ID "${postId}" was not found. Response status code: ${resp.status}`)
-  //       // }
+      // if (data == null) {
+      //   throw new Error(`Post with ID "${postId}" was not found. Response status code: ${resp.status}`)
+      // }
 
-  //       // success. return updated post
-  //       return this.constructor.prettifyPost(data)
-  //     }
+      // success. return updated post
+      return this.constructor.prettifyComment(data)
+    }
 
-  //     // response body is text
-  //     const text = await resp.text()
+    // response body is text
+    const text = await resp.text()
 
-  //     // if the response text is "ID non valido": ERROR
-  //     if (text.trim().toLowerCase() == "id non valido") {
-  //       throw new Error(`The API server said that this ID is not valid. Response status code: ${resp.status}`)
-  //     }
+    // if the response text is "ID non valido": ERROR
+    if (text.trim().toLowerCase() == "id non valido") {
+      throw new Error(`The API server said that this ID is not valid. Response status code: ${resp.status}`)
+    }
 
-  //     throw new Error(`This error was not caught. Response status code: ${resp.status}`)
-  //   }
+    throw new Error(`This error was not caught. Response status code: ${resp.status}`)
+  }
 
   /**
    * Delete comment by ID.
