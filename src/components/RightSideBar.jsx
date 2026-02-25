@@ -1,27 +1,27 @@
-import { Card, Button } from "react-bootstrap";
-import { useEffect, useState } from "react";
-import ProfileAPI from "../assets/js/profile-api/ProfileAPI";
+import { Card, Button } from "react-bootstrap"
+import { useEffect, useState } from "react"
+import ProfileAPI from "../assets/js/profile-api/ProfileAPI"
 function SidebarRight() {
-  const [user, setuser] = useState([]);
-  const [loading, setloading] = useState(true);
+  const [user, setuser] = useState([])
+  const [loading, setloading] = useState(true)
   useEffect(() => {
-    const profileAPI = new ProfileAPI();
+    const profileAPI = new ProfileAPI()
 
     profileAPI
       .getAPIUsers()
       .then((users) => {
-        console.log(users);
-        setuser(users);
+        // console.log(users);
+        setuser(users)
       })
       .catch((err) => {
-        console.error(err);
+        console.error(err)
       })
       .finally(() => {
-        setloading(false);
-      });
-  }, []);
+        setloading(false)
+      })
+  }, [])
 
-  if (loading) return <p>....LOADING</p>;
+  if (loading) return <p>....LOADING</p>
 
   //return
   return (
@@ -87,7 +87,7 @@ function SidebarRight() {
                     </Button>
                   </div>
                 </div>
-              );
+              )
             })}
           </Card.Body>
         </Card>
@@ -162,7 +162,7 @@ function SidebarRight() {
                     </Button>
                   </div>
                 </div>
-              );
+              )
             })}
           </Card.Body>
         </Card>
@@ -181,7 +181,7 @@ function SidebarRight() {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default SidebarRight;
+export default SidebarRight

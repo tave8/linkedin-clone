@@ -1,11 +1,69 @@
 import { Form, Button, Image, Row, Col, Dropdown } from "react-bootstrap"
+import CommentAPI from "../assets/js/comment-api/CommentAPI"
+import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
 
-const PostComments = () => {
+const PostComments = (props) => {
+  const [comments, setComments] = useState([]) //PRENDO
+  const [newComment, setNewComment] = useState("") // METTO
+
+  const myProfile = useSelector((state) => state.myProfile) //per foto profilo redux
+
+  useEffect(() => {
+    // PER PRENDERE
+    const commentAPI = new CommentAPI()
+    // console.log(commentAPI)
+
+    commentAPI
+      .getMostRecentCommentsOfPost(props.postId)
+      .then((commentsFromAPI) => {
+        setComments(commentsFromAPI)
+        console.log(commentsFromAPI)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }, [props.postId])
+
+  // FINE PRENDERE
+
+  //PER METTERE
+
+  const handleAddComment = (e) => {
+    e.preventDefault()
+
+    const commentAPI = new CommentAPI()
+
+    const newCommentFields = {
+      comment: newComment,
+      postId: props.postId,
+    }
+
+    commentAPI
+      .addComment(newCommentFields)
+      .then((createdComment) => {
+        // AGGIUNGO DA FUNZIONE GIUSEPPE PER POTER AGGIORNARE LA LISTA
+        setComments((prev) => [createdComment, ...prev])
+        setNewComment("")
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }
+
   return (
     <div className="px-3 pb-3 mt-2">
       {/* INPUT COMMENTO */}
       <div className="position-relative mb-3">
-        <Form.Control type="text" placeholder="Aggiungi un commento..." className="rounded-pill pe-5 comment-input" />
+        <form onSubmit={handleAddComment} className="position-relative mb-3">
+          <Form.Control
+            type="text"
+            placeholder="Aggiungi un commento..."
+            className="rounded-pill  comment-input"
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+          />
+        </form>
         <div className="position-absolute top-50 end-0 translate-middle-y d-flex align-items-center me-3 gap-2">
           <i className="bi bi-emoji-smile text-muted"></i>
           <i className="bi bi-image text-muted"></i>
@@ -18,68 +76,69 @@ const PostComments = () => {
       </div>
 
       {/* COMMENTO HEADER*/}
-      <div className="mt-3">
-        {/* ROW 1: Avatar | Info | Azioni */}
-        <Row className="align-items-start g-2 flex-nowrap comment-head">
-          {/* Avatar */}
-          <Col xs="auto">
-            <Image src="https://placecats.com/80/80" roundedCircle width={40} height={40} alt="Avatar" />
-          </Col>
+      {comments.map((comment) => (
+        <div className="mt-3" key={comment._id}>
+          <Row className="align-items-start g-2 flex-nowrap comment-head">
+            <Col xs="auto">
+              <Image
+                src={myProfile.data?.image || "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"}
+                roundedCircle
+                width={40}
+                height={40}
+                alt="Avatar"
+              />
+            </Col>
 
-          {/* Info */}
-          <Col className="min-w-0">
-            <div className="fw-semibold lh-sm d-flex align-items-center gap-2 flex-wrap">
-              <span className="text-truncate small">Fabio Fusi</span>
-              <i className="bi bi-linkedin text-warning small"></i>
-              <span className="text-muted small">• 2°</span>
-            </div>
+            <Col className="min-w-0">
+              <div className="fw-semibold lh-sm d-flex align-items-center gap-2 flex-wrap mb-1">
+                <span className="text-truncate comment-author"> {comment.author?.split("@")[0]}</span>
+                <i className="bi bi-linkedin text-warning small"></i>
+                <span className="text-muted small">• 2°</span>
+              </div>
 
-            <div className="text-muted small lh-sm text-truncate">Ti guido …</div>
-          </Col>
+              <div className="text-muted  lh-sm text-truncate comment-date">{comment.createdAtForUI}</div>
+            </Col>
 
-          {/* DX tempo e dropdown */}
-          <Col xs="auto" className="d-flex align-items-start ms-auto flex-shrink-0">
-            <div className="d-flex align-items-center gap-2">
-              <span className="text-muted small text-nowrap">3 mesi</span>
+            <Col xs="auto" className="d-flex align-items-start ms-auto flex-shrink-0">
+              <div className="d-flex align-items-center gap-2">
+                <Dropdown align="end">
+                  <Dropdown.Toggle as={Button} variant="link" className="p-0 text-muted no-caret custom-toggle">
+                    <i className="bi bi-three-dots"></i>
+                  </Dropdown.Toggle>
 
-              <Dropdown align="end">
-                <Dropdown.Toggle as={Button} variant="link" className="p-0 text-muted no-caret custom-toggle">
-                  <i className="bi bi-three-dots"></i>
-                </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item>Segnala</Dropdown.Item>
+                    <Dropdown.Item>Nascondi</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
+            </Col>
+          </Row>
 
-                <Dropdown.Menu>
-                  <Dropdown.Item>Segnala</Dropdown.Item>
-                  <Dropdown.Item>Nascondi</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </div>
-          </Col>
-        </Row>
+          <Row className=" ps-2 smallmargin2">
+            <Col className="min-w-0">
+              <div className="small mb-2">{comment.comment}</div>
 
-        {/* Testo commento + azioni sotto  */}
-        <Row className="my-2 ms-4 ps-2">
-          <Col className="min-w-0">
-            <div className="small mb-3">Ottimo promemoria. Le regole cambiano, e non conoscerle non ti protegge dalle conseguenze…</div>
+              <div className="d-flex flex-wrap align-items-center gap-2 text-muted small">
+                <span className="fw-semibold" role="button">
+                  Consiglia
+                </span>
 
-            <div className="d-flex flex-wrap align-items-center gap-2  text-muted small">
-              <span className="fw-semibold" role="button">
-                Consiglia
-              </span>
+                <span>•</span>
 
-              <span>•</span>
+                <span className="d-flex align-items-center gap-1">
+                  <i className="bi bi-hand-thumbs-up"></i>
+                  <span>3</span>
+                </span>
 
-              <span className="d-flex align-items-center gap-1">
-                <i className="bi bi-hand-thumbs-up "></i>
-                <span>9</span>
-              </span>
-
-              <span className="fw-semibold" role="button">
-                Rispondi
-              </span>
-            </div>
-          </Col>
-        </Row>
-      </div>
+                <span className="fw-semibold" role="button">
+                  Rispondi
+                </span>
+              </div>
+            </Col>
+          </Row>
+        </div>
+      ))}
     </div>
   )
 }

@@ -262,7 +262,7 @@ const Post = (props) => {
           {showComments && (
             <Row className="g-0">
               <Col xs={12}>
-                <PostComments />
+                <PostComments postId={props.post._id} />
               </Col>
             </Row>
           )}

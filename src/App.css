@@ -130,6 +130,23 @@ body {
   border-radius: 12px;
 }
 
+.comment-input.form-control {
+  padding-right: 4.5rem;
+} /* se no scritta sotto icone */
+
+.comment-author {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.comment-date {
+  font-size: 0.75rem;
+}
+
+.smallmargin2 {
+  margin-left: 1.68rem;
+}
+
 @media (max-width: 576px) {
   .comment-head .small {
     font-size: 0.75rem;

@@ -19,7 +19,7 @@ const HomePage = () => {
     postAPI
       .getMostRecentPosts()
       .then((posts) => {
-        console.log("posts:", posts)
+        // console.log("posts:", posts)
         setPosts(posts) // salvo
       })
       .catch((err) => {
