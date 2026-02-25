@@ -1,5 +1,6 @@
 import GetComments from "./GetComments"
 import GetMostRecentCommentsOfPost from "./GetMostRecentCommentsOfPost"
+import AddComment from "./AddComment"
 
 const CommentAPIDemo = () => {
   return (
@@ -7,6 +8,7 @@ const CommentAPIDemo = () => {
       {/* comment/uncomment the components you're interested in */}
       {/* <GetComments /> */}
       <GetMostRecentCommentsOfPost />
+      <AddComment />
     </>
   )
 }

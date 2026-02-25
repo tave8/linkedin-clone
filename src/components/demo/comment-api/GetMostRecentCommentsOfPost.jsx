@@ -7,7 +7,7 @@ const GetMostRecentCommentsOfPost = () => {
 
   useEffect(() => {
     const commentAPI = new CommentAPI()
-    const postId = "699d8e46b5582000158c3420"
+    const postId = "699efe332c4b8b00151ab725"
 
     commentAPI
       .getMostRecentCommentsOfPost(postId)
@@ -30,7 +30,7 @@ const GetMostRecentCommentsOfPost = () => {
             return (
               <div key={i}>
                 <p>
-                  {comment.comment} - AUTHOR: {comment.author} - ELEMENT ID: {comment.elementId}
+                  {comment.comment} - AUTHOR: {comment.author} - POST ID: {comment.elementId}
                 </p>
               </div>
             )

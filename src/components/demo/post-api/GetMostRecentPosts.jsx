@@ -7,7 +7,6 @@ const GetMostRecentPosts = () => {
 
   useEffect(() => {
     const postAPI = new PostAPI()
-    // console.log(postAPI)
     postAPI
       .getMostRecentPosts()
       .then((posts) => {

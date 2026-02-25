@@ -17,6 +17,10 @@ export default class CommentAPI extends APIHelper {
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OThjOTRkMTU0NmZiMDAwMTU5NmY0ODIiLCJpYXQiOjE3NzIwMTc0NjEsImV4cCI6MTc3MzIyNzA2MX0.JD29kFlFDQEj61IAhlyEEtHaba6uinMX5MlnPmSBok0",
     giulia:
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTllZTZkNTJjNGI4YjAwMTUxYWI3MDYiLCJpYXQiOjE3NzIwMjE0NjEsImV4cCI6MTc3MzIzMTA2MX0.-0KjluIwqH1o-neMo7j1NZ61bxMH_H6e0ODK3nH2pUQ",
+    raffaele:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTllZmJiODJjNGI4YjAwMTUxYWI3MWQiLCJpYXQiOjE3NzIwMjY4MDgsImV4cCI6MTc3MzIzNjQwOH0.K3v__EInY4z7r_7buc8PnSNrY6mPhf4-2xNILIpdAoY",
+    francesco:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTllZjdlNzJjNGI4YjAwMTUxYWI3MTkiLCJpYXQiOjE3NzIwMjU4MzEsImV4cCI6MTc3MzIzNTQzMX0.dAjkghsfXntRsNE9cITTxeKc6RcXf1Yv0rK6XjqcgWI",
   }
 
   /**
@@ -28,6 +32,62 @@ export default class CommentAPI extends APIHelper {
     this.constructor.verifyIfExistsApiUser(finalParams.apiUser)
 
     this.apiUser = finalParams.apiUser
+  }
+
+  /**
+   * Add comment.
+   * 
+   * {
+        "comment": string
+        "elementId": string (the ID of the post)
+    }
+   */
+  async addComment(newComment) {
+    // new post is not an object
+    if (!this.constructor.isObject(newComment)) {
+      throw new Error(`New comment is required to be a valid JS object. It is of type "${typeof newComment}" instead.`)
+    }
+    // required "comment" property
+    if (!newComment.comment) {
+      throw new Error(`New comment is required to have "comment" property. "${JSON.stringify(newComment)}" given`)
+    }
+    // required "elementId" property
+    if (!newComment.elementId) {
+      throw new Error(
+        `New comment is required to have "elementId" property, ` +
+          `which is the ID of the post to which this comment is connected. "${JSON.stringify(newComment)}" given`,
+      )
+    }
+
+    const url = this.constructor.API_URL_COMMENTS
+
+    // fields that the API requires
+    const defaultNewComment = {
+      rate: "5",
+    }
+
+    const finalNewComment = { ...defaultNewComment, ...newComment }
+
+    const moreConfig = {
+      method: "POST",
+      body: JSON.stringify(finalNewComment),
+    }
+
+    const config = this.getFetchConfig(moreConfig)
+    const resp = await fetch(url, config)
+
+    try {
+      if (!resp.ok) {
+        throw new Error(`Error during fetch. Response status code: ${resp.status}`)
+      }
+    } catch (err) {
+      console.error(resp)
+      throw err
+    }
+
+    const data = await resp.json()
+
+    return this.constructor.prettifyComment(data)
   }
 
   /**
@@ -91,33 +151,6 @@ export default class CommentAPI extends APIHelper {
   }
 
   /**
-   * Get most recent posts.
-   * Default limit: 10
-   */
-  //   async getMostRecentPosts(limit = 10) {
-  //     const url = this.constructor.API_URL_POSTS
-  //     const config = this.getFetchConfig()
-  //     const resp = await fetch(url, config)
-  //     try {
-  //       if (!resp.ok) {
-  //         throw new Error(`Error during fetch. Response status code: ${resp.status}`)
-  //       }
-  //     } catch (err) {
-  //       console.error(resp)
-  //       throw err
-  //     }
-  //     const data = await resp.json()
-  //     // if limit is a number and is greater than 0, limit the result
-  //     if (Number.isFinite(limit) && limit > 0) {
-  //       // get the last limit result
-  //       const lastNItems = data.slice(-limit)
-  //       // reverse the N items
-  //       return this.constructor.prettifyPosts(lastNItems.reverse())
-  //     }
-  //     return this.constructor.prettifyPosts(data)
-  //   }
-
-  /**
    * Get post by ID.
    */
   //   async getPostById(postId) {
@@ -158,43 +191,6 @@ export default class CommentAPI extends APIHelper {
   //     }
 
   //     throw new Error(`This error was not caught. Response status code: ${resp.status}`)
-  //   }
-
-  /**
-   * Add post.
-   */
-  //   async addPost(newPost) {
-  //     // new post is not an object
-  //     if (!this.constructor.isObject(newPost)) {
-  //       throw new Error(`New post is required to be a valid JS object. It is of type "${typeof newPost}" instead.`)
-  //     }
-  //     // required "text" property
-  //     if (!newPost.text) {
-  //       throw new Error(`New post is required to have at least the "text" property. "${JSON.stringify(newPost)}" given`)
-  //     }
-
-  //     const url = this.constructor.API_URL_POSTS
-
-  //     const moreConfig = {
-  //       method: "POST",
-  //       body: JSON.stringify(newPost),
-  //     }
-
-  //     const config = this.getFetchConfig(moreConfig)
-  //     const resp = await fetch(url, config)
-
-  //     try {
-  //       if (!resp.ok) {
-  //         throw new Error(`Error during fetch. Response status code: ${resp.status}`)
-  //       }
-  //     } catch (err) {
-  //       console.error(resp)
-  //       throw err
-  //     }
-
-  //     const data = await resp.json()
-
-  //     return this.constructor.prettifyPost(data)
   //   }
 
   /**

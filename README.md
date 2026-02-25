@@ -265,6 +265,7 @@ Post model
     "elementId": "0235",
     "author": "re.luca95@gmail.com",
     "createdAt": "2025-04-08T09:38:11.122Z",
+    "createdAtForUI": "8 apr 2025, 09:38",
     "updatedAt": "2025-04-08T09:38:11.122Z",
     "__v": 0
 }
@@ -308,7 +309,7 @@ commentAPI
   })
 ```
 
-### Get most recent comments of a post 
+### Get most recent comments of a post
 
 Promise
 
