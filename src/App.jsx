@@ -17,11 +17,12 @@ import LoadMyDefaultProfileComponent from "./components/helpers/LoadMyDefaultPro
 //import CreatePostDesktop from "./components/CreatePostDesktop";
 import ProfileAPIDemoComponent from "./components/demo/profile-api/ProfileAPI"
 import PostAPIDemoComponent from "./components/demo/post-api/PostAPI"
+import CommentAPIDemoComponent from "./components/demo/comment-api/CommentAPI"
 
 import ChangeProfileDemoComponent from "./components/demo/change-profile/ChangeProfile"
 
 function App() {
-  const [isDemoMode, setIsDemoMode] = useState(false)
+  const [isDemoMode, setIsDemoMode] = useState(true)
 
   return (
     <Provider store={store}>
@@ -44,9 +45,10 @@ function App() {
       {isDemoMode && (
         <>
           {/****** START: DEMO components ******/}
-          <ProfileAPIDemoComponent />
+          {/* <ProfileAPIDemoComponent /> */}
           {/* <PostAPIDemoComponent /> */}
           {/* <ChangeProfileDemoComponent /> */}
+          <CommentAPIDemoComponent />
           {/****** END: DEMO components ********/}
         </>
       )}
