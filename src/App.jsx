@@ -16,6 +16,8 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
 import LoadMyDefaultProfileComponent from "./components/helpers/LoadMyDefaultProfile";
+import LoadMyProfilesComponent from "./components/helpers/LoadMyProfiles";
+
 //import CreatePostDesktop from "./components/CreatePostDesktop";
 import ProfileAPIDemoComponent from "./components/demo/profile-api/ProfileAPI";
 import PostAPIDemoComponent from "./components/demo/post-api/PostAPI";
@@ -31,6 +33,7 @@ function App() {
       <BrowserRouter>
         {/***** START: LOAD DEFAULT DATA ******/}
         {<LoadMyDefaultProfileComponent />}
+        {<LoadMyProfilesComponent />}
         {/***** END: LOAD DEFAULT DATA ********/}
 
         {!isDemoMode && (

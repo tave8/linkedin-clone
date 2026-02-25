@@ -76,12 +76,8 @@ export default class APIHelper {
       return myProfiles.map((myProfile, i) => {
         const apiUser = filteredApiUsers[i]
         return {
-          // deprecated, use apiUser instead
-          name: apiUser,
-          apiUser: apiUser,
-          firstName: myProfile.name,
-          lastName: myProfile.surname,
-          imageUrl: myProfile.image,
+          ...myProfile,
+          _apiUser: apiUser,
         }
       })
     } catch (err) {
