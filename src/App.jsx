@@ -20,7 +20,7 @@ import PostAPIDemoComponent from "./components/demo/post-api/PostAPI"
 import ChangeProfileDemoComponent from "./components/demo/change-profile/ChangeProfile"
 
 function App() {
-  const [isDemoMode, setIsDemoMode] = useState(true)
+  const [isDemoMode, setIsDemoMode] = useState(false)
 
   return (
     <Provider store={store}>
