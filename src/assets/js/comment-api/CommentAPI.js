@@ -196,9 +196,9 @@ export default class CommentAPI extends APIHelper {
     if (contentType && contentType.includes("application/json")) {
       const data = await resp.json()
 
-      // if (data == null) {
-      //   throw new Error(`Post with ID "${postId}" was not found. Response status code: ${resp.status}`)
-      // }
+      if (data == null) {
+        throw new Error(`Comment with ID "${commentId}" maybe was not found? ` + `Or maybe you are not its owner? Response status code: ${resp.status}`)
+      }
 
       // success. return updated post
       return this.constructor.prettifyComment(data)
