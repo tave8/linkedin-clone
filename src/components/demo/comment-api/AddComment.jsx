@@ -6,8 +6,8 @@ const AddComment = () => {
   const [comment, setComment] = useState(null)
 
   const newCommentFields = {
-    comment: "comment by giuseppe",
-    elementId: "699efe332c4b8b00151ab725",
+    comment: "CIAO SONO GIUSEPPE 2",
+    postId: "699efe332c4b8b00151ab725",
   }
 
   useEffect(() => {

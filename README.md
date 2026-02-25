@@ -279,7 +279,7 @@ Promise
 const commentAPI = new CommentAPI()
 const newCommentFields = {
   comment: "<my comment>",
-  elementId: "<post id>",
+  postId: "<post id>",
 }
 
 commentAPI
