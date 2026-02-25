@@ -30,7 +30,6 @@ const JobsPage = function () {
   return (
     <div className="bg-light min-vh-100 py-5">
       <Container>
-        {/* Header */}
         <Row className="mb-4">
           <Col>
             <p className="text-uppercase text-muted fw-semibold small mb-1" style={{ letterSpacing: "0.1em" }}>
@@ -96,10 +95,8 @@ const JobsPage = function () {
               <Card className="border shadow-sm">
                 <Card.Body className="p-4">
                   <Row className="align-items-start g-3">
-                    {/* Main info */}
                     <Col>
                       <div className="d-flex justify-content-between align-items-start flex-wrap gap-3">
-                        {/* Left */}
                         <div>
                           <div className="fw-semibold fs-6 mb-1">{j.title}</div>
                           <div className="text-muted small mb-2">{j.company_name}</div>
@@ -112,7 +109,6 @@ const JobsPage = function () {
                           </div>
                         </div>
 
-                        {/* Right */}
                         <div className="d-flex flex-column align-items-end gap-2">
                           <div className="d-flex align-items-center gap-2">
                             <small className="text-muted">{j.publication_date}</small>
