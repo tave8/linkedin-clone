@@ -255,7 +255,7 @@ export default class PostAPI extends APIHelper {
    * Generate and add AI-generated posts with random profiles
    * (profile = API token owner)
    */
-  async generateAndAddAIPostsWithRandomProfiles(_postThemes, howMany = 1) {
+  async generateAndAddAIPostsWithRandomProfiles(_postThemes, howMany = 5) {
     if (!_postThemes) {
       throw new Error("Post themes cannot be empty or nully.")
     }

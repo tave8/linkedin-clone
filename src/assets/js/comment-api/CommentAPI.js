@@ -15,6 +15,8 @@ export default class CommentAPI extends APIHelper {
   static API_TOKENS = {
     giuseppe:
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OThjOTRkMTU0NmZiMDAwMTU5NmY0ODIiLCJpYXQiOjE3NzIwMTc0NjEsImV4cCI6MTc3MzIyNzA2MX0.JD29kFlFDQEj61IAhlyEEtHaba6uinMX5MlnPmSBok0",
+    giorgia:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTczNDk0OTg1ZTNiMTAwMTViNWVlMTAiLCJpYXQiOjE3NzIwMzE3NTYsImV4cCI6MTc3MzI0MTM1Nn0.2-3PHCO-GjVeMqwQxsbUyYXH2GghbZ_yCHv9OzrVwuc",
     giulia:
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTllZTZkNTJjNGI4YjAwMTUxYWI3MDYiLCJpYXQiOjE3NzIwMjE0NjEsImV4cCI6MTc3MzIzMTA2MX0.-0KjluIwqH1o-neMo7j1NZ61bxMH_H6e0ODK3nH2pUQ",
     raffaele:
@@ -39,7 +41,7 @@ export default class CommentAPI extends APIHelper {
    * 
    * {
         "comment": string
-        "elementId": string (the ID of the post)
+        "postId": string (the ID of the post)
     }
    */
   async addComment(newComment) {
@@ -153,148 +155,118 @@ export default class CommentAPI extends APIHelper {
   }
 
   /**
-   * Get post by ID.
-   */
-  //   async getPostById(postId) {
-  //     if (!postId) {
-  //       throw new Error(`Post id is required when getting one remote profile. Input postId is "${postId}"`)
-  //     }
-  //     const url = this.constructor.API_URL_POSTS + `/${postId}`
-  //     const config = this.getFetchConfig()
-  //     const resp = await fetch(url, config)
-  //     try {
-  //       if (!resp.ok) {
-  //         throw new Error(`Error during fetch. Response status code: ${resp.status}`)
-  //       }
-  //     } catch (err) {
-  //       console.error(resp)
-  //       throw err
-  //     }
-
-  //     const contentType = resp.headers.get("content-type")
-
-  //     // response body is json
-  //     if (contentType && contentType.includes("application/json")) {
-  //       const data = await resp.json()
-
-  //       if (data == null) {
-  //         throw new Error(`Post with ID "${postId}" was not found. Response status code: ${resp.status}`)
-  //       }
-
-  //       return this.constructor.prettifyPost(data)
-  //     }
-
-  //     // response body is text
-  //     const text = await resp.text()
-
-  //     // if the response text is "ID non valido": ERROR
-  //     if (text.trim().toLowerCase() == "id non valido") {
-  //       throw new Error(`The API server said that this ID is not valid. Response status code: ${resp.status}`)
-  //     }
-
-  //     throw new Error(`This error was not caught. Response status code: ${resp.status}`)
-  //   }
-
-  /**
-   * Update post by ID.
+   * Update comment by ID.
    *
-   * NOTE: Request can take indefinitely because of (supposed)
-   * server not responding.
-   * Example:
-   *  ID: 699d9dc1b5582000158c3433 --> server doesn't respond
-   *  an existing ID: server responds
+   * newComment {
+   *    comment: "<my new comment>"
+   * }
    */
-  //   async updatePostById(postId, newPost) {
-  //     if (!postId) {
-  //       throw new Error(`Post id is required when getting one remote profile. Input postId is "${postId}"`)
-  //     }
-  //     if (!this.constructor.isObject(newPost)) {
-  //       throw new Error(`New profile data is required to be a valid JS object. It is of type "${typeof newPost}" instead.`)
-  //     }
-  //     const url = this.constructor.API_URL_POSTS + `/${postId}`
-  //     const moreConfig = {
-  //       method: "PUT",
-  //       body: JSON.stringify(newPost),
-  //     }
-  //     const config = this.getFetchConfig(moreConfig)
+  async updateCommentById(commentId, newComment) {
+    if (!commentId) {
+      throw new Error(`Comment id is required when getting one comment. Input commentId is "${commentId}"`)
+    }
+    if (!this.constructor.isObject(newComment)) {
+      throw new Error(`New comment data is required to be a valid JS object. It is of type "${typeof newComment}" instead.`)
+    }
+    // required "comment" property
+    if (!newComment.comment) {
+      throw new Error(`New comment is required to have "comment" property. "${JSON.stringify(newComment)}" given`)
+    }
+    const url = this.constructor.API_URL_COMMENTS + `/${commentId}`
+    const moreConfig = {
+      method: "PUT",
+      body: JSON.stringify(newComment),
+    }
+    const config = this.getFetchConfig(moreConfig)
 
-  //     const resp = await fetch(url, config)
+    const resp = await fetch(url, config)
 
-  //     try {
-  //       if (!resp.ok) {
-  //         throw new Error(`Error during fetch. Response status code: ${resp.status}`)
-  //       }
-  //     } catch (err) {
-  //       console.error(resp)
-  //       throw err
-  //     }
+    try {
+      if (!resp.ok) {
+        throw new Error(`Error during fetch. Response status code: ${resp.status}`)
+      }
+    } catch (err) {
+      console.error(resp)
+      throw err
+    }
 
-  //     const contentType = resp.headers.get("content-type")
+    const contentType = resp.headers.get("content-type")
 
-  //     // response body is json
-  //     if (contentType && contentType.includes("application/json")) {
-  //       const data = await resp.json()
+    // response body is json
+    if (contentType && contentType.includes("application/json")) {
+      const data = await resp.json()
 
-  //       // if (data == null) {
-  //       //   throw new Error(`Post with ID "${postId}" was not found. Response status code: ${resp.status}`)
-  //       // }
+      if (data == null) {
+        throw new Error(`Comment with ID "${commentId}" maybe was not found? ` + `Or maybe you are not its owner? Response status code: ${resp.status}`)
+      }
 
-  //       // success. return updated post
-  //       return this.constructor.prettifyPost(data)
-  //     }
+      // success. return updated post
+      return this.constructor.prettifyComment(data)
+    }
 
-  //     // response body is text
-  //     const text = await resp.text()
+    // response body is text
+    const text = await resp.text()
 
-  //     // if the response text is "ID non valido": ERROR
-  //     if (text.trim().toLowerCase() == "id non valido") {
-  //       throw new Error(`The API server said that this ID is not valid. Response status code: ${resp.status}`)
-  //     }
+    // if the response text is "ID non valido": ERROR
+    if (text.trim().toLowerCase() == "id non valido") {
+      throw new Error(`The API server said that this ID is not valid. Response status code: ${resp.status}`)
+    }
 
-  //     throw new Error(`This error was not caught. Response status code: ${resp.status}`)
-  //   }
+    throw new Error(`This error was not caught. Response status code: ${resp.status}`)
+  }
 
   /**
-   * Delete post by ID.
+   * Delete comment by ID.
    */
-  //   async deletePostById(postId) {
-  //     if (!postId) {
-  //       throw new Error(`Post id is required when deleting post. Input postId is "${postId}"`)
-  //     }
-  //     const url = this.constructor.API_URL_POSTS + `/${postId}`
-  //     const moreConfig = {
-  //       method: "DELETE",
-  //     }
-  //     const config = this.getFetchConfig(moreConfig)
-  //     const resp = await fetch(url, config)
-  //     try {
-  //       // maybe a post with this ID does not exist?
-  //       if (resp.status == 400) {
-  //         throw new Error(`Error during fetch. A post with this ID likely does not exist. Response status code: ${resp.status}`)
-  //       }
-  //       if (!resp.ok) {
-  //         throw new Error(`Error during fetch. Response status code: ${resp.status}`)
-  //       }
-  //     } catch (err) {
-  //       console.error(resp)
-  //       throw err
-  //     }
+  async deleteCommentById(commentId) {
+    if (!commentId) {
+      throw new Error(`Comment id is required when deleting post. Input commentId is "${commentId}"`)
+    }
+    const url = this.constructor.API_URL_COMMENTS + `/${commentId}`
+    const moreConfig = {
+      method: "DELETE",
+    }
+    const config = this.getFetchConfig(moreConfig)
+    const resp = await fetch(url, config)
+    try {
+      // maybe a post with this ID does not exist?
+      if (resp.status == 400) {
+        throw new Error(`Error during fetch. A comment with this ID likely does not exist. Response status code: ${resp.status}`)
+      }
+      if (!resp.ok) {
+        throw new Error(`Error during fetch. Response status code: ${resp.status}`)
+      }
+    } catch (err) {
+      console.error(resp)
+      throw err
+    }
 
-  //     const text = await resp.text()
+    const contentType = resp.headers.get("content-type")
 
-  //     // if the response text is "ID non valido": ERROR
-  //     if (text.trim().toLowerCase() == "id non valido") {
-  //       throw new Error(`The API server said that this ID is not valid. Response status code: ${resp.status}`)
-  //     }
+    // response body is json
+    if (contentType && contentType.includes("application/json")) {
+      const data = await resp.json()
 
-  //     // if the response text is "Removed": SUCCESS
-  //     if (text.trim().toLowerCase() == "removed") {
-  //       return text
-  //     }
+      if (data == null) {
+        throw new Error(`Comment with ID "${commentId}" was not found. Response status code: ${resp.status}`)
+      }
 
-  //     // if the response text does not follow any previous case
-  //     throw new Error(`This API response case was not caught. Response status code: ${resp.status}; response text: ${text}`)
-  //   }
+      // the API server seems to send back the object that is being deleted?
+      // therefore I must assume that if data is not null, the object was
+      // successfully deleted
+      return `comment with ID "${commentId}" successfully deleted."`
+    }
+
+    // response body is text
+    const text = await resp.text()
+
+    // if the response text is "ID non valido": ERROR
+    if (text.trim().toLowerCase() == "id non valido") {
+      throw new Error(`The API server said that this ID is not valid. Response status code: ${resp.status}`)
+    }
+
+    throw new Error(`This error was not caught. Response status code: ${resp.status}`)
+  }
 
   /**
    * Get the default + (optional) custom fetch config.
@@ -352,6 +324,7 @@ export default class CommentAPI extends APIHelper {
     })
 
     const moreFields = {
+      postId: comment.elementId,
       createdAtForUI,
       // add here more fields. they will appear in each post resource
     }
