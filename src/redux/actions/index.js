@@ -18,6 +18,15 @@ export const setMyProfileApiUserAndLoadProfileGlobally = (apiUser) => {
   }
 }
 
+export const setMyProfileDataGlobally = (newProfileData) => {
+  return async (dispatch, getState) => {
+    dispatch({
+      type: SET_MY_PROFILE_DATA,
+      payload: newProfileData,
+    })
+  }
+}
+
 export const loadMyDefaultProfileGlobally = () => {
   return async (dispatch, getState) => {
     const apiUser = getState().myProfile.apiUser
@@ -30,12 +39,9 @@ export const loadMyDefaultProfileGlobally = () => {
       dispatch(setMyProfileIsLoadingGlobally(true))
       dispatch(setMyProfileIsErrorGlobally(false))
       const myProfile = await profileAPI.getMyProfile()
-      dispatch({
-        type: SET_MY_PROFILE_DATA,
-        payload: myProfile,
-      })
       dispatch(setMyProfileIsLoadingGlobally(false))
       dispatch(setMyProfileIsErrorGlobally(false))
+      dispatch(setMyProfileDataGlobally(myProfile))
     } catch (err) {
       console.error(err)
       dispatch(setMyProfileIsLoadingGlobally(false))

@@ -327,6 +327,41 @@ commentAPI
   })
 ```
 
-### Update comment by id
+### Update comment
 
-### Delete comment by id
+Promise
+
+```js
+const commentAPI = new CommentAPI()
+const commentId = "xxx"
+const newCommentFields = {
+  comment: "<my new comment>",
+}
+
+commentAPI
+  .updateCommentById(commentId, newCommentFields)
+  .then((comment) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+### Delete comment
+
+Promise
+
+```js
+const commentAPI = new CommentAPI()
+const commentId = "xxx"
+
+commentAPI
+  .deleteCommentById(commentId)
+  .then((textResponse) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
