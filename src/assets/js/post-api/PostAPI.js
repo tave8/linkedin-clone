@@ -1,19 +1,21 @@
+import APIHelper from "../APIHelper"
+import OpenAI from "../open-ai/OpenAI"
+
 const defaultParams = {
   apiUser: "giuseppe",
 }
 
-export default class PostAPI {
+export default class PostAPI extends APIHelper {
   static API_URL_POSTS = "https://striveschool-api.herokuapp.com/api/posts"
-
-  static API_TOKENS = {
-    giuseppe:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTljNGUyMDBiYzFkZTAwMTU3N2I3YjYiLCJpYXQiOjE3NzE4NTEzMjEsImV4cCI6MTc3MzA2MDkyMX0.YZ-u3PFGt5dmN5wQAI25NIOezRDpba2YuomGaZmjfDk",
-  }
 
   /**
    */
   constructor(params = defaultParams) {
+    super()
     const finalParams = { ...structuredClone(defaultParams), ...params }
+
+    this.constructor.verifyIfExistsApiUser(finalParams.apiUser)
+
     this.apiUser = finalParams.apiUser
   }
 
@@ -150,10 +152,10 @@ export default class PostAPI {
 
   /**
    * Update post by ID.
-   * 
+   *
    * NOTE: Request can take indefinitely because of (supposed)
    * server not responding.
-   * Example: 
+   * Example:
    *  ID: 699d9dc1b5582000158c3433 --> server doesn't respond
    *  an existing ID: server responds
    */
@@ -172,7 +174,7 @@ export default class PostAPI {
     const config = this.getFetchConfig(moreConfig)
 
     const resp = await fetch(url, config)
-    
+
     try {
       if (!resp.ok) {
         throw new Error(`Error during fetch. Response status code: ${resp.status}`)
@@ -250,6 +252,63 @@ export default class PostAPI {
   }
 
   /**
+   * Generate and add AI-generated posts with random profiles
+   * (profile = API token owner)
+   */
+  async generateAndAddAIPostsWithRandomProfiles(_postThemes, howMany = 1) {
+    if (!_postThemes) {
+      throw new Error("Post themes cannot be empty or nully.")
+    }
+    let postThemes
+    // if  _postThemes is already an array, keep it
+    if (Array.isArray(_postThemes)) {
+      postThemes = _postThemes
+    }
+    // otherwise I assume it's a string, so add it to an array of 1 element
+    else if (typeof _postThemes == "string") {
+      postThemes = [_postThemes]
+    }
+    // unknown datatype: neither array nor string
+    else {
+      throw new Error(`Post themes has value "${_postThemes}". ` + `It must be either an array or a string, it's of type "${typeof _postThemes}" instead.`)
+    }
+
+    const openAIPromises = []
+    const openAI = new OpenAI({ simplify: true })
+
+    for (let i = 0; i < howMany; i++) {
+      // choose a random theme from the themes array
+      const postTheme = postThemes[Math.floor(Math.random() * postThemes.length)]
+      const prompt =
+        `Create a post about "${postTheme}". ` +
+        `Be professional and very creative. ` +
+        `Post length must vary a lot between 20 and 100 words. Give me the post directly. `
+      const promise = openAI.ask(prompt)
+      openAIPromises.push(promise)
+    }
+
+    /**
+     * openAIAnswer: {
+     *    message: string
+     * }
+     */
+    const openAIPosts = (await Promise.all(openAIPromises)).map((openAIAnswer) => openAIAnswer.message)
+
+    const postsPromises = openAIPosts.map((postText) => {
+      const postAPI = new PostAPI({
+        apiUser: this.constructor.getRandomApiUser(),
+      })
+      return postAPI.addPost({
+        text: postText,
+      })
+    })
+
+    const posts = await Promise.all(postsPromises)
+
+    return posts
+  }
+
+  /**
    * Get the default + (optional) custom fetch config.
    */
   getFetchConfig(moreConfig = {}) {
@@ -270,7 +329,13 @@ export default class PostAPI {
 
   static prettifyPost(post) {
     const createdAtObj = new Date(post.createdAt)
-    const createdAtForUI = createdAtObj.toLocaleString("it-IT")
+    const createdAtForUI = createdAtObj.toLocaleString("it-IT", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    })
 
     const moreFields = {
       createdAtForUI,

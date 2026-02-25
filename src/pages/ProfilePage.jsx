@@ -18,7 +18,7 @@ const ProfilePage = () => {
     <>
       <main className="sfondo">
         <Container>
-          <Row>
+          <Row className="justify-content-center">
             <Col xs={12} md={9}>
               <FirstSection />
               <AnalisiProfile />
@@ -26,16 +26,16 @@ const ProfilePage = () => {
               <ServicesProfile />
               <ActivityProfile />
               {/* francesco */}
-              <ExperiencesProfile /> {/*fatto */}
-              <EducationProfile /> {/*fatto */}
-              <LicencesProfile /> {/*fatto */}
-              <Skills /> {/*fatto */}
-              <Organization /> {/*fatto */}
-              <Interest /> {/*fatto */}
-              <MyFooter /> {/*fatto */}
+              <ExperiencesProfile />
+              <EducationProfile />
+              <LicencesProfile />
+              <Skills />
+              <Organization />
+              <Interest />
+              <MyFooter />
             </Col>
             <Col xs={12} md={3}>
-              <RightSideBar /> {/*fatto */}
+              <RightSideBar />
             </Col>
           </Row>
         </Container>

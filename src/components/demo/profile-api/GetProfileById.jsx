@@ -1,5 +1,5 @@
-import ProfileAPI from "../../../assets/js/profile-api/ProfileAPI"
 import { useState, useEffect } from "react"
+import ProfileAPI from "../../../assets/js/profile-api/ProfileAPI"
 
 const GetProfileById = () => {
   const [oneProfile, setOneProfile] = useState(null)

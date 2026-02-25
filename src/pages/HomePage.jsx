@@ -5,6 +5,8 @@ import { Container, Row, Col } from "react-bootstrap"
 import PostAPI from "../assets/js/post-api/PostAPI"
 import { useEffect, useState } from "react"
 
+import CreatePostDesktop from "../components/CreatePostDesktop"
+
 const HomePage = () => {
   const [posts, setPosts] = useState([])
   const handleClosePost = (postId) => {
@@ -25,25 +27,29 @@ const HomePage = () => {
       })
   }, [])
   return (
-    <>
-      <main className="sfondo">
-        <Container className="pt-3" fluid>
-          <Row>
-            <Col className="d-none d-lg-block" md={3}>
-              <LeftSideBar />
-            </Col>
-            <Col xs={12} md={6}>
-              {posts.map((singlePost) => (
-                <Post key={singlePost._id} post={singlePost} onClose={handleClosePost} />
-              ))}
-            </Col>
-            <Col className="d-none d-md-block" md={3}>
-              <RightSideBar />
-            </Col>
-          </Row>
-        </Container>
-      </main>
-    </>
+    <main className="sfondo">
+      <Container className="pt-3" fluid>
+        <Row>
+          <Col className="d-none d-lg-block" md={3}>
+            <LeftSideBar />
+          </Col>
+          <Col xs={12} md={6}>
+            {posts.map((singlePost) => (
+              <Post key={singlePost._id} post={singlePost} onClose={handleClosePost} />
+            ))}
+          </Col>
+
+          <Col className="d-none d-lg-block" md={2}></Col>
+          <Col xs={12} md={6}>
+            <CreatePostDesktop />
+            <Post />
+          </Col>
+          <Col className="d-none d-md-block" md={3}>
+            <RightSideBar />
+          </Col>
+        </Row>
+      </Container>
+    </main>
   )
 }
 export default HomePage

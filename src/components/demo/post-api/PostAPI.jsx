@@ -4,6 +4,7 @@ import GetPosts from "./GetPosts"
 import GetMostRecentPosts from "./GetMostRecentPosts"
 import GetPostById from "./GetPostById"
 import UpdatePostById from "./UpdatePostById"
+import GenerateAndAddAIPostsWithRandomProfiles from "./GenerateAndAddAIPostsWithRandomProfiles"
 
 const PostAPIDemo = () => {
   return (
@@ -15,6 +16,7 @@ const PostAPIDemo = () => {
       {/* {<GetMostRecentPosts />} */}
       {/* <GetPostById /> */}
       {/*<UpdatePostById /> */}
+      {/* <GenerateAndAddAIPostsWithRandomProfiles /> */}
     </>
   )
 }
