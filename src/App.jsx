@@ -1,5 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import "./App.css";
+import { useState } from "react";
+
 //import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 //import { Container, Row, Col, CardGroup, Card, Spinner, Alert, Button, Image, Form, ListGroup, Navbar, NavDropdown, Nav } from "react-bootstrap";
 import HomePage from "./pages/HomePage";
@@ -13,7 +16,6 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
 import LoadMyDefaultProfileComponent from "./components/helpers/LoadMyDefaultProfile";
-
 //import CreatePostDesktop from "./components/CreatePostDesktop";
 import ProfileAPIDemoComponent from "./components/demo/profile-api/ProfileAPI";
 import PostAPIDemoComponent from "./components/demo/post-api/PostAPI";

@@ -59,6 +59,7 @@ body {
 
 #8C8C8C → grigio medio-scuro */
 /* Giorgia */
+
 .custom-toggle::after {
   display: none;
 }
@@ -86,6 +87,47 @@ body {
 
 .post-media {
   object-fit: cover;
+}
+
+@media (max-width: 576px) {
+  .post-meta {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .action-bar .action-btn {
+    font-size: 0.75rem;
+  }
+
+  .action-bar .action-btn i {
+    font-size: 0.9rem; /* icone  */
+  }
+
+  .action-bar {
+    gap: 0.25rem;
+  }
+}
+/* toglie impallamento active da mobile   */
+@media (max-width: 576px) {
+  .action-btn:active,
+  .action-btn:focus {
+    background: transparent;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* POST COMMENTS */
+
+.comment-input {
+  padding-right: 70px; /* spazio per le icone */
+}
+
+.comment-bubble {
+  background: #f3f2ef;
+  padding: 10px 14px;
+  border-radius: 12px;
 }
 /* SX SIDEBAR LEFT */
 .left-profile-card {
