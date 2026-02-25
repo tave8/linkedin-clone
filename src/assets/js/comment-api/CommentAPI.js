@@ -51,22 +51,24 @@ export default class CommentAPI extends APIHelper {
     if (!newComment.comment) {
       throw new Error(`New comment is required to have "comment" property. "${JSON.stringify(newComment)}" given`)
     }
-    // required "elementId" property
-    if (!newComment.elementId) {
+    // required "postId" property
+    if (!newComment.postId) {
       throw new Error(
-        `New comment is required to have "elementId" property, ` +
+        `New comment is required to have "postId" property, ` +
           `which is the ID of the post to which this comment is connected. "${JSON.stringify(newComment)}" given`,
       )
     }
 
     const url = this.constructor.API_URL_COMMENTS
 
-    // fields that the API requires
-    const defaultNewComment = {
+    const finalNewComment = {
+      // the real API (server) wants elementId, but this API (CommentAPI)
+      // only accepts postId, for intuitive usage
+      elementId: newComment.postId,
+      comment: newComment.comment,
+      // field that the real API (server) requires
       rate: "5",
     }
-
-    const finalNewComment = { ...defaultNewComment, ...newComment }
 
     const moreConfig = {
       method: "POST",

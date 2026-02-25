@@ -7,8 +7,8 @@ const CommentAPIDemo = () => {
     <>
       {/* comment/uncomment the components you're interested in */}
       {/* <GetComments /> */}
-      <GetMostRecentCommentsOfPost />
-      <AddComment />
+      {/* <GetMostRecentCommentsOfPost /> */}
+      {/* <AddComment /> */}
     </>
   )
 }
