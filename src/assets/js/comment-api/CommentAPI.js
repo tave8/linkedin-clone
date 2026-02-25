@@ -55,6 +55,42 @@ export default class CommentAPI extends APIHelper {
   }
 
   /**
+   * Get most recent comments of a post, given a post ID.
+   * Default limit: 10
+   *
+   * NOTE: the filter by post ID is done at frontend. The API
+   * does not seem to expose a way to filter by postId directly in the API,
+   * so it must be done at frontend.
+   */
+  async getMostRecentCommentsOfPost(postId, limit = 10) {
+    if (!postId) {
+      throw new Error(`Post id is required when getting comments. Input postId is "${postId}"`)
+    }
+    const url = this.constructor.API_URL_COMMENTS
+    const config = this.getFetchConfig()
+    const resp = await fetch(url, config)
+    try {
+      if (!resp.ok) {
+        throw new Error(`Error during fetch. Response status code: ${resp.status}`)
+      }
+    } catch (err) {
+      console.error(resp)
+      throw err
+    }
+    const data = await resp.json()
+
+    const commentsOfPost = this.constructor.filterCommentsOfPost(data, postId)
+
+    // if limit is a number and is greater than 0, limit the result
+    if (Number.isFinite(limit) && limit > 0) {
+      const lastComments = commentsOfPost.slice(-limit)
+      const mostRecentComments = lastComments.reverse()
+      return this.constructor.prettifyComments(mostRecentComments)
+    }
+    return this.constructor.prettifyComments(commentsOfPost)
+  }
+
+  /**
    * Get most recent posts.
    * Default limit: 10
    */
@@ -127,39 +163,39 @@ export default class CommentAPI extends APIHelper {
   /**
    * Add post.
    */
-//   async addPost(newPost) {
-//     // new post is not an object
-//     if (!this.constructor.isObject(newPost)) {
-//       throw new Error(`New post is required to be a valid JS object. It is of type "${typeof newPost}" instead.`)
-//     }
-//     // required "text" property
-//     if (!newPost.text) {
-//       throw new Error(`New post is required to have at least the "text" property. "${JSON.stringify(newPost)}" given`)
-//     }
+  //   async addPost(newPost) {
+  //     // new post is not an object
+  //     if (!this.constructor.isObject(newPost)) {
+  //       throw new Error(`New post is required to be a valid JS object. It is of type "${typeof newPost}" instead.`)
+  //     }
+  //     // required "text" property
+  //     if (!newPost.text) {
+  //       throw new Error(`New post is required to have at least the "text" property. "${JSON.stringify(newPost)}" given`)
+  //     }
 
-//     const url = this.constructor.API_URL_POSTS
+  //     const url = this.constructor.API_URL_POSTS
 
-//     const moreConfig = {
-//       method: "POST",
-//       body: JSON.stringify(newPost),
-//     }
+  //     const moreConfig = {
+  //       method: "POST",
+  //       body: JSON.stringify(newPost),
+  //     }
 
-//     const config = this.getFetchConfig(moreConfig)
-//     const resp = await fetch(url, config)
+  //     const config = this.getFetchConfig(moreConfig)
+  //     const resp = await fetch(url, config)
 
-//     try {
-//       if (!resp.ok) {
-//         throw new Error(`Error during fetch. Response status code: ${resp.status}`)
-//       }
-//     } catch (err) {
-//       console.error(resp)
-//       throw err
-//     }
+  //     try {
+  //       if (!resp.ok) {
+  //         throw new Error(`Error during fetch. Response status code: ${resp.status}`)
+  //       }
+  //     } catch (err) {
+  //       console.error(resp)
+  //       throw err
+  //     }
 
-//     const data = await resp.json()
+  //     const data = await resp.json()
 
-//     return this.constructor.prettifyPost(data)
-//   }
+  //     return this.constructor.prettifyPost(data)
+  //   }
 
   /**
    * Update post by ID.
@@ -282,6 +318,17 @@ export default class CommentAPI extends APIHelper {
   }
 
   /**
+   * Get comments of a certain with the given post ID
+   */
+  static filterCommentsOfPost(comments, postId) {
+    // if comments is not an array
+    if (!Array.isArray(comments)) {
+      throw new Error(`Comments must be an array. It is of type "${typeof comments}" instead.`)
+    }
+    return comments.filter((comment) => comment.elementId == postId)
+  }
+
+  /**
    * This method looks the same as the method in
    * APIHelper. However, because the comments endpoint
    * has its own API tokens, we must validate if the
@@ -297,8 +344,18 @@ export default class CommentAPI extends APIHelper {
   }
 
   static prettifyComment(comment) {
+    const createdAtObj = new Date(comment.createdAt)
+    const createdAtForUI = createdAtObj.toLocaleString("it-IT", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+
     const moreFields = {
-      // add here more fields. they will appear in each comment
+      createdAtForUI,
+      // add here more fields. they will appear in each post resource
     }
 
     return {

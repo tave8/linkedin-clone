@@ -308,6 +308,24 @@ commentAPI
   })
 ```
 
+### Get most recent comments of a post 
+
+Promise
+
+```js
+const commentAPI = new CommentAPI()
+const postId = "xxx"
+
+commentAPI
+  .getMostRecentCommentsOfPost(postId)
+  .then((comments) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
 ### Update comment by id
 
 ### Delete comment by id

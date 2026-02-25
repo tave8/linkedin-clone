@@ -2,14 +2,15 @@ import { useEffect, useState } from "react"
 
 import CommentAPI from "../../../assets/js/comment-api/CommentAPI"
 
-const GetComments = () => {
+const GetMostRecentCommentsOfPost = () => {
   const [comments, setComments] = useState([])
 
   useEffect(() => {
     const commentAPI = new CommentAPI()
+    const postId = "699d8e46b5582000158c3420"
 
     commentAPI
-      .getComments()
+      .getMostRecentCommentsOfPost(postId)
       .then((remoteComments) => {
         // your code
         console.log(remoteComments)
@@ -22,14 +23,14 @@ const GetComments = () => {
 
   return (
     <>
-      <h1>GET COMMENTS</h1>
+      <h1>GET MOST RECENT COMMENTS OF POST</h1>
       {comments.length > 0 && (
         <>
           {comments.map((comment, i) => {
             return (
               <div key={i}>
                 <p>
-                  {comment.comment} - ELEMENT ID: {comment.elementId}
+                  {comment.comment} - AUTHOR: {comment.author} - ELEMENT ID: {comment.elementId}
                 </p>
               </div>
             )
@@ -41,4 +42,4 @@ const GetComments = () => {
   )
 }
 
-export default GetComments
+export default GetMostRecentCommentsOfPost
