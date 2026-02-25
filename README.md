@@ -162,7 +162,7 @@ Promise
 ```js
 const postAPI = new PostAPI()
 const newPostFields = {
-    text: "xxx"
+  text: "xxx",
 }
 
 postAPI
@@ -183,7 +183,7 @@ Promise
 const postAPI = new PostAPI()
 const postId = "xxx"
 const newPostFields = {
-    text: "xxx"
+  text: "xxx",
 }
 
 postAPI
@@ -207,6 +207,26 @@ const postId = "xxx"
 postAPI
   .deletePostById(postId)
   .then((textResponse) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+### Generate & add AI posts with random profiles
+
+Promise
+
+Default how many: 5
+
+```js
+const postAPI = new PostAPI()
+const postThemes = ["programming & software", "cooking", "career growth"]
+
+postAPI
+  .generateAndAddAIPostsWithRandomProfiles(postThemes)
+  .then((posts) => {
     // your code
   })
   .catch((err) => {

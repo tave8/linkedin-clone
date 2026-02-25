@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux"
 import { useEffect } from "react"
 
-import { getAndSetMyDefaultProfileGlobally } from "../../redux/actions/index"
+import { setMyProfileApiUserAndLoadProfileGlobally } from "../../redux/actions/index"
 
 /**
  * This component only serves to get the
@@ -19,7 +19,7 @@ const LoadMyDefaultProfile = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getAndSetMyDefaultProfileGlobally())
+    dispatch(setMyProfileApiUserAndLoadProfileGlobally("giuseppe"))
   }, [])
 
   return <></>

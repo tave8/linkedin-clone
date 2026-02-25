@@ -1,30 +1,21 @@
+import APIHelper from "../APIHelper"
+
 const defaultParams = {
   apiUser: "giuseppe",
 }
 
-export default class ProfileAPI {
+export default class ProfileAPI extends APIHelper {
   static API_URL_PROFILES = "https://striveschool-api.herokuapp.com/api/profile"
   static API_URL_MY_PROFILE = "https://striveschool-api.herokuapp.com/api/profile/me"
-  static API_TOKENS = {
-    giuseppe:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTljNGUyMDBiYzFkZTAwMTU3N2I3YjYiLCJpYXQiOjE3NzE4NTEzMjEsImV4cCI6MTc3MzA2MDkyMX0.YZ-u3PFGt5dmN5wQAI25NIOezRDpba2YuomGaZmjfDk",
-  }
 
   /**
-   * ## Usage
-   *
-   * ### usage 1
-   * new LinkedinAPI()
-   *
-   * ### usage 2
-   * new LinkedinAPI({
-   *    apiUser: "giuseppe"
-   * })
-   *
-   *
    */
   constructor(params = defaultParams) {
+    super()
     const finalParams = { ...structuredClone(defaultParams), ...params }
+
+    this.constructor.verifyIfExistsApiUser(finalParams.apiUser)
+
     this.apiUser = finalParams.apiUser
   }
 
@@ -56,7 +47,7 @@ export default class ProfileAPI {
    * Get most recent profiles.
    * Default limit: 10
    */
-  async getMostRecentProfiles(limit=10) {
+  async getMostRecentProfiles(limit = 10) {
     const url = this.constructor.API_URL_PROFILES
     const config = this.getFetchConfig()
     const resp = await fetch(url, config)

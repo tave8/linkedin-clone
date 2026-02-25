@@ -16,6 +16,8 @@ import LoadMyDefaultProfileComponent from "./components/helpers/LoadMyDefaultPro
 import ProfileAPIDemoComponent from "./components/demo/profile-api/ProfileAPI";
 import PostAPIDemoComponent from "./components/demo/post-api/PostAPI";
 
+import ChangeProfileDemoComponent from "./components/demo/change-profile/ChangeProfile"
+
 function App() {
   return (
     <Provider store={store}>
@@ -32,10 +34,11 @@ function App() {
         </Routes>
       </BrowserRouter>
 
-      {/****** START: API DEMO components ******/}
-      <ProfileAPIDemoComponent />
-      <PostAPIDemoComponent />
-      {/****** END: API DEMO components ********/}
+      {/****** START: DEMO components ******/}
+      {/* <ProfileAPIDemoComponent /> */}
+      {/* <PostAPIDemoComponent /> */}
+      {/* <ChangeProfileDemoComponent /> */}
+      {/****** END: DEMO components ********/}
     </Provider>
   );
 }
