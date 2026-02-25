@@ -97,6 +97,25 @@ profileAPI
   })
 ```
 
+### Get API users (Giuseppe, Giorgia, Raffaele, Giulia, Franceso)
+
+Promise
+
+
+```js
+const profileAPI = new ProfileAPI()
+
+profileAPI
+  .getAPIUsers()
+  .then((APIUsers) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+
 ## PostAPI
 
 ### Get post by ID
@@ -162,7 +181,7 @@ Promise
 ```js
 const postAPI = new PostAPI()
 const newPostFields = {
-    text: "xxx"
+  text: "xxx",
 }
 
 postAPI
@@ -183,7 +202,7 @@ Promise
 const postAPI = new PostAPI()
 const postId = "xxx"
 const newPostFields = {
-    text: "xxx"
+  text: "xxx",
 }
 
 postAPI
@@ -212,4 +231,26 @@ postAPI
   .catch((err) => {
     console.error(err)
   })
+```
+
+### Generate & add AI posts with random profiles
+
+Promise
+
+Default how many: 5
+
+```js
+const postAPI = new PostAPI()
+const postThemes = ["programming & software", "cooking", "career growth"]
+
+postAPI
+  .generateAndAddAIPostsWithRandomProfiles(postThemes)
+  .then((posts) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
 ```

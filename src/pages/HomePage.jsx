@@ -1,6 +1,7 @@
 import Post from "../components/Post";
 import LeftSideBar from "../components/LeftSideBar";
 import RightSideBar from "../components/RightSideBar";
+import CreatePostDesktop from "../components/CreatePostDesktop";
 import { Container, Row, Col } from "react-bootstrap";
 
 const HomePage = () => {
@@ -13,6 +14,7 @@ const HomePage = () => {
               <LeftSideBar />
             </Col>
             <Col xs={12} md={6}>
+              <CreatePostDesktop />
               <Post />
             </Col>
             <Col className="d-none d-md-block" md={3}>

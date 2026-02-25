@@ -14,10 +14,15 @@ import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
 import LoadMyDefaultProfileComponent from "./components/helpers/LoadMyDefaultProfile";
 
+//import CreatePostDesktop from "./components/CreatePostDesktop";
 import ProfileAPIDemoComponent from "./components/demo/profile-api/ProfileAPI";
 import PostAPIDemoComponent from "./components/demo/post-api/PostAPI";
 
+import ChangeProfileDemoComponent from "./components/demo/change-profile/ChangeProfile";
+
 function App() {
+  const [isDemoMode, setIsDemoMode] = useState(false);
+
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -25,18 +30,27 @@ function App() {
         {<LoadMyDefaultProfileComponent />}
         {/***** END: LOAD DEFAULT DATA ********/}
 
-        <MyNavbar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/Profile" element={<ProfilePage />} />
-          <Route path="/job" element={<JobsPage />} />
-        </Routes>
+        {!isDemoMode && (
+          <>
+            <MyNavbar />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/Profile" element={<ProfilePage />} />
+              <Route path="/job" element={<JobsPage />} />
+            </Routes>
+          </>
+        )}
       </BrowserRouter>
 
-      {/****** START: API DEMO components ******/}
-      <ProfileAPIDemoComponent />
-      <PostAPIDemoComponent />
-      {/****** END: API DEMO components ********/}
+      {isDemoMode && (
+        <>
+          {/****** START: DEMO components ******/}
+          <ProfileAPIDemoComponent />
+          {/* <PostAPIDemoComponent /> */}
+          {/* <ChangeProfileDemoComponent /> */}
+          {/****** END: DEMO components ********/}
+        </>
+      )}
     </Provider>
   );
 }

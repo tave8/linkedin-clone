@@ -5,11 +5,12 @@ const GetMyProfile = () => {
   const [profile, setProfile] = useState(null)
 
   useEffect(() => {
-    const profileAPI = new ProfileAPI()
-    const profileId = "699c4e200bc1de001577b7b6"
+    const profileAPI = new ProfileAPI({
+      apiUser: "giorgia"
+    })
 
     profileAPI
-      .getProfileById(profileId)
+      .getMyProfile()
       .then((remoteProfile) => {
         setProfile(remoteProfile)
       })
