@@ -97,6 +97,25 @@ profileAPI
   })
 ```
 
+### Get API users (Giuseppe, Giorgia, Raffaele, Giulia, Franceso)
+
+Promise
+
+
+```js
+const profileAPI = new ProfileAPI()
+
+profileAPI
+  .getAPIUsers()
+  .then((APIUsers) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+
 ## PostAPI
 
 ### Get post by ID
@@ -232,4 +251,6 @@ postAPI
   .catch((err) => {
     console.error(err)
   })
+```
+
 ```

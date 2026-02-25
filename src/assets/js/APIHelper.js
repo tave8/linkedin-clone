@@ -28,4 +28,23 @@ export default class APIHelper {
     const randomUser = users[Math.floor(Math.random() * users.length)]
     return randomUser
   }
+
+  /**
+   * Get API Users.
+   * returns [
+   *    {
+   *      name: string
+   *    },
+   *    ...
+   * ]
+   */
+  static async getAPIUsers() {
+    const apiTokens = this.API_TOKENS
+    const users = Object.keys(apiTokens)
+    return users.map((user) => {
+      return {
+        name: user,
+      }
+    })
+  }
 }

@@ -20,7 +20,7 @@ import PostAPIDemoComponent from "./components/demo/post-api/PostAPI"
 import ChangeProfileDemoComponent from "./components/demo/change-profile/ChangeProfile"
 
 function App() {
-  const [isDemoMode, setIsDemoMode] = useState(false)
+  const [isDemoMode, setIsDemoMode] = useState(true)
 
   return (
     <Provider store={store}>
@@ -43,9 +43,9 @@ function App() {
       {isDemoMode && (
         <>
         {/****** START: DEMO components ******/}
-          {/* <ProfileAPIDemoComponent /> */}
+          <ProfileAPIDemoComponent />
           {/* <PostAPIDemoComponent /> */}
-          <ChangeProfileDemoComponent />
+          {/* <ChangeProfileDemoComponent /> */}
           {/****** END: DEMO components ********/}
         </>
       )}
