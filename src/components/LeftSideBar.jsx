@@ -1,10 +1,26 @@
 import { Card, Image, ListGroup, Row, Col } from "react-bootstrap"
+import { useState } from "react"
+import { useSelector } from "react-redux"
+
+// qui perche se no ogni volta che renderizza cambiano
+const generateRandomStats = () => {
+  return {
+    secondrandom: Math.floor(Math.random() * 500) + 50,
+    firstrandom: Math.floor(Math.random() * 80),
+    random: Math.floor(Math.random() * 100),
+    thirdrandom: Math.floor(Math.random() * 700) + 50,
+    againrandom: Math.floor(Math.random() * 300) + 50,
+  }
+}
 
 const LeftSideBar = () => {
+  const [stats] = useState(generateRandomStats())
+  const myProfile = useSelector((state) => state.myProfile)
+
   return (
-    <div className="d-flex flex-column gap-2 mt-3">
+    <div className="d-flex flex-column gap-2 mt-0">
       {/* CARD PROFILO */}
-      <Card>
+      <Card className="overflow-hidden">
         {/* cover */}
         <div>
           <Image src="https://placecats.com/600/200" alt="cover" className="w-100 h-100 cover-img" />
@@ -13,11 +29,14 @@ const LeftSideBar = () => {
         <Card.Body className="pt-0">
           <div className="d-flex flex-column align-items-start mt-2">
             {/* avatar */}
-            <Image src="https://placecats.com/120/120" roundedCircle width={72} height={72} className="left-avatar" alt="avatar" />
+            <Image src={myProfile.data?.image} roundedCircle width={72} height={72} className="left-avatar" alt="avatar" />
 
-            <div className="mt-2 fw-semibold">Mario Rossi</div>
+            <div className="mt-2 fw-semibold">
+              {" "}
+              {myProfile.data?.name} {myProfile.data?.surname}{" "}
+            </div>
             <div className="text-muted fw-semibold small lh-sm">Co-Founder @Xpensive Something | Personal branding | Digital...</div>
-            <div className="text-muted small mt-1">Bologna</div>
+            <div className="text-muted small mt-1">{myProfile.data?.area}</div>
 
             <div className="d-flex align-items-center gap-2 mt-2">
               <div className="fw-semibold small"> 🔥 Xpensive Something </div>
@@ -30,12 +49,12 @@ const LeftSideBar = () => {
         <ListGroup variant="flush">
           <ListGroup.Item className="d-flex justify-content-between align-items-center">
             <span className="fw-semibold small">Visitatori del profilo</span>
-            <span className="text-primary fw-semibold small">36</span>
+            <span className="text-primary fw-semibold small">{stats.random}</span>
           </ListGroup.Item>
 
           <ListGroup.Item className="d-flex justify-content-between align-items-center">
             <span className="fw-semibold small">Impressioni del post</span>
-            <span className="text-primary fw-semibold small">15</span>
+            <span className="text-primary fw-semibold small">{stats.firstrandom}</span>
           </ListGroup.Item>
         </ListGroup>
       </Card>
@@ -57,7 +76,7 @@ const LeftSideBar = () => {
               </Col>
 
               <Col xs="auto" className="text-end">
-                <span className="text-primary fw-semibold small">1238</span>
+                <span className="text-primary fw-semibold small">{stats.thirdrandom}</span>
               </Col>
             </Row>
           </ListGroup.Item>
@@ -74,7 +93,7 @@ const LeftSideBar = () => {
               </Col>
 
               <Col xs="auto" className="text-end">
-                <span className="text-primary fw-semibold small">1238</span>
+                <span className="text-primary fw-semibold small">{stats.againrandom}</span>
               </Col>
             </Row>
           </ListGroup.Item>
@@ -91,7 +110,7 @@ const LeftSideBar = () => {
               </Col>
 
               <Col xs="auto" className="text-end">
-                <span className="text-primary fw-semibold small">1238</span>
+                <span className="text-primary fw-semibold small">{stats.secondrandom}</span>
               </Col>
             </Row>
           </ListGroup.Item>
