@@ -1,6 +1,7 @@
 import { Card, Button } from "react-bootstrap"
 import ProfileAPI from "../assets/js/profile-api/ProfileAPI"
 import { useDispatch, useSelector } from "react-redux"
+import { setMyProfileApiUserAndLoadProfileGlobally } from "../redux/actions"
 
 function SidebarRight() {
   const dispatch = useDispatch()
@@ -71,7 +72,14 @@ function SidebarRight() {
                         {profile.name} {profile.surname}
                       </div>
                       <div className="text-muted small">{profile.title}</div>
-                      <Button size="sm" variant="link" className="mt-1 border border-secondary text-muted text-decoration-none">
+                      <Button
+                        size="sm"
+                        variant="link"
+                        className="mt-1 border border-secondary text-muted text-decoration-none"
+                        onClick={() => {
+                          dispatch(setMyProfileApiUserAndLoadProfileGlobally(profile._apiUser))
+                        }}
+                      >
                         Collegati
                       </Button>
                     </div>
@@ -164,7 +172,15 @@ function SidebarRight() {
                         {profile.name} {profile.surname}
                       </div>
                       <div className="text-muted small">{profile.title}</div>
-                      <Button size="sm" variant="link" className="mt-1 border border-secondary text-muted text-decoration-none px-2 py-0">
+
+                      <Button
+                        size="sm"
+                        variant="link"
+                        className="mt-1 border border-secondary text-muted text-decoration-none px-2 py-0"
+                        onClick={() => {
+                          dispatch(setMyProfileApiUserAndLoadProfileGlobally(profile._apiUser))
+                        }}
+                      >
                         Collegati
                       </Button>
                     </div>
