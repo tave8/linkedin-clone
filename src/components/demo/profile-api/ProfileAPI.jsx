@@ -14,7 +14,7 @@ const ProfileAPIDemo = () => {
       {/* <UpdateMyProfile /> */}
       {/* <GetProfiles /> */}
       {/* <GetMostRecentProfiles /> */}
-      <GetAPIUsers />
+      {/* <GetAPIUsers /> */}
     </>
   )
 }

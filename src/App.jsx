@@ -17,8 +17,9 @@ import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
 import LoadMyDefaultProfileComponent from "./components/helpers/LoadMyDefaultProfile";
 //import CreatePostDesktop from "./components/CreatePostDesktop";
-import ProfileAPIDemoComponent from "./components/demo/profile-api/ProfileAPI";
-import PostAPIDemoComponent from "./components/demo/post-api/PostAPI";
+import ProfileAPIDemoComponent from "./components/demo/profile-api/ProfileAPI"
+import PostAPIDemoComponent from "./components/demo/post-api/PostAPI"
+import CommentAPIDemoComponent from "./components/demo/comment-api/CommentAPI"
 
 import ChangeProfileDemoComponent from "./components/demo/change-profile/ChangeProfile";
 
@@ -47,9 +48,10 @@ function App() {
       {isDemoMode && (
         <>
           {/****** START: DEMO components ******/}
-          <ProfileAPIDemoComponent />
+          {/* <ProfileAPIDemoComponent /> */}
           {/* <PostAPIDemoComponent /> */}
           {/* <ChangeProfileDemoComponent /> */}
+          {/* <CommentAPIDemoComponent /> */}
           {/****** END: DEMO components ********/}
         </>
       )}
