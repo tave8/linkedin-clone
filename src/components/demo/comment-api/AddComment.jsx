@@ -6,7 +6,7 @@ const AddComment = () => {
   const [comment, setComment] = useState(null)
 
   const newCommentFields = {
-    comment: "CIAO SONO GIUSEPPE 2",
+    comment: `my comment at ${new Date()}`,
     postId: "699efe332c4b8b00151ab725",
   }
 

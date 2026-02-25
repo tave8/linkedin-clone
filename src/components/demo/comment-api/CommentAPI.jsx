@@ -1,6 +1,7 @@
 import GetComments from "./GetComments"
 import GetMostRecentCommentsOfPost from "./GetMostRecentCommentsOfPost"
 import AddComment from "./AddComment"
+import DeleteCommentById from "./DeleteCommentById"
 
 const CommentAPIDemo = () => {
   return (
@@ -9,6 +10,7 @@ const CommentAPIDemo = () => {
       {/* <GetComments /> */}
       {/* <GetMostRecentCommentsOfPost /> */}
       {/* <AddComment /> */}
+      {/* <DeleteCommentById /> */}
     </>
   )
 }

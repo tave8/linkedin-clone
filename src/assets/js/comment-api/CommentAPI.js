@@ -39,7 +39,7 @@ export default class CommentAPI extends APIHelper {
    * 
    * {
         "comment": string
-        "elementId": string (the ID of the post)
+        "postId": string (the ID of the post)
     }
    */
   async addComment(newComment) {
@@ -255,46 +255,57 @@ export default class CommentAPI extends APIHelper {
   //   }
 
   /**
-   * Delete post by ID.
+   * Delete comment by ID.
    */
-  //   async deletePostById(postId) {
-  //     if (!postId) {
-  //       throw new Error(`Post id is required when deleting post. Input postId is "${postId}"`)
-  //     }
-  //     const url = this.constructor.API_URL_POSTS + `/${postId}`
-  //     const moreConfig = {
-  //       method: "DELETE",
-  //     }
-  //     const config = this.getFetchConfig(moreConfig)
-  //     const resp = await fetch(url, config)
-  //     try {
-  //       // maybe a post with this ID does not exist?
-  //       if (resp.status == 400) {
-  //         throw new Error(`Error during fetch. A post with this ID likely does not exist. Response status code: ${resp.status}`)
-  //       }
-  //       if (!resp.ok) {
-  //         throw new Error(`Error during fetch. Response status code: ${resp.status}`)
-  //       }
-  //     } catch (err) {
-  //       console.error(resp)
-  //       throw err
-  //     }
+  async deleteCommentById(commentId) {
+    if (!commentId) {
+      throw new Error(`Comment id is required when deleting post. Input commentId is "${commentId}"`)
+    }
+    const url = this.constructor.API_URL_COMMENTS + `/${commentId}`
+    const moreConfig = {
+      method: "DELETE",
+    }
+    const config = this.getFetchConfig(moreConfig)
+    const resp = await fetch(url, config)
+    try {
+      // maybe a post with this ID does not exist?
+      if (resp.status == 400) {
+        throw new Error(`Error during fetch. A comment with this ID likely does not exist. Response status code: ${resp.status}`)
+      }
+      if (!resp.ok) {
+        throw new Error(`Error during fetch. Response status code: ${resp.status}`)
+      }
+    } catch (err) {
+      console.error(resp)
+      throw err
+    }
 
-  //     const text = await resp.text()
+    const contentType = resp.headers.get("content-type")
 
-  //     // if the response text is "ID non valido": ERROR
-  //     if (text.trim().toLowerCase() == "id non valido") {
-  //       throw new Error(`The API server said that this ID is not valid. Response status code: ${resp.status}`)
-  //     }
+    // response body is json
+    if (contentType && contentType.includes("application/json")) {
+      const data = await resp.json()
 
-  //     // if the response text is "Removed": SUCCESS
-  //     if (text.trim().toLowerCase() == "removed") {
-  //       return text
-  //     }
+      if (data == null) {
+        throw new Error(`Comment with ID "${commentId}" was not found. Response status code: ${resp.status}`)
+      }
 
-  //     // if the response text does not follow any previous case
-  //     throw new Error(`This API response case was not caught. Response status code: ${resp.status}; response text: ${text}`)
-  //   }
+      // the API server seems to send back the object that is being deleted?
+      // therefore I must assume that if data is not null, the object was
+      // successfully deleted
+      return `comment with ID "${commentId}" successfully deleted."`
+    }
+
+    // response body is text
+    const text = await resp.text()
+
+    // if the response text is "ID non valido": ERROR
+    if (text.trim().toLowerCase() == "id non valido") {
+      throw new Error(`The API server said that this ID is not valid. Response status code: ${resp.status}`)
+    }
+
+    throw new Error(`This error was not caught. Response status code: ${resp.status}`)
+  }
 
   /**
    * Get the default + (optional) custom fetch config.
@@ -352,6 +363,7 @@ export default class CommentAPI extends APIHelper {
     })
 
     const moreFields = {
+      postId: comment.elementId,
       createdAtForUI,
       // add here more fields. they will appear in each post resource
     }
