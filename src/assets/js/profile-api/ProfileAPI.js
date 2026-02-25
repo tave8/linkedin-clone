@@ -115,8 +115,20 @@ export default class ProfileAPI extends APIHelper {
    * Update my profile.
    */
   async updateMyProfile(newProfile) {
+    // new profile is not an object
     if (!this.constructor.isObject(newProfile)) {
       throw new Error(`New profile data is required to be a valid JS object. It is of type "${typeof newProfile}" instead.`)
+    }
+    // the bio field, if it exists, must be a non-empty string
+    if (Object.hasOwn(newProfile, "bio")) {
+      // if bio is not a string
+      if (typeof newProfile.bio != "string") {
+        throw new Error(`The bio of a profile must be a string. It is of type "${typeof newProfile.bio}" instead.`)
+      }
+      // bio is a string
+      if (newProfile.bio.trim() == "") {
+        throw new Error(`The bio of a profile cannot be empty.`)
+      }
     }
     const url = this.constructor.API_URL_PROFILES
     const moreConfig = {
