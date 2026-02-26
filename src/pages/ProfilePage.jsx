@@ -12,7 +12,7 @@ import Interest from "../components/Interest";
 import MyFooter from "../components/MyFooter";
 import RightSideBar from "../components/RightSideBar";
 import { Container, Row, Col } from "react-bootstrap";
-import { useEffect } from "react";
+
 import { useSelector } from "react-redux";
 
 const ProfilePage = () => {
