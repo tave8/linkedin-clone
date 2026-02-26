@@ -17,7 +17,7 @@ const ActivityProfile = () => {
   useEffect(() => {
     const postAPI = new PostAPI();
     postAPI
-      .getPosts()
+      .getMostRecentPosts()
       .then((posts) => {
         setPosts(posts);
       })
