@@ -45,7 +45,8 @@ const JobsPage = function () {
     };
   });
   return (
-    <div ref={containerRef} className="bg-light min-vh-100 py-5">
+    <div className="bg-light min-vh-100 py-5">
+      <div ref={containerRef} className="bg-transparent vh-100 w-100 position-fixed top-custom-accrodion"></div>
       <Container className="position-relative">
         <Row className="mb-4">
           <Col>

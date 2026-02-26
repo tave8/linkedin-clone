@@ -36,7 +36,7 @@ const ProfilePage = () => {
   });
   return (
     <>
-      <main ref={containerRef} className="sfondo">
+      <main className="sfondo">
         <Container className="position-relative">
           <Row className="justify-content-center">
             <Col xs={12} md={9}>
@@ -58,28 +58,29 @@ const ProfilePage = () => {
               <RightSideBar />
             </Col>
           </Row>
-        </Container>
-        <Accordion ref={accordionRef} className="position-fixed bottom-0 end-0 w-25 position-fixed">
-          <Accordion.Item eventKey="0">
-            <Accordion.Header>Messaggi</Accordion.Header>
-            <Accordion.Body>
-              <div>
-                <p>Team 3 ChatGroup</p>
-                <hr />
-                {arrayMessage.map((e) => {
-                  return <p>{e}</p>;
-                })}
-                <hr />
-                <div className="d-flex align-items-center gap-1">
-                  <input type="text" placeholder="start messagging" />
-                  <Button onClick={() => {}} className="px-2 py-1 d-flex align-items-center">
-                    <IoIosSend />
-                  </Button>
+          <div ref={containerRef} className="bg-transparent vh-100 w-100 position-fixed top-custom-accrodion"></div>
+          <Accordion ref={accordionRef} className="position-fixed bottom-0 end-0 w-25 ">
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>Messaggi</Accordion.Header>
+              <Accordion.Body>
+                <div>
+                  <p>Team 3 ChatGroup</p>
+                  <hr />
+                  {arrayMessage.map((e) => {
+                    return <p>{e}</p>;
+                  })}
+                  <hr />
+                  <div className="d-flex align-items-center gap-1">
+                    <input type="text" placeholder="start messagging" />
+                    <Button onClick={() => {}} className="px-2 py-1 d-flex align-items-center">
+                      <IoIosSend />
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </Accordion.Body>
-          </Accordion.Item>
-        </Accordion>
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
+        </Container>
       </main>
     </>
   );

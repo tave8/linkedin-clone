@@ -309,3 +309,6 @@ body {
   box-shadow: none;
   outline: none;
 }
+.top-custom-accrodion {
+  top: 20px;
+}

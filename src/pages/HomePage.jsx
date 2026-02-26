@@ -48,7 +48,8 @@ const HomePage = () => {
 
   return (
     <main className="sfondo position-relative">
-      <Container ref={containerRef} className="pt-3" fluid>
+      <div ref={containerRef} className="bg-transparent vh-100 w-100 position-fixed top-custom-accrodion"></div>
+      <Container className="pt-3" fluid>
         <Row>
           <Col className="d-none d-lg-block" md={3}>
             <LeftSideBar />
