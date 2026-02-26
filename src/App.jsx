@@ -52,8 +52,8 @@ function App() {
       {isDemoMode && (
         <>
           {/****** START: DEMO components ******/}
-          {/* <ProfileAPIDemoComponent /> */}
-          <PostAPIDemoComponent />
+          <ProfileAPIDemoComponent />
+          {/* <PostAPIDemoComponent /> */}
           {/* <ChangeProfileDemoComponent /> */}
           {/* <CommentAPIDemoComponent /> */}
           {/* <ImageAPIDemoComponent /> */}

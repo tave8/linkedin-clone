@@ -10,8 +10,8 @@ const ProfileAPIDemo = () => {
     <>
       {/* comment/uncomment the components you're interested in */}
       {/* <GetMyProfile /> */}
-      <GetProfileById />
-      {/* <UpdateMyProfile /> */}
+      {/* <GetProfileById /> */}
+      <UpdateMyProfile />
       {/* <GetProfiles /> */}
       {/* <GetMostRecentProfiles /> */}
       {/* <GetAPIUsers /> */}
