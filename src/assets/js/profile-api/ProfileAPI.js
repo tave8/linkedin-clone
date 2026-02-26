@@ -149,8 +149,9 @@ export default class ProfileAPI extends APIHelper {
     return data
   }
 
-  async getAPIUsers() {
-    return this.constructor.getAPIUsers()
+
+  async getMyProfiles(params) {
+    return this.constructor.getMyProfiles(params)
   }
 
   /**
