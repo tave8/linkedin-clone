@@ -63,11 +63,11 @@ function MobileNavabar() {
             <Nav.Link href="#network" className="d-flex flex-column align-items-center text-secondary p-1">
               <PersonFillAdd className="fs-3" /> <span style={{ fontSize: "12px" }}>Rete</span>
             </Nav.Link>
-            <LinkContainer to="/pubblica">
-              <Nav.Link onClick={() => setShowPublish(true)} className="d-flex flex-column align-items-center text-secondary p-1">
-                <PlusSquareFill className="fs-3" /> <span style={{ fontSize: "12px" }}>Pubblica</span>
-              </Nav.Link>
-            </LinkContainer>
+
+            <Nav.Link onClick={() => setShowPublish(true)} className="d-flex flex-column align-items-center text-secondary p-1">
+              <PlusSquareFill className="fs-3" /> <span style={{ fontSize: "12px" }}>Pubblica</span>
+            </Nav.Link>
+
             <LinkContainer to="/notifiche">
               <Nav.Link href="#notifications" className="d-flex flex-column align-items-center text-secondary p-1">
                 <BellFill className="fs-3" /> <span style={{ fontSize: "12px" }}>Notifiche</span>

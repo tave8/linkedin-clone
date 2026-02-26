@@ -1,19 +1,23 @@
-import Container from "react-bootstrap/Container"
-import Nav from "react-bootstrap/Nav"
-import Navbar from "react-bootstrap/Navbar"
-import NavDropdown from "react-bootstrap/NavDropdown"
-import { LinkContainer } from "react-router-bootstrap"
-import Form from "react-bootstrap/Form"
-import { InputGroup } from "react-bootstrap"
-import { BellFill, ChatRightDotsFill, HouseDoorFill, PersonFillAdd, Search, BriefcaseFill, Grid3x2GapFill } from "react-bootstrap-icons"
-import { useSelector } from "react-redux"
-import { Row } from "react-bootstrap"
-import { Button, Spinner } from "react-bootstrap"
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import { LinkContainer } from "react-router-bootstrap";
+import Form from "react-bootstrap/Form";
+import { InputGroup } from "react-bootstrap";
+import { BellFill, ChatRightDotsFill, HouseDoorFill, PersonFillAdd, Search, BriefcaseFill, Grid3x2GapFill } from "react-bootstrap-icons";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { Button, Spinner } from "react-bootstrap";
 
 function MyNavbar() {
-  const myProfile = useSelector((state) => state.myProfile)
+  const myProfile = useSelector((state) => state.myProfile);
 
-  const isAvatarLoading = myProfile.isLoading || !myProfile.data?.image
+  const isAvatarLoading = myProfile.isLoading || !myProfile.data?.image;
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
 
   const NAV_LINKS = [
     { id: 1, label: "Home", icon: <HouseDoorFill />, to: "/" },
@@ -21,7 +25,7 @@ function MyNavbar() {
     { id: 3, label: "Lavoro", icon: <BriefcaseFill />, to: "/job" },
     { id: 4, label: "Messaggi", icon: <ChatRightDotsFill />, to: "" },
     { id: 5, label: "Notifiche", icon: <BellFill />, to: "/notifications" },
-  ]
+  ];
 
   return (
     <Navbar expand="lg" className="bg-white border-bottom sticky-top py-0" variant="light">
@@ -81,7 +85,7 @@ function MyNavbar() {
                       height="24"
                       style={{ objectFit: "cover" }}
                       onError={(e) => {
-                        e.currentTarget.src = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+                        e.currentTarget.src = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png";
                       }}
                     />
                   )}
@@ -90,6 +94,10 @@ function MyNavbar() {
               }
               id="profile-dropdown"
               className="px-2"
+              show={show}
+              onToggle={(isOpen) => setShow(isOpen)}
+              rootCloseEvent="click"
+              autoClose={true}
             >
               <NavDropdown.Header href="#settings" style={{ width: "280px" }}></NavDropdown.Header>
               <div className="px-3 py-2" style={{ width: "280px" }}>
@@ -100,7 +108,7 @@ function MyNavbar() {
                   </h5>
                   <p className="mb-0 h6">{myProfile.data.title}</p>
                   <p className="text-secondary small mb-3">{myProfile.data.area}</p>
-                  <LinkContainer to="/Profile" style={{ textDecoration: "none", color: "#0A66C2", border: "1px solid #0A66C2" }}>
+                  <LinkContainer to="/Profile" style={{ textDecoration: "none", color: "#0A66C2", border: "1px solid #0A66C2" }} onClick={handleClose}>
                     <Button className="rounded-5 fw-bold w-100" variant="outline" style={{ fontSize: "0.85rem" }}>
                       Visualizza Profilo
                     </Button>
@@ -134,7 +142,7 @@ function MyNavbar() {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  )
+  );
 }
 
-export default MyNavbar
+export default MyNavbar;
