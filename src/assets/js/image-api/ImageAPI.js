@@ -22,27 +22,31 @@ export default class ImageAPI extends APIHelper {
    * Add an image to a post.
    */
   async addImageToPost(imageFile, postId) {
-    // image file is not a real file image
-    if (!this.constructor.isImageFile(imageFile)) {
-      console.error(imageFile)
-      throw new Error(`Image must be a real file image. Its type is "${typeof imageFile}" instead.`)
-    }
-    // postId does not exist
-    if (!postId) {
-      throw new Error(`When adding an image, the post ID must be specified. Post ID "${postId}" given`)
-    }
+    throw new Error("This method is temporarily disabled.")
 
-    console.log("image file controls: PASSED")
-    console.log(imageFile, postId)
+    // image file is not a real file image
+    // if (!this.constructor.isImageFile(imageFile)) {
+    //   console.error(imageFile)
+    //   throw new Error(`Image must be a real file image. Its type is "${typeof imageFile}" instead. ` + `Are you sure you are adding an actual image file?`)
+    // }
+    // // postId does not exist
+    // if (!postId) {
+    //   throw new Error(`When adding an image, the post ID must be specified. Post ID "${postId}" given`)
+    // }
 
     // const url = this.constructor.API_URL_IMAGES_OF_POSTS
 
+    // const formData = new FormData()
+    // // as specified by the API server
+    // formData.append("post", imageFile)
+
     // const moreConfig = {
     //   method: "POST",
-    //   body: JSON.stringify(newPost),
+    //   body: formData,
     // }
 
     // const config = this.getFetchConfig(moreConfig)
+
     // const resp = await fetch(url, config)
 
     // try {
@@ -54,7 +58,9 @@ export default class ImageAPI extends APIHelper {
     //   throw err
     // }
 
-    // const data = await resp.json()
+    // // const data = await resp.json()
+
+    // return resp
 
     // return this.constructor.prettifyPost(data)
   }
@@ -67,7 +73,7 @@ export default class ImageAPI extends APIHelper {
     const defaultConfig = {
       headers: {
         // FIX content-type
-        "content-type": "application/json",
+        // "content-type": "application/json",
         authorization: `Bearer ${apiToken}`,
       },
     }
