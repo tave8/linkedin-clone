@@ -66,8 +66,8 @@ const ProfilePage = () => {
                 <div>
                   <p>Team 3 ChatGroup</p>
                   <hr />
-                  {arrayMessage.map((e) => {
-                    return <p>{e}</p>;
+                  {arrayMessage.map((e, i) => {
+                    return <p key={i}>{e}</p>;
                   })}
                   <hr />
                   <div className="d-flex align-items-center gap-1">

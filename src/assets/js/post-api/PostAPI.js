@@ -1,5 +1,6 @@
 import APIHelper from "../APIHelper"
 import OpenAI from "../open-ai/OpenAI"
+import ImageAPI from "../image-api/ImageAPI"
 
 const defaultParams = {
   apiUser: "giuseppe",
@@ -111,6 +112,61 @@ export default class PostAPI extends APIHelper {
     }
 
     throw new Error(`This error was not caught. Response status code: ${resp.status}`)
+  }
+
+  /**
+   * Add post with an image.
+   *
+   * To add an image, first we need a the post.
+   * These logical operations are therefore synchronous.
+   */
+  async addPostWithImage(newPost, imageFile) {
+    // new post is not an object
+    if (!this.constructor.isObject(newPost)) {
+      throw new Error(`New post is required to be a valid JS object. It is of type "${typeof newPost}" instead.`)
+    }
+    // required "text" property
+    if (!newPost.text) {
+      throw new Error(`New post is required to have at least the "text" property. "${JSON.stringify(newPost)}" given`)
+    }
+    // image file is not a real file image
+    if (!this.constructor.isImageFile(imageFile)) {
+      console.error(imageFile)
+      throw new Error(`Image must be a real file image. Its type is "${typeof imageFile}" instead. ` + `Are you sure you are adding an actual image file?`)
+    }
+
+    // assumption: this method has its own error-handling
+    // assumption: if no error is raised, I get back the post just added
+    const postJustAdded = await this.addPost(newPost)
+
+    if (!Object.hasOwn(postJustAdded, "_id")) {
+      console.error(postJustAdded)
+      throw new Error(
+        `It was assumed that the post just added had an _id field, ` +
+          `however it does not. ` +
+          `The post just added has type "${typeof postJustAdded}" instead.`,
+      )
+    }
+
+    const postId = postJustAdded._id
+
+    const imageAPI = new ImageAPI({
+      apiUser: this.apiUser,
+    })
+
+    // assumption: this method has its own error-handling
+    const postAfterAddedImage = await imageAPI.addImageToMyPost(imageFile, postId)
+
+    if (!this.constructor.isObject(postAfterAddedImage)) {
+      console.error(postJustAdded)
+      throw new Error(
+        `It was expected that the post updated with the image, is a JS object, ` +
+          `however it is not. ` +
+          `Its type is "${typeof postAfterAddedImage}" instead.`,
+      )
+    }
+
+    return postAfterAddedImage
   }
 
   /**

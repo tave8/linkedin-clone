@@ -180,12 +180,34 @@ Promise
 
 ```js
 const postAPI = new PostAPI()
-const newPostFields = {
+const postFields = {
   text: "xxx",
 }
 
 postAPI
-  .addPost(newPostFields)
+  .addPost(postFields)
+  .then((post) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+### Add post with image
+
+Promise
+
+```js
+const postAPI = new PostAPI()
+const postFields = {
+  text: "xxx",
+}
+// event is an Event instance passed to an event handler
+const imageFile = event.target.files[0]
+
+postAPI
+  .addPostWithImage(postFields, imageFile)
   .then((post) => {
     // your code
   })
