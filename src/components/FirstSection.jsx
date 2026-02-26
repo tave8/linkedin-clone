@@ -12,16 +12,16 @@ import Modal from "react-bootstrap/Modal";
 const FirstSection = (props) => {
   const myProfile = useSelector((state) => state.myProfile);
   const arrayBanner = [
-    { id: "Giorgia", image: "/Banner-GR.jpg" },
-    { id: "Giulia", image: "/Banner-GC.jpg" },
+    { id: "giorgia", image: "/Banner-GR.jpg" },
+    { id: "giulia", image: "/Banner-GC.jpg" },
     { id: "giuseppe", image: "/Banner-GT.jpg" },
-    { id: "Raffaele", image: "/Banner-RB.jpg" },
+    { id: "raffaele", image: "/Banner-RB.jpg" },
     { id: "francesco", image: "/Banner-FD.jpg" },
   ];
 
   const getBannerByUserName = (name) => {
-    const found = arrayBanner.find((banner) => banner.id === name);
-    return found ? found.image : "//Banner-GT.jpg";
+    const found = arrayBanner.find((banner) => banner.id.toLowerCase() === name.toLowerCase());
+    return found ? found.image : "/Banner-FD.jpg";
   };
 
   //chiamaaaaaaa
