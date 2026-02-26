@@ -1,12 +1,12 @@
 import AddImageToMyPost from "./AddImageToMyPost"
-import AddImageToProfile from "./AddImageToProfile"
+import AddImageToMyProfile from "./AddImageToMyProfile"
 
 const ImageAPIDemo = () => {
   return (
     <>
       {/* comment/uncomment the components you're interested in */}
       {/* <AddImageToMyPost /> */}
-      <AddImageToProfile />
+      <AddImageToMyProfile />
     </>
   )
 }

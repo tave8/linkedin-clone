@@ -1,5 +1,6 @@
 import APIHelper from "../APIHelper"
 import PostAPI from "../post-api/PostAPI"
+import ProfileAPI from "../profile-api/ProfileAPI"
 
 const defaultParams = {
   apiUser: "giuseppe",
@@ -21,20 +22,18 @@ export default class ImageAPI extends APIHelper {
   }
 
   /**
-   * Add an image to a profile.
+   * Add an image to my profile.
    */
-  async addImageToProfile(imageFile, profileId) {
+  async addImageToMyProfile(imageFile) {
     // image file is not a real file image
     if (!this.constructor.isImageFile(imageFile)) {
       console.error(imageFile)
       throw new Error(`Image must be a real file image. Its type is "${typeof imageFile}" instead. ` + `Are you sure you are adding an actual image file?`)
     }
-    // profileId does not exist
-    if (!profileId) {
-      throw new Error(`When adding an image, the profile ID must be specified. Profile ID "${profileId}" given`)
-    }
-
-    const url = this.constructor.API_URL_IMAGES_OF_PROFILES + `/${profileId}/picture`
+    // it seems that the profileId is useless, because the 
+    // API server authenticates the profile's image as the
+    // API token's owner.
+    const url = this.constructor.API_URL_IMAGES_OF_PROFILES + `/xxx/picture`
 
     const formData = new FormData()
     // as specified by the API server
@@ -58,11 +57,10 @@ export default class ImageAPI extends APIHelper {
       throw err
     }
 
-    // // const data = await resp.json()
-
-    return resp
-
-    // return this.constructor.prettifyPost(data)
+    // success
+    const profileFromServer = await resp.json()
+    
+    return ProfileAPI.prettifyProfile(profileFromServer)
   }
 
   /**

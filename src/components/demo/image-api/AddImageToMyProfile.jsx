@@ -2,17 +2,17 @@ import { useEffect, useState } from "react"
 
 import ImageAPI from "../../../assets/js/image-api/ImageAPI"
 
-const AddImageToProfile = () => {
-  const profileId = "xxx"
-
+const AddImageToMyProfile = () => {
   useEffect(() => {}, [])
 
   const handleAddImageToProfile = (imageFile) => {
-    const imageAPI = new ImageAPI()
+    const imageAPI = new ImageAPI({
+      apiUser: "raffaele",
+    })
     imageAPI
-      .addImageToProfile(imageFile, profileId)
-      .then((answer) => {
-        console.log(answer)
+      .addImageToMyProfile(imageFile)
+      .then((updatedProfile) => {
+        console.log(updatedProfile)
       })
       .catch((err) => {
         console.error(err)
@@ -44,4 +44,4 @@ const AddImageToProfile = () => {
   )
 }
 
-export default AddImageToProfile
+export default AddImageToMyProfile

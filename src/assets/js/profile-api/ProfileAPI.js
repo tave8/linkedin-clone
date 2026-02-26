@@ -200,6 +200,10 @@ export default class ProfileAPI extends APIHelper {
     }
   }
 
+  static prettifyProfile(profile) {
+    return profile
+  }
+
   /**
    * Get the default + (optional) custom fetch config.
    */

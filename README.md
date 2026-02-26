@@ -370,7 +370,7 @@ commentAPI
 
 ## ImageAPI
 
-### Add image to profile
+### Add image to my profile
 
 Promise
 
@@ -378,11 +378,10 @@ Promise
 const imageAPI = new ImageAPI()
 // event is an Event instance passed to an event handler
 const imageFile = event.target.files[0]
-const profileId = "xxx"
 
 imageAPI
-  .addImageToProfile(imageFile, profileId)
-  .then((...) => {
+  .addImageToMyProfile(imageFile)
+  .then((updatedProfile) => {
     // your code
   })
   .catch((err) => {
