@@ -149,9 +149,55 @@ export default class ProfileAPI extends APIHelper {
     return data
   }
 
+  /**
+   * Get my profiles.
+   * Note that apiUser = profile; have not agreed on terminology.
+   *
+   * @param exceptProfile: string: ["giuseppe", "giulia", "giorgia", "francesco", "raffaele"]
+   *
+   * @returns [
+   *    {
+   *      apiUser: string
+   *      name: string  // legacy
+   *      firstName: string
+   *      lastName: string
+   *      imageUrl: string
+   *    },
+   *    ...
+   * ]
+   */
+  async getMyProfiles({ exceptProfile = null } = {}) {
+    const apiTokens = this.constructor.API_TOKENS
+    // the filtered or all API users
+    const apiUsers = Object.keys(apiTokens)
+    // if exceptProfile has been provided, check that
+    // this profile/API user truly exists
+    if (exceptProfile != null) {
+      this.constructor.verifyIfExistsApiUser(exceptProfile)
+    }
+    // if exceptProfile has been provided, filter
+    const filteredApiUsers = exceptProfile != null ? apiUsers.filter((u) => u != exceptProfile) : apiUsers
 
-  async getMyProfiles(params) {
-    return this.constructor.getMyProfiles(params)
+    const myProfilePromises = filteredApiUsers.map((apiUser) => {
+      const profileAPI = new ProfileAPI({
+        apiUser,
+      })
+      const promise = profileAPI.getMyProfile()
+      return promise
+    })
+    try {
+      const myProfiles = await Promise.all(myProfilePromises)
+      return myProfiles.map((myProfile, i) => {
+        const apiUser = filteredApiUsers[i]
+        return {
+          ...myProfile,
+          _apiUser: apiUser,
+        }
+      })
+    } catch (err) {
+      console.error(err)
+      throw new Error(`Error while fetching "myProfiles". Details: ${err}`)
+    }
   }
 
   /**

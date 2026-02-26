@@ -1,5 +1,3 @@
-import ProfileAPI from "./profile-api/ProfileAPI"
-
 /**
  * API Helper class
  * Only static methods.
@@ -33,56 +31,5 @@ export default class APIHelper {
     const users = Object.keys(apiTokens)
     const randomUser = users[Math.floor(Math.random() * users.length)]
     return randomUser
-  }
-
-  /**
-   * Get my profiles.
-   * Note that apiUser = profile; have not agreed on terminology.
-   *
-   * @param exceptProfile: string: ["giuseppe", "giulia", "giorgia", "francesco", "raffaele"]
-   *
-   * @returns [
-   *    {
-   *      apiUser: string
-   *      name: string  // legacy
-   *      firstName: string
-   *      lastName: string
-   *      imageUrl: string
-   *    },
-   *    ...
-   * ]
-   */
-  static async getMyProfiles({ exceptProfile = null } = {}) {
-    const apiTokens = this.API_TOKENS
-    // the filtered or all API users
-    const apiUsers = Object.keys(apiTokens)
-    // if exceptProfile has been provided, check that
-    // this profile/API user truly exists
-    if (exceptProfile != null) {
-      this.verifyIfExistsApiUser(exceptProfile)
-    }
-    // if exceptProfile has been provided, filter
-    const filteredApiUsers = exceptProfile != null ? apiUsers.filter((u) => u != exceptProfile) : apiUsers
-
-    const myProfilePromises = filteredApiUsers.map((apiUser) => {
-      const profileAPI = new ProfileAPI({
-        apiUser,
-      })
-      const promise = profileAPI.getMyProfile()
-      return promise
-    })
-    try {
-      const myProfiles = await Promise.all(myProfilePromises)
-      return myProfiles.map((myProfile, i) => {
-        const apiUser = filteredApiUsers[i]
-        return {
-          ...myProfile,
-          _apiUser: apiUser,
-        }
-      })
-    } catch (err) {
-      console.error(err)
-      throw new Error(`Error while fetching "myProfiles". Details: ${err}`)
-    }
   }
 }
