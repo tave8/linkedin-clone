@@ -8,11 +8,11 @@ const AddImageToPost = () => {
 
   useEffect(() => {}, [])
 
-  const handleAddImageToPost = (imageFile) => {
+  const handleAddImageToMyPost = (imageFile) => {
     // console.log(imageFile)
     const imageAPI = new ImageAPI()
     imageAPI
-      .addImageToPost(imageFile, postId)
+      .addImageToMyPost(imageFile, postId)
       .then((updatedPost) => {
         console.log(updatedPost)
       })
@@ -23,14 +23,14 @@ const AddImageToPost = () => {
 
   return (
     <>
-      <h1>ADD IMAGE TO POST</h1>
+      <h1>ADD IMAGE TO MY POST</h1>
       <input
         type="file"
         accept="image/*"
         // value={imageFile}
         onChange={(event) => {
           // setImageFile(event.target.files[0])
-          handleAddImageToPost(event.target.files[0])
+          handleAddImageToMyPost(event.target.files[0])
         }}
       />
       {/* {post && (

@@ -66,9 +66,9 @@ export default class ImageAPI extends APIHelper {
   }
 
   /**
-   * Add an image to a post.
+   * Add an image to my post.
    */
-  async addImageToPost(imageFile, postId) {
+  async addImageToMyPost(imageFile, postId) {
     // throw new Error("This method is temporarily disabled.")
 
     // image file is not a real file image

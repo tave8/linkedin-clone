@@ -368,7 +368,6 @@ commentAPI
   })
 ```
 
-
 ## ImageAPI
 
 ### Add image to profile
@@ -391,7 +390,7 @@ imageAPI
   })
 ```
 
-### Add image to post
+### Add image to my post
 
 Promise
 
@@ -402,7 +401,7 @@ const imageFile = event.target.files[0]
 const postId = "xxx"
 
 imageAPI
-  .addImageToPost(imageFile, postId)
+  .addImageToMyPost(imageFile, postId)
   .then((updatedPost) => {
     // your code
   })
@@ -410,4 +409,3 @@ imageAPI
     console.error(err)
   })
 ```
-
