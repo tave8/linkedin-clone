@@ -1,10 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Container, Row, Col, Form, InputGroup, Card, Badge, Button } from "react-bootstrap";
+import { IoIosSend } from "react-icons/io";
+import Accordion from "react-bootstrap/Accordion";
 import "bootstrap/dist/css/bootstrap.min.css";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { Draggable } from "gsap/Draggable";
 
 const JobsPage = function () {
   const [query, setQuery] = useState("");
   const [job, setjob] = useState([]);
+  const accordionRef = useRef(null);
+  const containerRef = useRef(null);
+  const arrayMessage = ["come va?", "bene tu?", "ciao ragazzi!"];
 
   const URL = `https://strive-benchmark.herokuapp.com/api/jobs?search=${query}`;
 
@@ -27,9 +35,18 @@ const JobsPage = function () {
       });
   }, [query]);
 
+  useGSAP(() => {
+    const [draggable] = Draggable.create(accordionRef.current, {
+      type: "x,y",
+      bounds: containerRef.current,
+    });
+    return () => {
+      draggable.kill();
+    };
+  });
   return (
-    <div className="bg-light min-vh-100 py-5">
-      <Container>
+    <div ref={containerRef} className="bg-light min-vh-100 py-5">
+      <Container className="position-relative">
         <Row className="mb-4">
           <Col>
             <p className="text-uppercase text-muted fw-semibold small mb-1" style={{ letterSpacing: "0.1em" }}>
@@ -130,6 +147,27 @@ const JobsPage = function () {
           ))}
         </Row>
       </Container>
+      <Accordion ref={accordionRef} className="position-absolute bottom-0 end-0 w-25 position-fixed">
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>Messaggi</Accordion.Header>
+          <Accordion.Body>
+            <div>
+              <p>Team 3 ChatGroup</p>
+              <hr />
+              {arrayMessage.map((e) => {
+                return <p>{e}</p>;
+              })}
+              <hr />
+              <div className="d-flex align-items-center gap-1">
+                <input type="text" placeholder="start messagging" />
+                <Button onClick={() => {}} className="px-2 py-1 d-flex align-items-center">
+                  <IoIosSend />
+                </Button>
+              </div>
+            </div>
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
     </div>
   );
 };
