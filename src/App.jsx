@@ -27,7 +27,7 @@ import ImageAPIDemoComponent from "./components/demo/image-api/ImageAPI"
 import ChangeProfileDemoComponent from "./components/demo/change-profile/ChangeProfile"
 
 function App() {
-  const [isDemoMode, setIsDemoMode] = useState(true)
+  const [isDemoMode, setIsDemoMode] = useState(false)
 
   return (
     <Provider store={store}>
