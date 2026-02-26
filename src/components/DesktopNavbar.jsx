@@ -1,17 +1,19 @@
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import { LinkContainer } from "react-router-bootstrap";
-import Form from "react-bootstrap/Form";
-import { InputGroup } from "react-bootstrap";
-import { BellFill, ChatRightDotsFill, HouseDoorFill, PersonFillAdd, Search, BriefcaseFill, Grid3x2GapFill } from "react-bootstrap-icons";
-import { useSelector } from "react-redux";
-import { Row } from "react-bootstrap";
-import { Button } from "react-bootstrap";
+import Container from "react-bootstrap/Container"
+import Nav from "react-bootstrap/Nav"
+import Navbar from "react-bootstrap/Navbar"
+import NavDropdown from "react-bootstrap/NavDropdown"
+import { LinkContainer } from "react-router-bootstrap"
+import Form from "react-bootstrap/Form"
+import { InputGroup } from "react-bootstrap"
+import { BellFill, ChatRightDotsFill, HouseDoorFill, PersonFillAdd, Search, BriefcaseFill, Grid3x2GapFill } from "react-bootstrap-icons"
+import { useSelector } from "react-redux"
+import { Row } from "react-bootstrap"
+import { Button, Spinner } from "react-bootstrap"
 
 function MyNavbar() {
-  const myProfile = useSelector((state) => state.myProfile);
+  const myProfile = useSelector((state) => state.myProfile)
+
+  const isAvatarLoading = myProfile.isLoading || !myProfile.data?.image
 
   const NAV_LINKS = [
     { id: 1, label: "Home", icon: <HouseDoorFill />, to: "/" },
@@ -19,7 +21,7 @@ function MyNavbar() {
     { id: 3, label: "Lavoro", icon: <BriefcaseFill />, to: "/job" },
     { id: 4, label: "Messaggi", icon: <ChatRightDotsFill />, to: "" },
     { id: 5, label: "Notifiche", icon: <BellFill />, to: "/notifications" },
-  ];
+  ]
 
   return (
     <Navbar expand="lg" className="bg-white border-bottom sticky-top py-0" variant="light">
@@ -66,7 +68,23 @@ function MyNavbar() {
             <NavDropdown
               title={
                 <div className="d-flex flex-column align-items-center">
-                  <img src={myProfile.data.image} alt="Tu" className="rounded-circle border" width="24" height="24" style={{ objectFit: "cover" }} />
+                  {isAvatarLoading ? (
+                    <div className="rounded-circle border d-flex align-items-center justify-content-center" style={{ width: 24, height: 24 }}>
+                      <Spinner animation="border" variant="primary" size="sm" />
+                    </div>
+                  ) : (
+                    <img
+                      src={myProfile.data.image}
+                      alt="Tu"
+                      className="rounded-circle border"
+                      width="24"
+                      height="24"
+                      style={{ objectFit: "cover" }}
+                      onError={(e) => {
+                        e.currentTarget.src = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+                      }}
+                    />
+                  )}
                   <span className="small">Tu ▼</span>
                 </div>
               }
@@ -116,7 +134,7 @@ function MyNavbar() {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  );
+  )
 }
 
-export default MyNavbar;
+export default MyNavbar
