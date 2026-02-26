@@ -1,6 +1,6 @@
-import { Card, Image, ListGroup, Row, Col } from "react-bootstrap"
-import { useState } from "react"
-import { useSelector } from "react-redux"
+import { Card, Image, ListGroup, Row, Col } from "react-bootstrap";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 // qui perche se no ogni volta che renderizza cambiano
 const generateRandomStats = () => {
@@ -10,20 +10,36 @@ const generateRandomStats = () => {
     random: Math.floor(Math.random() * 100),
     thirdrandom: Math.floor(Math.random() * 700) + 50,
     againrandom: Math.floor(Math.random() * 300) + 50,
-  }
-}
+  };
+};
 
 const LeftSideBar = () => {
-  const [stats] = useState(generateRandomStats())
-  const myProfile = useSelector((state) => state.myProfile)
+  const [stats] = useState(generateRandomStats());
+  const myProfile = useSelector((state) => state.myProfile);
+  const arrayBanner = [
+    { id: "Giorgia", image: "/Banner-GR.jpg" },
+    { id: "Giulia", image: "/Banner-GC.jpg" },
+    { id: "Giuseppe", image: "/Banner-GT.jpg" },
+    { id: "Raffaele", image: "/Banner-RB.jpg" },
+    { id: "Francesco", image: "/Banner-FD.jpg" },
+  ];
 
+  const getBannerByUserName = (name) => {
+    const found = arrayBanner.find((banner) => banner.id === name);
+    return found ? found.image : "/Banner-default.jpg";
+  };
+
+  //chiamaaaaaaa
+  const bannerI = getBannerByUserName(myProfile.data?.name);
+
+  //retunr
   return (
     <div className="d-flex flex-column gap-2 mt-0">
       {/* CARD PROFILO */}
       <Card className="overflow-hidden">
         {/* cover */}
         <div>
-          <Image src="https://placecats.com/600/200" alt="cover" className="w-100 h-100 cover-img" />
+          <Image src={bannerI} alt="cover" className="w-100 h-100 cover-img" />
         </div>
 
         <Card.Body className="pt-0">
@@ -145,7 +161,7 @@ const LeftSideBar = () => {
         </ListGroup>
       </Card>
     </div>
-  )
-}
+  );
+};
 
-export default LeftSideBar
+export default LeftSideBar;
