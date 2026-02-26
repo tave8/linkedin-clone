@@ -1,6 +1,6 @@
-import { Card, Image, ListGroup, Row, Col } from "react-bootstrap";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { Card, Image, ListGroup, Row, Col, Spinner, Alert } from "react-bootstrap"
+import { useState } from "react"
+import { useSelector } from "react-redux"
 
 // qui perche se no ogni volta che renderizza cambiano
 const generateRandomStats = () => {
@@ -10,30 +10,34 @@ const generateRandomStats = () => {
     random: Math.floor(Math.random() * 100),
     thirdrandom: Math.floor(Math.random() * 700) + 50,
     againrandom: Math.floor(Math.random() * 300) + 50,
-  };
-};
+  }
+}
 
 const LeftSideBar = () => {
-  const [stats] = useState(generateRandomStats());
-  const myProfile = useSelector((state) => state.myProfile);
+  const [stats] = useState(generateRandomStats())
+  const myProfile = useSelector((state) => state.myProfile)
+
+  const isLoadingProfile = myProfile.isLoading
+  const profileError = myProfile.isError // da redux perche no fetch
+
   const arrayBanner = [
     { id: "giorgia", image: "/Banner-GR.jpg" },
     { id: "giulia", image: "/Banner-GC.jpg" },
     { id: "giuseppe", image: "/Banner-GT.jpg" },
     { id: "raffaele", image: "/Banner-RB.jpg" },
     { id: "francesco", image: "/Banner-FD.jpg" },
-  ];
+  ]
 
   const getBannerByUserName = (name) => {
-    if (!name) return "/Banner-GT.jpg"; // fallback sicuro
+    if (!name) return "/Banner-GT.jpg" // fallback sicuro
 
-    const found = arrayBanner.find((banner) => banner.id === name.toLowerCase());
+    const found = arrayBanner.find((banner) => banner.id === name.toLowerCase())
 
-    return found ? found.image : "/Banner-GT.jpg";
-  };
+    return found ? found.image : "/Banner-GT.jpg"
+  }
 
   //chiamaaaaaaa
-  const bannerI = getBannerByUserName(myProfile.data?.name);
+  const bannerI = getBannerByUserName(myProfile.data?.name)
 
   //retunr
   return (
@@ -46,21 +50,36 @@ const LeftSideBar = () => {
         </div>
 
         <Card.Body className="pt-0">
-          <div className="d-flex flex-column align-items-start mt-2">
-            {/* avatar */}
-            <Image src={myProfile.data?.image} roundedCircle width={72} height={72} className="left-avatar" alt="avatar" />
+          {/* ERRORE */}
+          {profileError && (
+            <Alert variant="danger" className="mt-3 mb-0">
+              Errore sincronizzazione profilo.
+            </Alert>
+          )}
 
-            <div className="mt-2 fw-semibold">
-              {" "}
-              {myProfile.data?.name} {myProfile.data?.surname}{" "}
+          {/* LOADING */}
+          {isLoadingProfile && !profileError && (
+            <div className="d-flex justify-content-center align-items-center" style={{ minHeight: 140 }}>
+              <Spinner animation="border" variant="primary" role="status" />
             </div>
-            <div className="text-muted fw-semibold small lh-sm">Co-Founder @Xpensive Something | Personal branding | Digital...</div>
-            <div className="text-muted small mt-1">{myProfile.data?.area}</div>
+          )}
+          {!isLoadingProfile && !profileError && (
+            <div className="d-flex flex-column align-items-start mt-2">
+              {/* avatar */}
+              <Image src={myProfile.data?.image} roundedCircle width={72} height={72} className="left-avatar" alt="avatar" />
 
-            <div className="d-flex align-items-center gap-2 mt-2">
-              <div className="fw-semibold small"> 🔥 Xpensive Something </div>
+              <div className="mt-2 fw-semibold">
+                {" "}
+                {myProfile.data?.name} {myProfile.data?.surname}{" "}
+              </div>
+              <div className="text-muted fw-semibold small lh-sm">Co-Founder @Xpensive Something | Personal branding | Digital...</div>
+              <div className="text-muted small mt-1">{myProfile.data?.area}</div>
+
+              <div className="d-flex align-items-center gap-2 mt-2">
+                <div className="fw-semibold small"> 🔥 Xpensive Something </div>
+              </div>
             </div>
-          </div>
+          )}
         </Card.Body>
       </Card>
       {/* CARD STATS */}
@@ -172,7 +191,7 @@ const LeftSideBar = () => {
         </ListGroup>
       </Card>
     </div>
-  );
-};
+  )
+}
 
-export default LeftSideBar;
+export default LeftSideBar

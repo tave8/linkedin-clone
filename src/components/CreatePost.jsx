@@ -21,7 +21,10 @@ function CreatePost(props) {
   };
 
   const handlePublish = () => {
-    const postAPI = new PostAPI();
+    const postAPI = new PostAPI({
+      // add the post as the current profile
+      apiUser: myProfile.apiUser,
+    });
     const newPostFields = { text };
 
     const newPostFields2 = { text }; //per giuseppe

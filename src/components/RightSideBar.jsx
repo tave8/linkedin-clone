@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Card, Button } from "react-bootstrap";
-import ProfileAPI from "../assets/js/profile-api/ProfileAPI";
 import { useDispatch, useSelector } from "react-redux";
 import { setMyProfileApiUserAndLoadProfileGlobally } from "../redux/actions";
 import { useWindowSize } from "react-use";
 import Confetti from "react-confetti";
+import { Card, Button, Spinner, Alert } from "react-bootstrap";
+import ProfileAPI from "../assets/js/profile-api/ProfileAPI";
 
 function SidebarRight() {
   const { width, height } = useWindowSize();
@@ -101,17 +101,18 @@ function SidebarRight() {
               })}
 
             {/* is loading */}
+            {/* is loading */}
             {myProfilesData.isLoading && (
-              <div>
-                <p>loading...</p>
+              <div className="d-flex justify-content-center my-3">
+                <Spinner animation="border" variant="primary" role="status" />
               </div>
             )}
 
             {/* is error */}
             {myProfilesData.isError && (
-              <div>
-                <p>error during my profiles fetch!</p>
-              </div>
+              <Alert variant="danger" className="mt-2 mb-0">
+                Errore nel caricamento degli account.
+              </Alert>
             )}
           </Card.Body>
         </Card>

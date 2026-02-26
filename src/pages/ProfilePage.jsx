@@ -11,23 +11,40 @@ import Organization from "../components/Organizations";
 import Interest from "../components/Interest";
 import MyFooter from "../components/MyFooter";
 import RightSideBar from "../components/RightSideBar";
-import { Container, Row, Col } from "react-bootstrap";
-import { useEffect } from "react";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import { useRef } from "react";
 import { useSelector } from "react-redux";
+import { IoIosSend } from "react-icons/io";
+import Accordion from "react-bootstrap/Accordion";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { Draggable } from "gsap/Draggable";
 
 const ProfilePage = () => {
-  const myProfile = useSelector((state) => state.myProfile);
+  // const myProfile = useSelector((state) => state.myProfile);
+  const accordionRef = useRef(null);
+  const containerRef = useRef(null);
+  const arrayMessage = ["come va?", "bene tu?", "ciao ragazzi!"];
+  useGSAP(() => {
+    const [draggable] = Draggable.create(accordionRef.current, {
+      type: "x,y",
+      bounds: containerRef.current,
+    });
+    return () => {
+      draggable.kill();
+    };
+  });
   return (
     <>
       <main className="sfondo">
-        <Container>
+        <Container className="position-relative">
           <Row className="justify-content-center">
             <Col xs={12} md={9}>
-              <FirstSection profile={myProfile} />
+              <FirstSection />
               <AnalisiProfile />
-              <InfoProfile profile={myProfile} />
+              <InfoProfile />
               <ServicesProfile />
-              <ActivityProfile profile={myProfile} />
+              <ActivityProfile />
               {/* francesco */}
               <ExperiencesProfile />
               <EducationProfile />
@@ -41,6 +58,28 @@ const ProfilePage = () => {
               <RightSideBar />
             </Col>
           </Row>
+          <div ref={containerRef} className="bg-transparent vh-100 w-100 position-fixed top-custom-accrodion"></div>
+          <Accordion ref={accordionRef} className="position-fixed bottom-0 end-0 w-25 ">
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>Messaggi</Accordion.Header>
+              <Accordion.Body>
+                <div>
+                  <p>Team 3 ChatGroup</p>
+                  <hr />
+                  {arrayMessage.map((e) => {
+                    return <p>{e}</p>;
+                  })}
+                  <hr />
+                  <div className="d-flex align-items-center gap-1">
+                    <input type="text" placeholder="start messagging" />
+                    <Button onClick={() => {}} className="px-2 py-1 d-flex align-items-center">
+                      <IoIosSend />
+                    </Button>
+                  </div>
+                </div>
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
         </Container>
       </main>
     </>
