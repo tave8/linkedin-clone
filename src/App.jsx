@@ -23,6 +23,7 @@ import ProfileAPIDemoComponent from "./components/demo/profile-api/ProfileAPI"
 import PostAPIDemoComponent from "./components/demo/post-api/PostAPI"
 import CommentAPIDemoComponent from "./components/demo/comment-api/CommentAPI"
 import ImageAPIDemoComponent from "./components/demo/image-api/ImageAPI"
+import ExperienceAPIDemoComponent from "./components/demo/experience-api/ExperienceAPI"
 
 import ChangeProfileDemoComponent from "./components/demo/change-profile/ChangeProfile"
 
@@ -52,11 +53,12 @@ function App() {
       {isDemoMode && (
         <>
           {/****** START: DEMO components ******/}
-          <ProfileAPIDemoComponent />
+          {/* <ProfileAPIDemoComponent /> */}
           {/* <PostAPIDemoComponent /> */}
           {/* <ChangeProfileDemoComponent /> */}
           {/* <CommentAPIDemoComponent /> */}
           {/* <ImageAPIDemoComponent /> */}
+          {/* <ExperienceAPIDemoComponent /> */}
           {/****** END: DEMO components ********/}
         </>
       )}
