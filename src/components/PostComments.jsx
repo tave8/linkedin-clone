@@ -10,6 +10,19 @@ const PostComments = (props) => {
   const [error, setError] = useState(null)
 
   const myProfile = useSelector((state) => state.myProfile) //per foto profilo redux
+  const profilesList = useSelector((state) => state.myProfiles?.list || []) // finalmente trovata lista profili
+
+  const currentEmail = myProfile?.data?.email
+  const findImageByEmail = (email) => {
+    const profile = profilesList.find((p) => p.email === email)
+    return profile?.image
+  }
+
+  const isMyComment = (comment) => {
+    const me = currentEmail?.trim().toLowerCase()
+    const author = comment?.author?.trim().toLowerCase()
+    return !!me && !!author && author === me
+  } // piu robusto
 
   useEffect(() => {
     // PER PRENDERE
@@ -122,7 +135,7 @@ const PostComments = (props) => {
             <Row className="align-items-start g-2 flex-nowrap comment-head">
               <Col xs="auto">
                 <Image
-                  src={myProfile.data?.image || "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"}
+                  src={findImageByEmail(comment.author) || "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"}
                   roundedCircle
                   width={40}
                   height={40}
@@ -148,7 +161,20 @@ const PostComments = (props) => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                      <Dropdown.Item onClick={() => handleDeleteComment(comment._id)}>Elimina</Dropdown.Item>
+                      {isMyComment(comment) && (
+                        <Dropdown.Item onClick={() => console.log("EDIT COMMENT:", comment._id)}>
+                          <i className="bi bi-pencil-square me-2"></i>
+                          Modifica
+                        </Dropdown.Item>
+                      )}
+
+                      {isMyComment(comment) && (
+                        <Dropdown.Item onClick={() => handleDeleteComment(comment._id)} className="text-danger">
+                          <i className="bi bi-trash me-2"></i>
+                          Elimina
+                        </Dropdown.Item>
+                      )}
+
                       <Dropdown.Item>Nascondi</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
