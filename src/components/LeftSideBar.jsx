@@ -26,7 +26,7 @@ const LeftSideBar = () => {
 
   const getBannerByUserName = (name) => {
     const found = arrayBanner.find((banner) => banner.id === name);
-    return found ? found.image : "/Banner-default.jpg";
+    return found ? found.image : "/Banner-GT.jpg";
   };
 
   //chiamaaaaaaa
