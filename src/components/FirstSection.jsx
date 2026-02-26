@@ -50,7 +50,7 @@ const FirstSection = () => {
             name="avatar"
             accept="image/png, image/jpeg"
             onChange={(event) => {
-              // const profileImg = event.target.files[0]; //per giuseppe
+              const profileImg = event.target.files[0]; //per giuseppe
             }}
           />
           <label htmlFor="Name">Nome</label>
