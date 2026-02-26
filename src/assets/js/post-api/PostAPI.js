@@ -1,5 +1,6 @@
 import APIHelper from "../APIHelper"
 import OpenAI from "../open-ai/OpenAI"
+import ImageAPI from "../image-api/ImageAPI"
 
 const defaultParams = {
   apiUser: "giuseppe",
@@ -111,6 +112,34 @@ export default class PostAPI extends APIHelper {
     }
 
     throw new Error(`This error was not caught. Response status code: ${resp.status}`)
+  }
+
+  /**
+   * Add post with an image.
+   * 
+   * To add an image, first we need a the post.
+   * These logical operations are therefore synchronous.
+   */
+  async addPostWithImage(newPost, imageFile) {
+    // basic check to make sure there are at least two params
+    if (!newPost || !imageFile) {
+      console.error(newPost, imageFile)
+      throw new Error(`To add a post with an image, params newPost and newFile must be non-nully.`)
+    }
+
+    // assumption: this method has its own error-handling
+    const postJustAdded = await this.addPost(newPost)
+
+    const postId = postJustAdded._id
+
+    const imageAPI = new ImageAPI({
+      apiUser: this.apiUser,
+    })
+
+    // assumption: this method has its own error-handling
+    const postAfterAddedImage = await imageAPI.addImageToMyPost(imageFile, postId)
+
+    return postAfterAddedImage
   }
 
   /**
