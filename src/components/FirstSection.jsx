@@ -14,9 +14,9 @@ const FirstSection = (props) => {
   const arrayBanner = [
     { id: "Giorgia", image: "/Banner-GR.jpg" },
     { id: "Giulia", image: "/Banner-GC.jpg" },
-    { id: "Giuseppe", image: "/Banner-GT.jpg" },
+    { id: "giuseppe", image: "/Banner-GT.jpg" },
     { id: "Raffaele", image: "/Banner-RB.jpg" },
-    { id: "Francesco", image: "/Banner-FD.jpg" },
+    { id: "francesco", image: "/Banner-FD.jpg" },
   ];
 
   const getBannerByUserName = (name) => {
