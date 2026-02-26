@@ -20,7 +20,6 @@ const HomePage = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  const [posts, setPosts] = useState([])
   const accordionRef = useRef(null)
   const containerRef = useRef(null)
   const arrayMessage = ["come va?", "bene tu?", "ciao ragazzi!"]
