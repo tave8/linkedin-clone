@@ -2,19 +2,17 @@ import { useEffect, useState } from "react"
 
 import ImageAPI from "../../../assets/js/image-api/ImageAPI"
 
-const AddImageToPost = () => {
-  const postId = "69a02a802a4669001512aa58"
-  // const postId = "69a02aac2a4669001512aa5a"
+const AddImageToProfile = () => {
+  const profileId = "xxx"
 
   useEffect(() => {}, [])
 
-  const handleAddImageToPost = (imageFile) => {
-    // console.log(imageFile)
+  const handleAddImageToProfile = (imageFile) => {
     const imageAPI = new ImageAPI()
     imageAPI
-      .addImageToPost(imageFile, postId)
-      .then((updatedPost) => {
-        console.log(updatedPost)
+      .addImageToProfile(imageFile, profileId)
+      .then((answer) => {
+        console.log(answer)
       })
       .catch((err) => {
         console.error(err)
@@ -23,14 +21,13 @@ const AddImageToPost = () => {
 
   return (
     <>
-      <h1>ADD IMAGE TO POST</h1>
+      <h1>ADD IMAGE TO PROFILE</h1>
       <input
         type="file"
         accept="image/*"
         // value={imageFile}
         onChange={(event) => {
-          // setImageFile(event.target.files[0])
-          handleAddImageToPost(event.target.files[0])
+          handleAddImageToProfile(event.target.files[0])
         }}
       />
       {/* {post && (
@@ -47,4 +44,4 @@ const AddImageToPost = () => {
   )
 }
 
-export default AddImageToPost
+export default AddImageToProfile

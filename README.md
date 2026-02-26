@@ -371,6 +371,26 @@ commentAPI
 
 ## ImageAPI
 
+### Add image to profile
+
+Promise
+
+```js
+const imageAPI = new ImageAPI()
+// event is an Event instance passed to an event handler
+const imageFile = event.target.files[0]
+const profileId = "xxx"
+
+imageAPI
+  .addImageToProfile(imageFile, profileId)
+  .then((...) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
 ### Add image to post
 
 Promise
@@ -383,7 +403,7 @@ const postId = "xxx"
 
 imageAPI
   .addImageToPost(imageFile, postId)
-  .then((...) => {
+  .then((updatedPost) => {
     // your code
   })
   .catch((err) => {

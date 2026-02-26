@@ -1,4 +1,5 @@
 import APIHelper from "../APIHelper"
+import PostAPI from "../post-api/PostAPI"
 
 const defaultParams = {
   apiUser: "giuseppe",
@@ -6,6 +7,7 @@ const defaultParams = {
 
 export default class ImageAPI extends APIHelper {
   static API_URL_IMAGES_OF_POSTS = "https://striveschool-api.herokuapp.com/api/posts"
+  static API_URL_IMAGES_OF_PROFILES = "https://striveschool-api.herokuapp.com/api/profile"
 
   /**
    */
@@ -19,50 +21,104 @@ export default class ImageAPI extends APIHelper {
   }
 
   /**
-   * Add an image to a post.
+   * Add an image to a profile.
    */
-  async addImageToPost(imageFile, postId) {
-    throw new Error("This method is temporarily disabled.")
-
+  async addImageToProfile(imageFile, profileId) {
     // image file is not a real file image
-    // if (!this.constructor.isImageFile(imageFile)) {
-    //   console.error(imageFile)
-    //   throw new Error(`Image must be a real file image. Its type is "${typeof imageFile}" instead. ` + `Are you sure you are adding an actual image file?`)
-    // }
-    // // postId does not exist
-    // if (!postId) {
-    //   throw new Error(`When adding an image, the post ID must be specified. Post ID "${postId}" given`)
-    // }
+    if (!this.constructor.isImageFile(imageFile)) {
+      console.error(imageFile)
+      throw new Error(`Image must be a real file image. Its type is "${typeof imageFile}" instead. ` + `Are you sure you are adding an actual image file?`)
+    }
+    // profileId does not exist
+    if (!profileId) {
+      throw new Error(`When adding an image, the profile ID must be specified. Profile ID "${profileId}" given`)
+    }
 
-    // const url = this.constructor.API_URL_IMAGES_OF_POSTS
+    const url = this.constructor.API_URL_IMAGES_OF_PROFILES + `/${profileId}/picture`
 
-    // const formData = new FormData()
-    // // as specified by the API server
-    // formData.append("post", imageFile)
+    const formData = new FormData()
+    // as specified by the API server
+    formData.append("profile", imageFile)
 
-    // const moreConfig = {
-    //   method: "POST",
-    //   body: formData,
-    // }
+    const moreConfig = {
+      method: "POST",
+      body: formData,
+    }
 
-    // const config = this.getFetchConfig(moreConfig)
+    const config = this.getFetchConfig(moreConfig)
 
-    // const resp = await fetch(url, config)
+    const resp = await fetch(url, config)
 
-    // try {
-    //   if (!resp.ok) {
-    //     throw new Error(`Error during fetch. Response status code: ${resp.status}`)
-    //   }
-    // } catch (err) {
-    //   console.error(resp)
-    //   throw err
-    // }
+    try {
+      if (!resp.ok) {
+        throw new Error(`Error during fetch. Response status code: ${resp.status}`)
+      }
+    } catch (err) {
+      console.error(resp)
+      throw err
+    }
 
     // // const data = await resp.json()
 
-    // return resp
+    return resp
 
     // return this.constructor.prettifyPost(data)
+  }
+
+  /**
+   * Add an image to a post.
+   */
+  async addImageToPost(imageFile, postId) {
+    // throw new Error("This method is temporarily disabled.")
+
+    // image file is not a real file image
+    if (!this.constructor.isImageFile(imageFile)) {
+      console.error(imageFile)
+      throw new Error(`Image must be a real file image. Its type is "${typeof imageFile}" instead. ` + `Are you sure you are adding an actual image file?`)
+    }
+    // postId does not exist
+    if (!postId) {
+      throw new Error(`When adding an image, the post ID must be specified. Post ID "${postId}" given`)
+    }
+
+    const url = this.constructor.API_URL_IMAGES_OF_POSTS + `/${postId}`
+
+    const formData = new FormData()
+    // as specified by the API server
+    formData.append("post", imageFile)
+
+    const moreConfig = {
+      method: "POST",
+      body: formData,
+    }
+
+    const config = this.getFetchConfig(moreConfig)
+
+    const resp = await fetch(url, config)
+
+    try {
+      if (resp.status == 401) {
+        throw new Error(`Unauthorized. Are you sure this is your post? Response status code: ${resp.status}`)
+      }
+      if (!resp.ok) {
+        throw new Error(`Error during fetch. Response status code: ${resp.status}`)
+      }
+    } catch (err) {
+      console.error(resp)
+      throw err
+    }
+
+    // the API server will return a JSON, if success
+    const data = await resp.json()
+
+    // the new post is at _doc in the JSON returned from the server
+    if (!Object.hasOwn(data, "_doc")) {
+      throw new Error(`Expected "_doc" property on the JSON after successful image upload, but such property was not found.`)
+    }
+
+    const postFromServer = data._doc
+
+    return PostAPI.prettifyPost(postFromServer)
   }
 
   /**
@@ -72,8 +128,8 @@ export default class ImageAPI extends APIHelper {
     const apiToken = this.getApiToken()
     const defaultConfig = {
       headers: {
-        // FIX content-type
-        // "content-type": "application/json",
+        // no content-type header seems needed
+        // check assumptions about using FormData etc.
         authorization: `Bearer ${apiToken}`,
       },
     }
