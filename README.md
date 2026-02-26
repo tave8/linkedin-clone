@@ -479,3 +479,24 @@ imageAPI
     console.error(err)
   })
 ```
+
+## ExperienceAPI
+
+Profiles can only add/edit their own experiences.
+
+### Add experience
+
+Promise
+
+```js
+const experienceAPI = new ExperienceAPI()
+
+experienceAPI
+  .getMyExperiences()
+  .then((experiences) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
