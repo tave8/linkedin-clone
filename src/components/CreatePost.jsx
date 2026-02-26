@@ -21,10 +21,10 @@ function CreatePost(props) {
   };
 
   const handlePublish = () => {
-    const postAPI = new PostAPI(); //per giuseppe
+    const postAPI = new PostAPI();
     const newPostFields = { text };
 
-    const newPostFields2 = { text };
+    const newPostFields2 = { text }; //per giuseppe
     if (image) newPostFields2.image = image;
 
     postAPI
