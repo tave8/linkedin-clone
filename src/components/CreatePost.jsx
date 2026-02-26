@@ -1,30 +1,30 @@
-import Modal from "react-bootstrap/Modal";
-import { useState } from "react";
-import PostAPI from "../assets/js/post-api/PostAPI";
-import { useSelector } from "react-redux";
-import { Calendar3, Plus, Image } from "react-bootstrap-icons";
-import { Button, Offcanvas, Stack } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal"
+import { useState } from "react"
+import PostAPI from "../assets/js/post-api/PostAPI"
+import { useSelector } from "react-redux"
+import { Calendar3, Plus, Image } from "react-bootstrap-icons"
+import { Button, Offcanvas, Stack } from "react-bootstrap"
 
 function CreatePost(props) {
-  const [text, setText] = useState("");
-  const myProfile = useSelector((state) => state.myProfile);
+  const [text, setText] = useState("")
+  const myProfile = useSelector((state) => state.myProfile)
   const handlePublish = () => {
     const postAPI = new PostAPI({
       // add the post as the current profile
-      apiUser: myProfile.apiUser
-    });
-    const newPostFields = { text };
+      apiUser: myProfile.apiUser,
+    })
+    const newPostFields = { text }
 
     postAPI
       .addPost(newPostFields)
       .then((post) => {
-        console.log("Post pubblicato:", post);
-        setText("");
+        console.log("Post pubblicato:", post)
+        setText("")
       })
       .catch((err) => {
-        console.error(err);
-      });
-  };
+        console.error(err)
+      })
+  }
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
@@ -65,7 +65,7 @@ function CreatePost(props) {
         </Button>
       </Modal.Footer>
     </Modal>
-  );
+  )
 }
 
-export default CreatePost;
+export default CreatePost
