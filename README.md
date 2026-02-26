@@ -196,6 +196,8 @@ postAPI
 
 ### Add post with image
 
+You must provide a post. You must provide an image.
+
 Promise
 
 ```js
@@ -208,6 +210,53 @@ const imageFile = event.target.files[0]
 
 postAPI
   .addPostWithImage(postFields, imageFile)
+  .then((post) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+### Add post with optional image
+
+You must provide a post. You can optionally provide an image.
+
+Promise
+
+Variant 1
+
+```js
+const postAPI = new PostAPI()
+const postFields = {
+  text: "xxx",
+}
+// event is an Event instance passed to an event handler
+const imageFile = event.target.files[0]
+
+postAPI
+  .addPostWithOptionalImage(postFields, imageFile)
+  .then((post) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+Promise
+
+Variant 2
+
+```js
+const postAPI = new PostAPI()
+const postFields = {
+  text: "xxx",
+}
+
+// VERSION 1
+postAPI
+  .addPostWithOptionalImage(postFields)
   .then((post) => {
     // your code
   })

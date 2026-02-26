@@ -170,6 +170,79 @@ export default class PostAPI extends APIHelper {
   }
 
   /**
+   * Add post with an optional image image.
+   *
+   * If the imageFile is null or undefined, it means that it must be ignored.
+   * Otherwise it will be checked if it's an actual image file.
+   */
+  async addPostWithOptionalImage(newPost, imageFile = null) {
+    // new post is not an object
+    if (!this.constructor.isObject(newPost)) {
+      throw new Error(`New post is required to be a valid JS object. It is of type "${typeof newPost}" instead.`)
+    }
+    // required "text" property
+    if (!newPost.text) {
+      throw new Error(`New post is required to have at least the "text" property. "${JSON.stringify(newPost)}" given`)
+    }
+
+    const imageFileExists = imageFile != null && imageFile != undefined
+
+    // if the image file exists, then it must be an actual image file
+    if (imageFileExists) {
+      // image file is not a real file image
+      if (!this.constructor.isImageFile(imageFile)) {
+        console.error(imageFile)
+        throw new Error(
+          `The image file is optional, but since it's neither null nor undefined, ` +
+            `then what you meant is that it's a real image. However it's not.  ` +
+            `Its type is "${typeof imageFile}" instead. ` +
+            `Were you meaning to add an actual image file or not?`,
+        )
+      }
+    }
+
+    // assumption: this method has its own error-handling
+    // assumption: if no error is raised, I get back the post just added
+    const postJustAdded = await this.addPost(newPost)
+
+    if (!Object.hasOwn(postJustAdded, "_id")) {
+      console.error(postJustAdded)
+      throw new Error(
+        `It was assumed that the post just added had an _id field, ` +
+          `however it does not. ` +
+          `The post just added has type "${typeof postJustAdded}" instead.`,
+      )
+    }
+
+    // if no image file was provided, then return the post just added
+    if(!imageFileExists) {
+      return postJustAdded
+    }
+
+    // getting here means that the image file exists
+    // and is valid image file
+    const postId = postJustAdded._id
+
+    const imageAPI = new ImageAPI({
+      apiUser: this.apiUser,
+    })
+
+    // assumption: this method has its own error-handling
+    const postAfterAddedImage = await imageAPI.addImageToMyPost(imageFile, postId)
+
+    if (!this.constructor.isObject(postAfterAddedImage)) {
+      console.error(postJustAdded)
+      throw new Error(
+        `It was expected that the post updated with the image, is a JS object, ` +
+          `however it is not. ` +
+          `Its type is "${typeof postAfterAddedImage}" instead.`,
+      )
+    }
+
+    return postAfterAddedImage
+  }
+
+  /**
    * Add post.
    */
   async addPost(newPost) {
