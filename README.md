@@ -367,3 +367,44 @@ commentAPI
     console.error(err)
   })
 ```
+
+## ImageAPI
+
+### Add image to my profile
+
+Promise
+
+```js
+const imageAPI = new ImageAPI()
+// event is an Event instance passed to an event handler
+const imageFile = event.target.files[0]
+
+imageAPI
+  .addImageToMyProfile(imageFile)
+  .then((updatedProfile) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+### Add image to my post
+
+Promise
+
+```js
+const imageAPI = new ImageAPI()
+// event is an Event instance passed to an event handler
+const imageFile = event.target.files[0]
+const postId = "xxx"
+
+imageAPI
+  .addImageToMyPost(imageFile, postId)
+  .then((updatedPost) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
