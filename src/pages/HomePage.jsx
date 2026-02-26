@@ -33,6 +33,7 @@ const HomePage = () => {
     postAPI
       .getMostRecentPosts()
       .then((posts) => {
+        console.log(posts)
         setPosts(posts)
         setError(null)
         setIsLoading(false)
