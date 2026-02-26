@@ -21,7 +21,7 @@ const FirstSection = (props) => {
 
   const getBannerByUserName = (name) => {
     const found = arrayBanner.find((banner) => banner.id.toLowerCase() === name.toLowerCase());
-    return found ? found.image : "/Banner-FD.jpg";
+    return found ? found.image : "/Banner-GT.jpg";
   };
 
   //chiamaaaaaaa
