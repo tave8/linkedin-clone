@@ -304,3 +304,11 @@ body {
   overflow-y: auto;
 }
 /* Fine Side bar destra raffi*/
+/* accordion */
+.accordion-button:focus {
+  box-shadow: none;
+  outline: none;
+}
+.top-custom-accrodion {
+  top: 20px;
+}

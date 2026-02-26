@@ -27,7 +27,7 @@ const GetMostRecentPosts = () => {
             return (
               <div key={post._id}>
                 <p>
-                  {post.text} - ID: {post._id} ({post.username})
+                  {post.text} - POST ID: {post._id} ({post.username})
                 </p>
               </div>
             )
