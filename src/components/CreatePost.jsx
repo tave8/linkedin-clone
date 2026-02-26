@@ -31,7 +31,7 @@ function CreatePost(props) {
     if (image) newPostFields2.image = image;
 
     postAPI
-      .addPost(newPostFields)
+      .addPostWithOptionalImage(newPostFields, image)
       .then((post) => {
         console.log("Post pubblicato:", post);
         setText("");
