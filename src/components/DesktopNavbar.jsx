@@ -9,9 +9,14 @@ import { BellFill, ChatRightDotsFill, HouseDoorFill, PersonFillAdd, Search, Brie
 import { useSelector } from "react-redux";
 import { Row } from "react-bootstrap";
 import { Button } from "react-bootstrap";
+import { useState } from "react";
 
 function MyNavbar() {
   const myProfile = useSelector((state) => state.myProfile);
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
 
   const NAV_LINKS = [
     { id: 1, label: "Home", icon: <HouseDoorFill />, to: "/" },
@@ -63,6 +68,10 @@ function MyNavbar() {
               }
               id="profile-dropdown"
               className="px-2"
+              show={show}
+              onToggle={(isOpen) => setShow(isOpen)}
+              rootCloseEvent="click"
+              autoClose={true}
             >
               <NavDropdown.Header href="#settings" style={{ width: "280px" }}></NavDropdown.Header>
               <div className="px-3 py-2" style={{ width: "280px" }}>
@@ -73,7 +82,7 @@ function MyNavbar() {
                   </h5>
                   <p className="mb-0 h6">{myProfile.data.title}</p>
                   <p className="text-secondary small mb-3">{myProfile.data.area}</p>
-                  <LinkContainer to="/Profile" style={{ textDecoration: "none", color: "#0A66C2", border: "1px solid #0A66C2" }}>
+                  <LinkContainer to="/Profile" style={{ textDecoration: "none", color: "#0A66C2", border: "1px solid #0A66C2" }} onClick={handleClose}>
                     <Button className="rounded-5 fw-bold w-100" variant="outline" style={{ fontSize: "0.85rem" }}>
                       Visualizza Profilo
                     </Button>
