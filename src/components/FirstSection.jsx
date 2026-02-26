@@ -42,6 +42,16 @@ const FirstSection = (props) => {
           <Modal.Title id="contained-modal-title-vcenter">Informazioni Profilo</Modal.Title>
         </Modal.Header>
         <Modal.Body className="d-flex flex-column">
+          <label for="avatar">Choose a profile picture:</label>
+          <input
+            type="file"
+            id="avatar"
+            name="avatar"
+            accept="image/png, image/jpeg"
+            onChange={(event) => {
+              const profileImg = event.target.files[0]; // per giuseppe
+            }}
+          />
           <label htmlFor="Name">Nome</label>
           <input
             placeholder="write something to change"

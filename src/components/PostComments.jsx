@@ -32,7 +32,14 @@ const PostComments = (props) => {
   const handleAddComment = (e) => {
     e.preventDefault()
 
-    const commentAPI = new CommentAPI()
+    const commentAPI = new CommentAPI({
+      // add the comment as the current profile
+      // note: because we are passing the postId, 
+      // I'm not sure if this is actually needed,
+      // but I'm specifying the current profile for 
+      // consistency and correctness
+      apiUser: myProfile.apiUser
+    })
 
     const newCommentFields = {
       comment: newComment,
