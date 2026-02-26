@@ -116,19 +116,37 @@ export default class PostAPI extends APIHelper {
 
   /**
    * Add post with an image.
-   * 
+   *
    * To add an image, first we need a the post.
    * These logical operations are therefore synchronous.
    */
   async addPostWithImage(newPost, imageFile) {
-    // basic check to make sure there are at least two params
-    if (!newPost || !imageFile) {
-      console.error(newPost, imageFile)
-      throw new Error(`To add a post with an image, params newPost and newFile must be non-nully.`)
+    // new post is not an object
+    if (!this.constructor.isObject(newPost)) {
+      throw new Error(`New post is required to be a valid JS object. It is of type "${typeof newPost}" instead.`)
+    }
+    // required "text" property
+    if (!newPost.text) {
+      throw new Error(`New post is required to have at least the "text" property. "${JSON.stringify(newPost)}" given`)
+    }
+    // image file is not a real file image
+    if (!this.constructor.isImageFile(imageFile)) {
+      console.error(imageFile)
+      throw new Error(`Image must be a real file image. Its type is "${typeof imageFile}" instead. ` + `Are you sure you are adding an actual image file?`)
     }
 
     // assumption: this method has its own error-handling
+    // assumption: if no error is raised, I get back the post just added
     const postJustAdded = await this.addPost(newPost)
+
+    if (!Object.hasOwn(postJustAdded, "_id")) {
+      console.error(postJustAdded)
+      throw new Error(
+        `It was assumed that the post just added had an _id field, ` +
+          `however it does not. ` +
+          `The post just added has type "${typeof postJustAdded}" instead.`,
+      )
+    }
 
     const postId = postJustAdded._id
 
@@ -138,6 +156,15 @@ export default class PostAPI extends APIHelper {
 
     // assumption: this method has its own error-handling
     const postAfterAddedImage = await imageAPI.addImageToMyPost(imageFile, postId)
+
+    if (!this.constructor.isObject(postAfterAddedImage)) {
+      console.error(postJustAdded)
+      throw new Error(
+        `It was expected that the post updated with the image, is a JS object, ` +
+          `however it is not. ` +
+          `Its type is "${typeof postAfterAddedImage}" instead.`,
+      )
+    }
 
     return postAfterAddedImage
   }

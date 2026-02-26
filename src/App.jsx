@@ -56,7 +56,7 @@ function App() {
           <PostAPIDemoComponent />
           {/* <ChangeProfileDemoComponent /> */}
           {/* <CommentAPIDemoComponent /> */}
-          <ImageAPIDemoComponent />
+          {/* <ImageAPIDemoComponent /> */}
           {/****** END: DEMO components ********/}
         </>
       )}
