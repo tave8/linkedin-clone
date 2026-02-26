@@ -12,7 +12,7 @@ import Interest from "../components/Interest";
 import MyFooter from "../components/MyFooter";
 import RightSideBar from "../components/RightSideBar";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { IoIosSend } from "react-icons/io";
 import Accordion from "react-bootstrap/Accordion";
@@ -21,7 +21,7 @@ import { useGSAP } from "@gsap/react";
 import { Draggable } from "gsap/Draggable";
 
 const ProfilePage = () => {
-  const myProfile = useSelector((state) => state.myProfile);
+  // const myProfile = useSelector((state) => state.myProfile);
   const accordionRef = useRef(null);
   const containerRef = useRef(null);
   const arrayMessage = ["come va?", "bene tu?", "ciao ragazzi!"];
@@ -40,11 +40,11 @@ const ProfilePage = () => {
         <Container className="position-relative">
           <Row className="justify-content-center">
             <Col xs={12} md={9}>
-              <FirstSection profile={myProfile} />
+              <FirstSection />
               <AnalisiProfile />
-              <InfoProfile profile={myProfile} />
+              <InfoProfile />
               <ServicesProfile />
-              <ActivityProfile profile={myProfile} />
+              <ActivityProfile />
               {/* francesco */}
               <ExperiencesProfile />
               <EducationProfile />

@@ -6,8 +6,8 @@ import ProfileAPI from "../assets/js/profile-api/ProfileAPI";
 import { useDispatch, useSelector } from "react-redux";
 import { setMyProfileDataGlobally } from "../redux/actions";
 
-const InfoProfile = (props) => {
-  const dispatch = useDispatch()
+const InfoProfile = () => {
+  const dispatch = useDispatch();
 
   const myProfile = useSelector((state) => state.myProfile);
   const [modalShow, setModalShow] = useState(false);
@@ -47,7 +47,7 @@ const InfoProfile = (props) => {
               profileAPI
                 .updateMyProfile(newProfileFields)
                 .then((profile) => {
-                  dispatch(setMyProfileDataGlobally(profile))
+                  dispatch(setMyProfileDataGlobally(profile));
                 })
                 .catch((err) => {
                   console.error(err);

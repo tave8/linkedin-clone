@@ -7,21 +7,18 @@ import { FaRecycle } from "react-icons/fa6";
 import { FaLocationArrow } from "react-icons/fa";
 import { FaRegCommentDots } from "react-icons/fa6";
 import { useEffect, useState } from "react";
-
+import { useSelector } from "react-redux";
 import PostAPI from "../assets/js/post-api/PostAPI";
 
-const ActivityProfile = (props) => {
-  const myProfile = props.profile;
+const ActivityProfile = () => {
+  const myProfile = useSelector((state) => state.myProfile);
   const [post, setPosts] = useState([]);
-  console.log("prop", props.profile);
-  console.log("profile", myProfile);
+
   useEffect(() => {
     const postAPI = new PostAPI();
-
     postAPI
       .getPosts()
       .then((posts) => {
-        console.log(posts);
         setPosts(posts);
       })
       .catch((err) => {
@@ -29,7 +26,6 @@ const ActivityProfile = (props) => {
       });
   }, []);
 
-  //returnnr
   return (
     <>
       <section className=" bg-light border border-1 border-secondary-subtle rounded-3 container pt-2 mb-3">
@@ -50,27 +46,23 @@ const ActivityProfile = (props) => {
             <p>Loading...</p>
           ) : (
             post
-              .filter((el) => el.user._id === myProfile.data._id)
+              .filter((el) => el.user._id === myProfile.data?._id)
               .map((singlePost) => (
                 <Col key={singlePost._id} xs={12} md={5} className="border border-1 border-secondary-subtle rounded-3 p-2">
                   <div className="d-flex justify-content-between">
                     <p className="fw-semibold mb-0 fs-custom-m w-custom-p-activity">
-                      {props.profile.data.name}
+                      {myProfile.data?.name}
                       <span className="fw-normal"> ha diffuso questo post</span>
                     </p>
                     <BsThreeDots size={10} />
                   </div>
-
                   <p className="fs-custom-m mb-0">{singlePost.text}</p>
-
                   {singlePost.image && <img src={singlePost.image} alt="foto post" className="w-100" />}
-
                   <Row className="justify-content-between mt-5">
                     <Col xs={5}>
-                      <p className="mb-0 fs-custom-profile-p ">{singlePost.likes?.length || 0}</p>
+                      <p className="mb-0 fs-custom-profile-p">{singlePost.likes?.length || 0}</p>
                     </Col>
                   </Row>
-
                   <div className="d-flex justify-content-around mt-3 border-top border-0 border-secondary-subtle py-3">
                     <HiArchiveBoxArrowDown size={10} />
                     <FaRecycle size={10} />
@@ -88,4 +80,5 @@ const ActivityProfile = (props) => {
     </>
   );
 };
+
 export default ActivityProfile;

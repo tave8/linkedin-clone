@@ -3,14 +3,17 @@ import { FaPen } from "react-icons/fa";
 import { HiOutlineCheckBadge } from "react-icons/hi2";
 import { HiOutlineX } from "react-icons/hi";
 import { BsThreeDots } from "react-icons/bs";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ProfileAPI from "../assets/js/profile-api/ProfileAPI";
+import { loadMyDefaultProfileGlobally } from "../redux/actions";
 
 import { useState, useRef } from "react";
 import Modal from "react-bootstrap/Modal";
 
-const FirstSection = (props) => {
+const FirstSection = () => {
   const myProfile = useSelector((state) => state.myProfile);
+  const dispatch = useDispatch();
+
   const arrayBanner = [
     { id: "giorgia", image: "/Banner-GR.jpg" },
     { id: "giulia", image: "/Banner-GC.jpg" },
@@ -21,20 +24,18 @@ const FirstSection = (props) => {
 
   const getBannerByUserName = (name) => {
     if (!name) return "/Banner-GT.jpg";
-
     const found = arrayBanner.find((banner) => banner.id === name.toLowerCase());
-
     return found ? found.image : "/Banner-GT.jpg";
   };
 
-  //chiamaaaaaaa
   const bannerI = getBannerByUserName(myProfile.data?.name);
 
   const [modalShow, setModalShow] = useState(false);
-  const nameRef = useRef(myProfile.name);
-  const surnameRef = useRef(myProfile.surname);
-  const jobRef = useRef(myProfile.title);
-  const locationRef = useRef(myProfile.area);
+  const nameRef = useRef(myProfile.data?.name);
+  const surnameRef = useRef(myProfile.data?.surname);
+  const jobRef = useRef(myProfile.data?.title);
+  const locationRef = useRef(myProfile.data?.area);
+
   function MyVerticallyCenteredModal(props) {
     return (
       <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
@@ -42,14 +43,14 @@ const FirstSection = (props) => {
           <Modal.Title id="contained-modal-title-vcenter">Informazioni Profilo</Modal.Title>
         </Modal.Header>
         <Modal.Body className="d-flex flex-column">
-          <label for="avatar">Choose a profile picture:</label>
+          <label htmlFor="avatar">Choose a profile picture:</label>
           <input
             type="file"
             id="avatar"
             name="avatar"
             accept="image/png, image/jpeg"
             onChange={(event) => {
-              const profileImg = event.target.files[0]; // per giuseppe
+              // const profileImg = event.target.files[0]; //per giuseppe
             }}
           />
           <label htmlFor="Name">Nome</label>
@@ -57,7 +58,7 @@ const FirstSection = (props) => {
             placeholder="write something to change"
             type="text"
             id="Name"
-            value={nameRef.current}
+            defaultValue={nameRef.current}
             onChange={(event) => {
               nameRef.current = event.target.value;
             }}
@@ -67,7 +68,7 @@ const FirstSection = (props) => {
             placeholder="write something to change"
             type="text"
             id="surname"
-            value={surnameRef.current}
+            defaultValue={surnameRef.current}
             onChange={(event) => {
               surnameRef.current = event.target.value;
             }}
@@ -77,7 +78,7 @@ const FirstSection = (props) => {
             placeholder="write something to change"
             type="text"
             id="Posizione Lavorativa"
-            value={jobRef.current}
+            defaultValue={jobRef.current}
             onChange={(event) => {
               jobRef.current = event.target.value;
             }}
@@ -87,7 +88,7 @@ const FirstSection = (props) => {
             placeholder="write something to change"
             type="text"
             id="location"
-            value={locationRef.current}
+            defaultValue={locationRef.current}
             onChange={(event) => {
               locationRef.current = event.target.value;
             }}
@@ -96,12 +97,10 @@ const FirstSection = (props) => {
         <Modal.Footer>
           <Button
             onClick={() => {
-              console.log(nameRef.current, surnameRef.current, jobRef.current, locationRef.current);
               const profileAPI = new ProfileAPI({
                 apiUser: myProfile.apiUser,
               });
               const newProfileFields = {
-                // more fields if needed
                 name: nameRef.current,
                 surname: surnameRef.current,
                 title: jobRef.current,
@@ -109,7 +108,9 @@ const FirstSection = (props) => {
               };
               profileAPI
                 .updateMyProfile(newProfileFields)
-                .then((profile) => {})
+                .then(() => {
+                  dispatch(loadMyDefaultProfileGlobally());
+                })
                 .catch((err) => {
                   console.error(err);
                 });
@@ -122,12 +123,13 @@ const FirstSection = (props) => {
       </Modal>
     );
   }
+
   return (
     <>
       <MyVerticallyCenteredModal show={modalShow} onHide={() => setModalShow(false)} />
       <section className=" bg-light border border-1 border-secondary-subtle rounded-3 mb-3">
         <div
-          className=" position-relative"
+          className="position-relative"
           style={{
             backgroundImage: `url(${bannerI})`,
             backgroundPosition: "center",
@@ -136,31 +138,31 @@ const FirstSection = (props) => {
             width: "100%",
           }}
         >
-          <img src={props.profile.data.image} alt="" className="profileImg" />
-          <Button className="position-absolute  bottom-50 end-0 bg-light rounded-circle d-flex justify-content-center align-items-center p-2 border border-0 me-3">
+          <img src={myProfile.data?.image} alt="" className="profileImg" />
+          <Button className="position-absolute bottom-50 end-0 bg-light rounded-circle d-flex justify-content-center align-items-center p-2 border border-0 me-3">
             <FaPen color="black" size={15} />
           </Button>
           <Button
             onClick={() => setModalShow(true)}
-            className="position-absolute  bottom-custom-bannerProfile end-0 bg-light rounded-circle d-flex justify-content-center align-items-center p-2 border border-0 bg-transparent me-3"
+            className="position-absolute bottom-custom-bannerProfile end-0 bg-light rounded-circle d-flex justify-content-center align-items-center p-2 border border-0 bg-transparent me-3"
           >
             <FaPen color="black" size={15} />
           </Button>
         </div>
-        {/* name and description */}
+
         <Row className="container g-0 p-2 justify-content-center">
           <Col xs={12} md={8} className="mt-custom-ProfileName">
             <div>
               <Row>
                 <Col xs={12} md={6}>
-                  <h1 className=" mb-0 fs-4">{props.profile.data.name + " " + props.profile.data.surname}</h1>
+                  <h1 className="mb-0 fs-4">{myProfile.data?.name + " " + myProfile.data?.surname}</h1>
                 </Col>
                 <Col xs={12} md={6} className="d-flex justify-content-start align-items-center">
                   <p className="m-0 fs-custom-profile-p px-1 p-Verification-badge rounded-5">{<HiOutlineCheckBadge />} Aggiungi badge di verifica</p>
                 </Col>
               </Row>
-              <p className="m-0 mt-1 lh-sm">{props.profile.data.title}</p>
-              <p className="opacity-50">{props.profile.data.area}</p>
+              <p className="m-0 mt-1 lh-sm">{myProfile.data?.title}</p>
+              <p className="opacity-50">{myProfile.data?.area}</p>
               <p className="blu-profile-p">piu di 500 collegamenti</p>
             </div>
             <Row className="g-3">
@@ -171,7 +173,7 @@ const FirstSection = (props) => {
                 <Button className="w-100 btn-profile-firstSection border-custom-bt-firstSection">Aggiungi sezione</Button>
               </Col>
               <Col xs={2} md={1} className="d-flex justify-content-center align-items-center">
-                <Button className=" btn-profile-firstSection border-custom-bt-firstSection-dot">
+                <Button className="btn-profile-firstSection border-custom-bt-firstSection-dot">
                   <BsThreeDots size={10} />
                 </Button>
               </Col>
@@ -191,7 +193,7 @@ const FirstSection = (props) => {
           <Row className="justify-content-around mt-3">
             <Col xs={12} lg={5} className="p-3 bg-custom-slide-firstSection rounded-3 lh-1 mb-3">
               <div className="d-flex justify-content-between align-items-center">
-                <p className="m-0 fw-semibold">Disponibile a lavorare </p>
+                <p className="m-0 fw-semibold">Disponibile a lavorare</p>
                 <FaPen />
               </div>
               <p className="m-0">Rouoli di qualcosa di qualcosa..</p>
@@ -199,7 +201,7 @@ const FirstSection = (props) => {
             </Col>
             <Col xs={12} lg={5} className="p-3 bg-transparent border border-1 border-secondary-subtle rounded-3 lh-1 mb-3">
               <div className="d-flex justify-content-between align-items-center">
-                <p className="m-0 fw-semibold">Disponibile a lavorare </p>
+                <p className="m-0 fw-semibold">Disponibile a lavorare</p>
                 <HiOutlineX />
               </div>
               <p className="m-0">Rouoli di qualcosa di qualcosa..</p>
@@ -211,5 +213,5 @@ const FirstSection = (props) => {
     </>
   );
 };
+
 export default FirstSection;
-// banner img , img profile , user name, description , everything until available to work btns.
