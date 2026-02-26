@@ -25,7 +25,10 @@ const LeftSideBar = () => {
   ];
 
   const getBannerByUserName = (name) => {
-    const found = arrayBanner.find((banner) => banner.id.toLowerCase() === name.toLowerCase());
+    if (!name) return "/Banner-GT.jpg"; // fallback sicuro
+
+    const found = arrayBanner.find((banner) => banner.id === name.toLowerCase());
+
     return found ? found.image : "/Banner-GT.jpg";
   };
 
