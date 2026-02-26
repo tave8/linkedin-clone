@@ -12,17 +12,18 @@ import Interest from "../components/Interest";
 import MyFooter from "../components/MyFooter";
 import RightSideBar from "../components/RightSideBar";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { useRef } from "react";
-import { useSelector } from "react-redux";
+//import { useRef } from "react";
+//import { useSelector } from "react-redux";
 import { IoIosSend } from "react-icons/io";
 import Accordion from "react-bootstrap/Accordion";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { Draggable } from "gsap/Draggable";
+//import gsap from "gsap";
+//import { useGSAP } from "@gsap/react";
+//import { Draggable } from "gsap/Draggable";
+import SezioneProfilo from "../components/SezioneProfilo";
 
 const ProfilePage = () => {
   // const myProfile = useSelector((state) => state.myProfile);
-  const accordionRef = useRef(null);
+  /* const accordionRef = useRef(null);
   const containerRef = useRef(null);
   const arrayMessage = ["come va?", "bene tu?", "ciao ragazzi!"];
   useGSAP(() => {
@@ -33,13 +34,14 @@ const ProfilePage = () => {
     return () => {
       draggable.kill();
     };
-  });
+  });*/
   return (
     <>
       <main className="sfondo">
         <Container className="position-relative">
           <Row className="justify-content-center">
             <Col xs={12} md={9}>
+              <SezioneProfilo />
               <FirstSection />
               <AnalisiProfile />
               <InfoProfile />
@@ -58,7 +60,7 @@ const ProfilePage = () => {
               <RightSideBar />
             </Col>
           </Row>
-          <div ref={containerRef} className="bg-transparent vh-100 w-100 position-fixed top-custom-accrodion"></div>
+          {/*<div ref={containerRef} className="bg-transparent vh-100 w-100 position-fixed top-custom-accrodion"></div>
           <Accordion ref={accordionRef} className="position-fixed bottom-0 end-0 w-25 ">
             <Accordion.Item eventKey="0">
               <Accordion.Header>Messaggi</Accordion.Header>
@@ -79,7 +81,7 @@ const ProfilePage = () => {
                 </div>
               </Accordion.Body>
             </Accordion.Item>
-          </Accordion>
+          </Accordion>*/}
         </Container>
       </main>
     </>

@@ -3,9 +3,8 @@ import { Container, Row, Col, Form, InputGroup, Card, Badge, Button } from "reac
 import { IoIosSend } from "react-icons/io";
 import Accordion from "react-bootstrap/Accordion";
 import "bootstrap/dist/css/bootstrap.min.css";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { Draggable } from "gsap/Draggable";
+import { Draggable } from "gsap/draggable";
 
 const JobsPage = function () {
   const [query, setQuery] = useState("");
