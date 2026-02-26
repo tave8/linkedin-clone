@@ -3,12 +3,15 @@ import Modal from "react-bootstrap/Modal";
 import { Button } from "react-bootstrap";
 import { useRef, useState } from "react";
 import ProfileAPI from "../assets/js/profile-api/ProfileAPI";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setMyProfileDataGlobally } from "../redux/actions";
 
 const InfoProfile = (props) => {
+  const dispatch = useDispatch()
+
   const myProfile = useSelector((state) => state.myProfile);
   const [modalShow, setModalShow] = useState(false);
-  const bioRef = useRef(myProfile.data.bio);
+  const bioRef = useRef(null);
   function MyVerticallyCenteredModal(props) {
     return (
       <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
@@ -43,7 +46,9 @@ const InfoProfile = (props) => {
               };
               profileAPI
                 .updateMyProfile(newProfileFields)
-                .then((profile) => {})
+                .then((profile) => {
+                  dispatch(setMyProfileDataGlobally(profile))
+                })
                 .catch((err) => {
                   console.error(err);
                 });

@@ -4,6 +4,10 @@ import { HiOutlineCheckBadge } from "react-icons/hi2";
 import { HiOutlineX } from "react-icons/hi";
 import { BsThreeDots } from "react-icons/bs";
 import { useSelector } from "react-redux";
+import ProfileAPI from "../assets/js/profile-api/ProfileAPI";
+
+import { useState, useRef } from "react";
+import Modal from "react-bootstrap/Modal";
 
 const FirstSection = (props) => {
   const myProfile = useSelector((state) => state.myProfile);
@@ -22,8 +26,92 @@ const FirstSection = (props) => {
 
   //chiamaaaaaaa
   const bannerI = getBannerByUserName(myProfile.data?.name);
+
+  const [modalShow, setModalShow] = useState(false);
+  const nameRef = useRef(myProfile.name);
+  const surnameRef = useRef(myProfile.surname);
+  const jobRef = useRef(myProfile.title);
+  const locationRef = useRef(myProfile.area);
+  function MyVerticallyCenteredModal(props) {
+    return (
+      <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">Informazioni Profilo</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="d-flex flex-column">
+          <label htmlFor="Name">Nome</label>
+          <input
+            placeholder="write something to change"
+            type="text"
+            id="Name"
+            value={nameRef.current}
+            onChange={(event) => {
+              nameRef.current = event.target.value;
+            }}
+          />
+          <label htmlFor="surname">Cognome</label>
+          <input
+            placeholder="write something to change"
+            type="text"
+            id="surname"
+            value={surnameRef.current}
+            onChange={(event) => {
+              surnameRef.current = event.target.value;
+            }}
+          />
+          <label htmlFor="Posizione Lavorativa">actual job position</label>
+          <input
+            placeholder="write something to change"
+            type="text"
+            id="Posizione Lavorativa"
+            value={jobRef.current}
+            onChange={(event) => {
+              jobRef.current = event.target.value;
+            }}
+          />
+          <label htmlFor="location">Posizione</label>
+          <input
+            placeholder="write something to change"
+            type="text"
+            id="location"
+            value={locationRef.current}
+            onChange={(event) => {
+              locationRef.current = event.target.value;
+            }}
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            onClick={() => {
+              console.log(nameRef.current, surnameRef.current, jobRef.current, locationRef.current);
+              const profileAPI = new ProfileAPI({
+                apiUser: myProfile.apiUser,
+              });
+              const newProfileFields = {
+                // more fields if needed
+                name: nameRef.current,
+                surname: surnameRef.current,
+                title: jobRef.current,
+                area: locationRef.current,
+              };
+              profileAPI
+                .updateMyProfile(newProfileFields)
+                .then((profile) => {})
+                .catch((err) => {
+                  console.error(err);
+                });
+              setModalShow(false);
+            }}
+          >
+            Save changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
   return (
     <>
+      <MyVerticallyCenteredModal show={modalShow} onHide={() => setModalShow(false)} />
       <section className=" bg-light border border-1 border-secondary-subtle rounded-3 mb-3">
         <div
           className=" position-relative"
@@ -39,7 +127,10 @@ const FirstSection = (props) => {
           <Button className="position-absolute  bottom-50 end-0 bg-light rounded-circle d-flex justify-content-center align-items-center p-2 border border-0 me-3">
             <FaPen color="black" size={15} />
           </Button>
-          <Button className="position-absolute  bottom-custom-bannerProfile end-0 bg-light rounded-circle d-flex justify-content-center align-items-center p-2 border border-0 bg-transparent me-3">
+          <Button
+            onClick={() => setModalShow(true)}
+            className="position-absolute  bottom-custom-bannerProfile end-0 bg-light rounded-circle d-flex justify-content-center align-items-center p-2 border border-0 bg-transparent me-3"
+          >
             <FaPen color="black" size={15} />
           </Button>
         </div>

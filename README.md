@@ -37,6 +37,25 @@ profileAPI
   })
 ```
 
+### Get my profiles
+
+Giuseppe, Giorgia, Raffaele, Giulia, Franceso
+
+Promise
+
+```js
+const profileAPI = new ProfileAPI()
+
+profileAPI
+  .getMyProfiles()
+  .then((myProfiles) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
 ### Update my profile
 
 Promise
@@ -90,23 +109,6 @@ const profileAPI = new ProfileAPI()
 profileAPI
   .getMostRecentProfiles()
   .then((profiles) => {
-    // your code
-  })
-  .catch((err) => {
-    console.error(err)
-  })
-```
-
-### Get API users (Giuseppe, Giorgia, Raffaele, Giulia, Franceso)
-
-Promise
-
-```js
-const profileAPI = new ProfileAPI()
-
-profileAPI
-  .getAPIUsers()
-  .then((APIUsers) => {
     // your code
   })
   .catch((err) => {
@@ -327,6 +329,41 @@ commentAPI
   })
 ```
 
-### Update comment by id
+### Update comment
 
-### Delete comment by id
+Promise
+
+```js
+const commentAPI = new CommentAPI()
+const commentId = "xxx"
+const newCommentFields = {
+  comment: "<my new comment>",
+}
+
+commentAPI
+  .updateCommentById(commentId, newCommentFields)
+  .then((comment) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+### Delete comment
+
+Promise
+
+```js
+const commentAPI = new CommentAPI()
+const commentId = "xxx"
+
+commentAPI
+  .deleteCommentById(commentId)
+  .then((textResponse) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```

@@ -30,7 +30,7 @@ const GetMostRecentCommentsOfPost = () => {
             return (
               <div key={i}>
                 <p>
-                  {comment.comment} - AUTHOR: {comment.author} - POST ID: {comment.elementId}
+                  {comment.comment} - COMMENT ID - {comment._id} - AUTHOR: {comment.author}
                 </p>
               </div>
             )
