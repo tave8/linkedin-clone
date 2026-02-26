@@ -3,14 +3,30 @@ import { FaPen } from "react-icons/fa";
 import { HiOutlineCheckBadge } from "react-icons/hi2";
 import { HiOutlineX } from "react-icons/hi";
 import { BsThreeDots } from "react-icons/bs";
-import ProfileAPI from "../assets/js/profile-api/ProfileAPI";
 import { useSelector } from "react-redux";
+import ProfileAPI from "../assets/js/profile-api/ProfileAPI";
+
 import { useState, useRef } from "react";
 import Modal from "react-bootstrap/Modal";
 
 const FirstSection = (props) => {
   const myProfile = useSelector((state) => state.myProfile);
-  console.log(myProfile);
+  const arrayBanner = [
+    { id: "Giorgia", image: "/Banner-GR.jpg" },
+    { id: "Giulia", image: "/Banner-GC.jpg" },
+    { id: "Giuseppe", image: "/Banner-GT.jpg" },
+    { id: "Raffaele", image: "/Banner-RB.jpg" },
+    { id: "Francesco", image: "/Banner-FD.jpg" },
+  ];
+
+  const getBannerByUserName = (name) => {
+    const found = arrayBanner.find((banner) => banner.id === name);
+    return found ? found.image : "/Banner-default.jpg";
+  };
+
+  //chiamaaaaaaa
+  const bannerI = getBannerByUserName(myProfile.data?.name);
+
   const [modalShow, setModalShow] = useState(false);
   const nameRef = useRef(myProfile.name);
   const surnameRef = useRef(myProfile.surname);
@@ -97,7 +113,16 @@ const FirstSection = (props) => {
     <>
       <MyVerticallyCenteredModal show={modalShow} onHide={() => setModalShow(false)} />
       <section className=" bg-light border border-1 border-secondary-subtle rounded-3 mb-3">
-        <div className="bannerProfile position-relative">
+        <div
+          className=" position-relative"
+          style={{
+            backgroundImage: `url(${bannerI})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            height: "15vh",
+            width: "100%",
+          }}
+        >
           <img src={props.profile.data.image} alt="" className="profileImg" />
           <Button className="position-absolute  bottom-50 end-0 bg-light rounded-circle d-flex justify-content-center align-items-center p-2 border border-0 me-3">
             <FaPen color="black" size={15} />
