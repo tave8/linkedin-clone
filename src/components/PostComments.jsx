@@ -51,6 +51,22 @@ const PostComments = (props) => {
       })
   }
 
+  // FINE METTERE
+
+  // PER TOGLIERE
+
+  const handleDeleteComment = (commentId) => {
+    const commentAPI = new CommentAPI()
+
+    commentAPI
+      .deleteCommentById(commentId)
+      .then(() => {
+        // rimuovo dallo state
+        setComments((prev) => prev.filter((c) => c._id !== commentId))
+      })
+      .catch((err) => console.error(err))
+  }
+
   return (
     <div className="px-3 pb-3 mt-2">
       {/* INPUT COMMENTO */}
@@ -107,7 +123,7 @@ const PostComments = (props) => {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item>Segnala</Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleDeleteComment(comment._id)}>Elimina</Dropdown.Item>
                     <Dropdown.Item>Nascondi</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
