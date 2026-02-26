@@ -12,10 +12,10 @@ const PostAPIDemo = () => {
     <>
       {/* comment/uncomment the components you're interested in */}
       {/* <AddPost /> */}
-      <AddPostWithImage />
+      {/* <AddPostWithImage /> */}
       {/* <DeletePostById /> */}
       {/* <GetPosts /> */}
-      {/* {<GetMostRecentPosts />} */}
+      {<GetMostRecentPosts />}
       {/* <GetPostById /> */}
       {/*<UpdatePostById /> */}
       {/* <GenerateAndAddAIPostsWithRandomProfiles /> */}
