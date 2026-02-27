@@ -180,12 +180,83 @@ Promise
 
 ```js
 const postAPI = new PostAPI()
-const newPostFields = {
+const postFields = {
   text: "xxx",
 }
 
 postAPI
-  .addPost(newPostFields)
+  .addPost(postFields)
+  .then((post) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+### Add post with image
+
+You must provide a post. You must provide an image.
+
+Promise
+
+```js
+const postAPI = new PostAPI()
+const postFields = {
+  text: "xxx",
+}
+// event is an Event instance passed to an event handler
+const imageFile = event.target.files[0]
+
+postAPI
+  .addPostWithImage(postFields, imageFile)
+  .then((post) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+### Add post with optional image
+
+You must provide a post. You can optionally provide an image.
+
+Promise
+
+Variant 1
+
+```js
+const postAPI = new PostAPI()
+const postFields = {
+  text: "xxx",
+}
+// event is an Event instance passed to an event handler
+const imageFile = event.target.files[0]
+
+postAPI
+  .addPostWithOptionalImage(postFields, imageFile)
+  .then((post) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+Promise
+
+Variant 2
+
+```js
+const postAPI = new PostAPI()
+const postFields = {
+  text: "xxx",
+}
+
+// VERSION 1
+postAPI
+  .addPostWithOptionalImage(postFields)
   .then((post) => {
     // your code
   })
@@ -361,6 +432,95 @@ const commentId = "xxx"
 commentAPI
   .deleteCommentById(commentId)
   .then((textResponse) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+## ImageAPI
+
+### Add image to my profile
+
+Promise
+
+```js
+const imageAPI = new ImageAPI()
+// event is an Event instance passed to an event handler
+const imageFile = event.target.files[0]
+
+imageAPI
+  .addImageToMyProfile(imageFile)
+  .then((updatedProfile) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+### Add image to my post
+
+Promise
+
+```js
+const imageAPI = new ImageAPI()
+// event is an Event instance passed to an event handler
+const imageFile = event.target.files[0]
+const postId = "xxx"
+
+imageAPI
+  .addImageToMyPost(imageFile, postId)
+  .then((updatedPost) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+## ExperienceAPI
+
+Profiles can only add/edit their own experiences.
+
+Modello dell'EXPERIENCE
+
+```
+  {
+    "role": "Full Stack Web Developer",
+    "company": "FizzBuzz",
+    "startDate": "2022-06-16",
+    "endDate": "2023-06-16", // può essere null
+    "description": "Implementing new features",
+    "area": "Milan",
+    "username": "mario88", // SERVER GENERATED
+    "image": ..., // SERVER GENERATED, inizialmente null, modificabile
+    "createdAt": 2023-06-16T19:58:31.019Z", // SERVER GENERATED
+    "updatedAt": "2023-06-16T19:58:31.019Z", // SERVER GENERATED
+    "__v": 0 // SERVER GENERATED
+    "_id": "5d925e677360c41e0046d1f5" // SERVER GENERATED
+  }
+```
+
+### Add experience
+
+Promise
+
+```js
+const experienceAPI = new ExperienceAPI()
+const experienceFields = {
+  role: "Full Stack Web Developer",
+  company: "FizzBuzz",
+  startDate: "2022-06-16",
+  endDate: "2023-06-16", // può essere null
+  description: "Implementing new features",
+  area: "Milan",
+}
+
+experienceAPI
+  .addExperienceToMyProfile(experienceFields)
+  .then((updatedExperience) => {
     // your code
   })
   .catch((err) => {

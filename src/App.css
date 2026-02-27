@@ -19,6 +19,15 @@ body {
   color: rgba(0, 0, 0, 0.9) !important;
 }
 
+.icon {
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+.icon:hover {
+  color: #0a66c2 !important;
+}
+
 .dropdown-toggle::after {
   display: none !important;
 }
@@ -304,3 +313,11 @@ body {
   overflow-y: auto;
 }
 /* Fine Side bar destra raffi*/
+/* accordion */
+.accordion-button:focus {
+  box-shadow: none;
+  outline: none;
+}
+.top-custom-accrodion {
+  top: 20px;
+}

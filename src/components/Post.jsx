@@ -56,7 +56,7 @@ const Post = (props) => {
             {/* Avatar */}
             <Col xs="auto">
               <Image
-                src={props.post.image || "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"}
+                src={props.post.user.image || "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"}
                 roundedCircle
                 width={50}
                 height={50}

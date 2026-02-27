@@ -1,4 +1,5 @@
 import AddPost from "./AddPost"
+import AddPostWithImage from "./AddPostWithImage"
 import DeletePostById from "./DeletePostById"
 import GetPosts from "./GetPosts"
 import GetMostRecentPosts from "./GetMostRecentPosts"
@@ -11,12 +12,13 @@ const PostAPIDemo = () => {
     <>
       {/* comment/uncomment the components you're interested in */}
       {/* <AddPost /> */}
+      {/* <AddPostWithImage /> */}
       {/* <DeletePostById /> */}
       {/* <GetPosts /> */}
-      {/* {<GetMostRecentPosts />} */}
+      {<GetMostRecentPosts />}
       {/* <GetPostById /> */}
       {/*<UpdatePostById /> */}
-      <GenerateAndAddAIPostsWithRandomProfiles />
+      {/* <GenerateAndAddAIPostsWithRandomProfiles /> */}
     </>
   )
 }

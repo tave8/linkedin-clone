@@ -1,93 +1,105 @@
 import { FaPen } from "react-icons/fa";
-import { FaArrowRight } from "react-icons/fa6";
+import { FaArrowRight, FaRecycle, FaLocationArrow } from "react-icons/fa6";
 import { Button, Row, Col } from "react-bootstrap";
 import { BsThreeDots } from "react-icons/bs";
 import { HiArchiveBoxArrowDown } from "react-icons/hi2";
-import { FaRecycle } from "react-icons/fa6";
-import { FaLocationArrow } from "react-icons/fa";
 import { FaRegCommentDots } from "react-icons/fa6";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import PostAPI from "../assets/js/post-api/PostAPI";
 
-const ActivityProfile = (props) => {
+const ActivityProfile = () => {
+  const myProfile = useSelector((state) => state.myProfile);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const postAPI = new PostAPI();
+    postAPI
+      .getMostRecentPosts()
+      .then((data) => {
+        setPosts(data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  const myPosts = posts.filter((el) => el.user?._id === myProfile.data?._id);
+
   return (
-    <>
-      <section className=" bg-light border border-1 border-secondary-subtle rounded-3 container pt-2 mb-3">
-        <div className="d-flex justify-content-between align-items-center">
-          <p className="m-0 fs-5 fw-semibold">Attività</p>
-          <div className="d-flex align-items-center gap-3">
-            <Button className=" btn-profile-firstSection border-custom-bt-firstSection ">Disponibile per</Button>
-            <FaPen />
-          </div>
+    <section className="bg-white border border-1 border-secondary-subtle rounded-3 container pt-3 pb-2 mb-3">
+      <div className="d-flex justify-content-between align-items-center">
+        <p className="m-0 fs-5 fw-semibold">Attività</p>
+        <div className="d-flex align-items-center gap-3">
+          <Button className="border border-success text-success bg-white rounded-pill px-3">Disponibile per</Button>
+          <FaPen />
         </div>
-        <p className="mb-0 blu-profile-p fw-semibold">1.335 follower</p>
-        <div className="d-flex justify-content-start gap-2 mt-2">
-          <Button className="border-custom-bt-activity border-0">Post</Button>
-          <Button className="border-custom-bt-activity2">Comments</Button>
-        </div>
-        <Row className="mt-3 justify-content-center gap-3">
-          <Col xs={12} md={5} className="border border-1 border-secondary-subtle rounded-3 p-2">
-            <div className="d-flex justify-content-between">
-              <p className="fw-semibold mb-0 fs-custom-m w-custom-p-activity">
-                {props.profile.data.name} <span className="fw-normal">ha diffuso questo post</span>
-              </p>
-              <BsThreeDots size={10} />
-            </div>
-            <p className="fs-custom-m mb-0">description post etctctctc...</p>
-            <p className="fw-semibold mb-0 fs-custom-m mb-2">mostra traduzione</p>
-            <img
-              src="https://images.unsplash.com/photo-1771680968896-cfd9b8f7244e?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="foto post"
-              className="w-100"
-            />
-            <Row className="justify-content-between mt-5">
-              <Col xs={5}>
-                <p className="mb-0 fs-custom-profile-p ">cosepl-768</p>
-              </Col>
-              <Col xs={7} className="text-end">
-                <p className="mb-0 fs-custom-profile-p ">293 commenti - 456 diffusioni post</p>
-              </Col>
-            </Row>
-            <div className="d-flex justify-content-around mt-3 border-top border-0 border-secondary-subtle py-3">
-              <HiArchiveBoxArrowDown size={10} />
-              <FaRecycle size={10} />
-              <FaRegCommentDots size={10} />
-              <FaLocationArrow size={10} />
-            </div>
-          </Col>
-          <Col xs={12} md={5} className="border border-1 border-secondary-subtle rounded-3 p-2">
-            <div className="d-flex justify-content-between">
-              <p className="fw-semibold mb-0 fs-custom-m w-custom-p-activity">
-                {props.profile.data.name} <span className="fw-normal">ha diffuso questo post</span>
-              </p>
-              <BsThreeDots size={10} />
-            </div>
-            <p className="fs-custom-m mb-0">description post etctctctc...</p>
-            <p className="fw-semibold mb-0 fs-custom-m mb-2">mostra traduzione</p>
-            <img
-              src="https://images.unsplash.com/photo-1771680968896-cfd9b8f7244e?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="foto post"
-              className="w-100"
-            />
-            <Row className="justify-content-between mt-5">
-              <Col xs={5}>
-                <p className="mb-0 fs-custom-profile-p ">cosepl-768</p>
-              </Col>
-              <Col xs={7} className="text-end">
-                <p className="mb-0 fs-custom-profile-p ">293 commenti - 456 diffusioni post</p>
-              </Col>
-            </Row>
-            <div className="d-flex justify-content-around mt-3 border-top border-0 border-secondary-subtle py-3">
-              <HiArchiveBoxArrowDown size={10} />
-              <FaRecycle size={10} />
-              <FaRegCommentDots size={10} />
-              <FaLocationArrow size={10} />
-            </div>
-          </Col>
-        </Row>
-        <div className="d-flex justify-content-center align-items-center py-3 border-top border-1 border-secondary-subtle mt-5">
-          <p className="mb-0">Mostra Tutto {<FaArrowRight />}</p>
-        </div>
-      </section>
-    </>
+      </div>
+
+      <p className="mb-2 text-primary fw-semibold">{myProfile.data?.followers?.length || "1.335"} follower</p>
+
+      <div className="d-flex gap-2 mb-3">
+        <Button className="rounded-pill px-3 fw-semibold border-0 bg-success text-white">Post</Button>
+        <Button className="rounded-pill px-3 fw-semibold border border-secondary text-dark bg-white">Commenti</Button>
+      </div>
+
+      <Row className="g-3">
+        {posts.length === 0 ? (
+          <p>Loading...</p>
+        ) : myPosts.length === 0 ? (
+          <p>Nessun post recente trovato.</p>
+        ) : (
+          myPosts.map((singlePost) => (
+            <Col key={singlePost._id} xs={12}>
+              <div className="border border-1 border-secondary-subtle rounded-3 p-3 shadow-sm">
+                <div className="d-flex justify-content-between align-items-center mb-2">
+                  <div className="d-flex align-items-center gap-2">
+                    <img src={myProfile.data?.image} width={45} height={45} className="rounded-circle" style={{ objectFit: "cover" }} alt="profile" />
+                    <div>
+                      <p className="fw-semibold mb-0">
+                        {myProfile.data?.name} {myProfile.data?.surname}
+                      </p>
+                      <small className="text-muted">Ha pubblicato questo post</small>
+                    </div>
+                  </div>
+                  <BsThreeDots />
+                </div>
+                <p className="mb-2">{singlePost.text}</p>
+                {singlePost.image && (
+                  <img src={singlePost.image} alt="post" className="w-100 rounded mb-2" style={{ objectFit: "cover", maxHeight: "400px" }} />
+                )}
+                <div className="d-flex justify-content-between align-items-center mt-3">
+                  <small className="text-muted">{singlePost.likes?.length || 0} Mi piace</small>
+                </div>
+                <div className="d-flex justify-content-around mt-3 border-top pt-3 text-secondary">
+                  <div className="d-flex align-items-center gap-1">
+                    <HiArchiveBoxArrowDown />
+                    <small>Salva</small>
+                  </div>
+                  <div className="d-flex align-items-center gap-1">
+                    <FaRecycle />
+                    <small>Ripubblica</small>
+                  </div>
+                  <div className="d-flex align-items-center gap-1">
+                    <FaRegCommentDots />
+                    <small>Commenta</small>
+                  </div>
+                  <div className="d-flex align-items-center gap-1">
+                    <FaLocationArrow />
+                    <small>Invia</small>
+                  </div>
+                </div>
+              </div>
+            </Col>
+          ))
+        )}
+      </Row>
+
+      <div className="d-flex justify-content-center align-items-center py-3 border-top mt-4">
+        <p className="mb-0 fw-semibold">
+          Mostra tutto <FaArrowRight />
+        </p>
+      </div>
+    </section>
   );
 };
+
 export default ActivityProfile;

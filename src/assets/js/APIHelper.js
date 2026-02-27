@@ -32,4 +32,16 @@ export default class APIHelper {
     const randomUser = users[Math.floor(Math.random() * users.length)]
     return randomUser
   }
+
+  static isImageFile(maybeFile) {
+    return maybeFile instanceof File && maybeFile.type.startsWith("image/")
+  }
+
+  /**
+   * Is this a valid year-month-day string?
+   */
+  static isValidYearMonthDayString(x) {
+    const regex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/
+    return regex.test(x)
+  }
 }

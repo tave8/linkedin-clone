@@ -3,7 +3,7 @@ import ProfileAPI from "../../../assets/js/profile-api/ProfileAPI"
 
 const GetProfileById = () => {
   const [oneProfile, setOneProfile] = useState(null)
-  const profileId = "699c4e200bc1de001577b7b6"
+  const profileId = "699ef7752c4b8b00151ab715"
 
   useEffect(() => {
     const profileAPI = new ProfileAPI()

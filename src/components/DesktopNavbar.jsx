@@ -7,17 +7,23 @@ import Form from "react-bootstrap/Form";
 import { InputGroup } from "react-bootstrap";
 import { BellFill, ChatRightDotsFill, HouseDoorFill, PersonFillAdd, Search, BriefcaseFill, Grid3x2GapFill } from "react-bootstrap-icons";
 import { useSelector } from "react-redux";
-import { Row } from "react-bootstrap";
-import { Button } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Spinner } from "react-bootstrap";
 
 function MyNavbar() {
   const myProfile = useSelector((state) => state.myProfile);
+
+  const isAvatarLoading = myProfile.isLoading || !myProfile.data?.image;
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
 
   const NAV_LINKS = [
     { id: 1, label: "Home", icon: <HouseDoorFill />, to: "/" },
     { id: 2, label: "La mia rete", icon: <PersonFillAdd />, to: "/network" },
     { id: 3, label: "Lavoro", icon: <BriefcaseFill />, to: "/job" },
-    { id: 4, label: "Messaggi", icon: <ChatRightDotsFill />, to: "/messages" },
+    { id: 4, label: "Messaggi", icon: <ChatRightDotsFill />, to: "" },
     { id: 5, label: "Notifiche", icon: <BellFill />, to: "/notifications" },
   ];
 
@@ -47,7 +53,16 @@ function MyNavbar() {
           <Nav className="ms-auto align-items-center">
             {NAV_LINKS.map((link) => (
               <LinkContainer to={link.to} key={link.id}>
-                <Nav.Link className="d-flex flex-column align-items-center px-3 py-2 py-lg-1">
+                <Nav.Link
+                  className="d-flex flex-column align-items-center px-3 py-2 py-lg-1"
+                  onClick={
+                    link.id === 4
+                      ? () => {
+                          console.log("mess");
+                        }
+                      : undefined
+                  }
+                >
                   <span className="fs-5">{link.icon}</span>
                   <span className="small">{link.label}</span>
                 </Nav.Link>
@@ -57,12 +72,32 @@ function MyNavbar() {
             <NavDropdown
               title={
                 <div className="d-flex flex-column align-items-center">
-                  <img src={myProfile.data.image} alt="Tu" className="rounded-circle border" width="24" height="24" style={{ objectFit: "cover" }} />
+                  {isAvatarLoading ? (
+                    <div className="rounded-circle border d-flex align-items-center justify-content-center" style={{ width: 24, height: 24 }}>
+                      <Spinner animation="border" variant="primary" size="sm" />
+                    </div>
+                  ) : (
+                    <img
+                      src={myProfile.data.image}
+                      alt="Tu"
+                      className="rounded-circle border"
+                      width="24"
+                      height="24"
+                      style={{ objectFit: "cover" }}
+                      onError={(e) => {
+                        e.currentTarget.src = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png";
+                      }}
+                    />
+                  )}
                   <span className="small">Tu ▼</span>
                 </div>
               }
               id="profile-dropdown"
               className="px-2"
+              show={show}
+              onToggle={(isOpen) => setShow(isOpen)}
+              rootCloseEvent="click"
+              autoClose={true}
             >
               <NavDropdown.Header href="#settings" style={{ width: "280px" }}></NavDropdown.Header>
               <div className="px-3 py-2" style={{ width: "280px" }}>
@@ -73,7 +108,7 @@ function MyNavbar() {
                   </h5>
                   <p className="mb-0 h6">{myProfile.data.title}</p>
                   <p className="text-secondary small mb-3">{myProfile.data.area}</p>
-                  <LinkContainer to="/Profile" style={{ textDecoration: "none", color: "#0A66C2", border: "1px solid #0A66C2" }}>
+                  <LinkContainer to="/Profile" style={{ textDecoration: "none", color: "#0A66C2", border: "1px solid #0A66C2" }} onClick={handleClose}>
                     <Button className="rounded-5 fw-bold w-100" variant="outline" style={{ fontSize: "0.85rem" }}>
                       Visualizza Profilo
                     </Button>

@@ -5,8 +5,20 @@ import PostAPI from "../../../assets/js/post-api/PostAPI"
 const GetMostRecentPosts = () => {
   const [posts, setPosts] = useState([])
 
+  // const postId = "69a077d82a4669001512aaad"
+
   useEffect(() => {
     const postAPI = new PostAPI()
+    // postAPI
+    //   .prettifyPostWithProfileImg(postId)
+    //   .then((post) => {
+    //     console.log(post)
+    //   })
+    //   .catch((err) => {
+    //     console.error(err)
+    //   })
+
+    
     postAPI
       .getMostRecentPosts()
       .then((posts) => {
@@ -27,7 +39,7 @@ const GetMostRecentPosts = () => {
             return (
               <div key={post._id}>
                 <p>
-                  {post.text} - ID: {post._id} ({post.username})
+                  {post.text} - POST ID: {post._id} ({post.username})
                 </p>
               </div>
             )

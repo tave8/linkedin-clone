@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Calendar3, Plus, Image, X } from "react-bootstrap-icons";
 import { Button, Offcanvas, Stack } from "react-bootstrap";
 import PostAPI from "../assets/js/post-api/PostAPI";
@@ -7,10 +7,23 @@ import { useSelector } from "react-redux";
 function PublishOffcanvas({ show, handleClose, handleShow, ...props }) {
   const [text, setText] = useState("");
   const myProfile = useSelector((state) => state.myProfile);
+  const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const fileInputRef = useRef(null);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file);
+      setPreview(URL.createObjectURL(file));
+    }
+  };
 
   const handlePublish = () => {
     const postAPI = new PostAPI();
     const newPostFields = { text };
+
+    if (image) newPostFields.image = image;
 
     postAPI
       .addPost(newPostFields)
@@ -21,12 +34,15 @@ function PublishOffcanvas({ show, handleClose, handleShow, ...props }) {
       })
       .catch((err) => {
         console.error(err);
+        setImage(null);
+        setPreview(null);
       });
   };
 
   return (
     <>
       <Button
+        type="button"
         variant="primary"
         onClick={(e) => {
           e.stopPropagation();
@@ -74,11 +90,28 @@ function PublishOffcanvas({ show, handleClose, handleShow, ...props }) {
               value={text}
               onChange={(e) => setText(e.target.value)}
             />
+            {preview && (
+              <div className="position-relative mt-2">
+                <img src={preview} alt="preview" className="img-fluid rounded" />
+                <div
+                  role="button"
+                  className="position-absolute top-0 end-0 m-1 bg-dark rounded-circle d-flex align-items-center justify-content-center"
+                  style={{ width: "28px", height: "28px" }}
+                  onClick={() => {
+                    setImage(null);
+                    setPreview(null);
+                  }}
+                >
+                  <X size={18} color="white" />
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="py-3 border-top">
             <Stack direction="horizontal" gap={4} className="text-secondary">
-              <Image size={22} />
+              <Image className="icon" size={22} role="button" onClick={() => fileInputRef.current.click()} />
+              <input type="file" accept="image/*" ref={fileInputRef} onChange={handleImageChange} className="d-none" />
               <Calendar3 size={20} />
               <Plus size={24} />
             </Stack>
