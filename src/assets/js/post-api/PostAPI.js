@@ -210,7 +210,7 @@ export default class PostAPI extends APIHelper {
       )
     }
 
-    return postAfterAddedImage
+    return this.constructor.prettifyPost(postAfterAddedImage)
   }
 
   /**
@@ -260,7 +260,7 @@ export default class PostAPI extends APIHelper {
 
     // if no image file was provided, then return the post just added
     if (!imageFileExists) {
-      return postJustAdded
+      return this.constructor.prettifyPost(postJustAdded)
     }
 
     // getting here means that the image file exists
@@ -283,7 +283,7 @@ export default class PostAPI extends APIHelper {
       )
     }
 
-    return postAfterAddedImage
+    return this.constructor.prettifyPost(postAfterAddedImage)
   }
 
   /**
@@ -478,7 +478,7 @@ export default class PostAPI extends APIHelper {
 
     const posts = await Promise.all(postsPromises)
 
-    return posts
+    return this.constructor.prettifyPosts(posts)
   }
 
   /**
@@ -499,48 +499,6 @@ export default class PostAPI extends APIHelper {
   getApiToken() {
     return this.constructor.API_TOKENS[this.apiUser]
   }
-
-  /**
-   * Every post will have a new property _userInfo where
-   * all the profile info will be found.
-   *
-   */
-  // async prettifyPostsWithProfileInfo(posts) {
-
-  // }
-
-  /**
-   * Add the profile image to posts.
-   */
-  // async prettifyPostWithProfileInfo(post) {
-  //   // post is not an object
-  //   if (!this.constructor.isObject(post)) {
-  //     throw new Error("Post must be an object")
-  //   }
-  //   // post does not have user property
-  //   if (!Object.hasOwn(post, "user")) {
-  //     throw new Error(`Post must have "user" property`)
-  //   }
-  //   // user property does not have _id property
-  //   if (!Object.hasOwn(post.user, "_id")) {
-  //     throw new Error(`Post user must be an object and must have the "_id" property.`)
-  //   }
-
-  //   // the profile that posted this post
-  //   const profileId = post.user._id
-
-  //   const profileAPI = new ProfileAPI({
-  //     apiUser: this.apiUser,
-  //   })
-
-  //   // all profile info
-  //   const userInfo = await profileAPI.getProfileById(profileId)
-
-  //   return {
-  //     ...structuredClone(post),
-  //     _userInfo: structuredClone(userInfo),
-  //   }
-  // }
 
   static prettifyPost(post) {
     const createdAtObj = new Date(post.createdAt)
