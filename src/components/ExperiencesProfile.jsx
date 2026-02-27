@@ -2,10 +2,11 @@ import { Card, Button, Spinner, Modal, Form } from "react-bootstrap";
 import { BsPlusLg, BsPencil } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import ExperienceAPI from "./demo/experience-api/ExperienceAPI";
+import ExperienceAPI from "../assets/js/experience-api/ExperienceAPI";
 
 function ExperiencesProfile() {
   const myProfile = useSelector((state) => state.myProfile);
+  console.log(myProfile.data._id);
   const profileId = myProfile.data._id;
 
   const [experiences, setExperiences] = useState([]);
