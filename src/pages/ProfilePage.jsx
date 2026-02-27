@@ -23,6 +23,7 @@ import { Draggable } from "gsap/Draggable";
 import { useMediaQuery } from "react-responsive";
 
 const ProfilePage = () => {
+  const messagesTab = useSelector((state) => state.messagesTab);
   // const myProfile = useSelector((state) => state.myProfile);
   const accordionRef = useRef(null);
   const containerRef = useRef(null);
@@ -62,7 +63,10 @@ const ProfilePage = () => {
             </Col>
           </Row>
           <div ref={containerRef} className="bg-transparent vh-custom w-100 position-fixed top-custom-accrodion z-n1"></div>
-          <Accordion ref={accordionRef} className={`position-absolute bottom-custom end-0 w-25 ${isMobile ? "w-50" : "w-25"} position-fixed`}>
+          <Accordion
+            ref={accordionRef}
+            className={` ${messagesTab.isOpen ? "d-block" : "d-none"} position-absolute bottom-custom end-0 w-25 ${isMobile ? "w-50" : "w-25"} position-fixed`}
+          >
             <Accordion.Item eventKey="0">
               <Accordion.Header>Messaggi</Accordion.Header>
               <Accordion.Body>

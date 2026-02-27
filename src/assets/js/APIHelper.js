@@ -4,6 +4,7 @@
  */
 export default class APIHelper {
   static API_TOKENS = {
+    team: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWExNzhmNTMzOWZkMTAwMTUwZTcwODUiLCJpYXQiOjE3NzIxODk5NDEsImV4cCI6MTc3MzM5OTU0MX0.-9YakMqyF2TZGbbtm7IHCIuVWmNJHi1dbSXbIMuljA4",
     giuseppe:
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTljNGUyMDBiYzFkZTAwMTU3N2I3YjYiLCJpYXQiOjE3NzE4NTEzMjEsImV4cCI6MTc3MzA2MDkyMX0.YZ-u3PFGt5dmN5wQAI25NIOezRDpba2YuomGaZmjfDk",
     giorgia:

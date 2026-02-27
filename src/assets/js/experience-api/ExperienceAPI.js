@@ -1,7 +1,7 @@
 import APIHelper from "../APIHelper"
 
 const defaultParams = {
-  apiUser: "giuseppe",
+  apiUser: "team",
 }
 
 export default class ExperienceAPI extends APIHelper {

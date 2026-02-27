@@ -19,7 +19,7 @@ const LoadMyDefaultProfile = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(setMyProfileApiUserAndLoadProfileGlobally("giuseppe"))
+    dispatch(setMyProfileApiUserAndLoadProfileGlobally("team"))
   }, [])
 
   return <></>
