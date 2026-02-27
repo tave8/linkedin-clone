@@ -22,6 +22,10 @@ export default class ExperienceAPI extends APIHelper {
    * Get experiences of profile.
    */
   async getExperiencesOfProfile(profileId) {
+    if (!profileId) {
+      throw new Error(`Profile id cannot be nully. "${profileId}" given.`)
+    }
+
     const url = this.constructor.API_URL_PROFILES + `/${profileId}/experiences`
     const config = this.getFetchConfig()
     const resp = await fetch(url, config)
