@@ -62,23 +62,21 @@ const ActivityProfile = () => {
                   </div>
                   <BsThreeDots />
                 </div>
-                <p className="mb-2">
-                  <div>
-                    {/* added by giuseppe: allows text whitespace to be displayed correctly */}
-                    <pre
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        fontSize: "0.9rem",
-                        width: "100%",
-                        whiteSpace: "pre-wrap",
-                        wordBreak: "break-word",
-                        overflowWrap: "anywhere",
-                      }}
-                    >
-                      {singlePost.text}
-                    </pre>
-                  </div>
-                </p>
+                <div className="mb-2">
+                  {/* added by giuseppe: allows text whitespace to be displayed correctly */}
+                  <pre
+                    style={{
+                      fontFamily: "Arial, Helvetica, sans-serif",
+                      fontSize: "0.9rem",
+                      width: "100%",
+                      whiteSpace: "pre-wrap",
+                      wordBreak: "break-word",
+                      overflowWrap: "anywhere",
+                    }}
+                  >
+                    {singlePost.text}
+                  </pre>
+                </div>
                 {singlePost.image && (
                   <img src={singlePost.image} alt="post" className="w-100 rounded mb-2" style={{ objectFit: "cover", maxHeight: "400px" }} />
                 )}
