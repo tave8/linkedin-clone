@@ -142,7 +142,7 @@ const Post = (props) => {
           {/* TESTO */}
           <Row className="mt-3 px-3 lh-5">
             <Col>
-              <div style={{ width: "100%" }}>
+              <div>
                 {/* added by giuseppe: allows text whitespace to be displayed correctly */}
                 <pre
                   style={{
