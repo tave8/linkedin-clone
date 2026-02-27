@@ -142,7 +142,21 @@ const Post = (props) => {
           {/* TESTO */}
           <Row className="mt-3 px-3 lh-5">
             <Col>
-              <div>{expanded || !isLong ? props.post.text : shortText + "..."}</div>
+              <div style={{ width: "100%" }}>
+                {/* added by giuseppe: allows text whitespace to be displayed correctly */}
+                <pre
+                  style={{
+                    fontFamily: "Arial, Helvetica, sans-serif",
+                    fontSize: "0.9rem",
+                    width: "100%",
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
+                    overflowWrap: "anywhere",
+                  }}
+                >
+                  {expanded || !isLong ? props.post.text : shortText + "..."}
+                </pre>
+              </div>
 
               {isLong && (
                 <div className="text-muted small fw-semibold mt-2" style={{ cursor: "pointer" }} onClick={() => setExpanded((prev) => !prev)}>

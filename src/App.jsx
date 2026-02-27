@@ -53,11 +53,11 @@ function App() {
         <>
           {/****** START: DEMO components ******/}
           {/* <ProfileAPIDemoComponent /> */}
-          {/* <PostAPIDemoComponent /> */}
+          <PostAPIDemoComponent />
           {/* <ChangeProfileDemoComponent /> */}
           {/* <CommentAPIDemoComponent /> */}
           {/* <ImageAPIDemoComponent /> */}
-          <ExperienceAPIDemoComponent />
+          {/* <ExperienceAPIDemoComponent /> */}
           {/****** END: DEMO components ********/}
         </>
       )}
