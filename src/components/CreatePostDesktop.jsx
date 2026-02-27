@@ -1,16 +1,16 @@
-import React from "react"
-import Row from "react-bootstrap/Row"
-import Col from "react-bootstrap/Col"
-import Button from "react-bootstrap/Button"
-import { CardText, FastForwardBtnFill, Image } from "react-bootstrap-icons"
-import CreatePost from "./CreatePost"
-import { Card, Spinner } from "react-bootstrap"
-import { useSelector } from "react-redux"
+import React from "react";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import { CardText, FastForwardBtnFill, Image } from "react-bootstrap-icons";
+import CreatePost from "./CreatePost";
+import { Card, Spinner } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
-function CreatePostDesktop() {
-  const [modalShow, setModalShow] = React.useState(false)
-  const myProfile = useSelector((state) => state.myProfile)
-  const isAvatarLoading = myProfile.isLoading || !myProfile.data?.image
+function CreatePostDesktop({ onPostCreated }) {
+  const [modalShow, setModalShow] = React.useState(false);
+  const myProfile = useSelector((state) => state.myProfile);
+  const isAvatarLoading = myProfile.isLoading || !myProfile.data?.image;
 
   return (
     <Card className="mb-3 border-0 shadow-sm d-none d-lg-block">
@@ -29,7 +29,7 @@ function CreatePostDesktop() {
               alt="Avatar"
               style={{ objectFit: "cover" }}
               onError={(e) => {
-                e.currentTarget.src = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+                e.currentTarget.src = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png";
               }}
             />
           )}
@@ -65,10 +65,17 @@ function CreatePostDesktop() {
           </Col>
         </Row>
 
-        <CreatePost show={modalShow} onHide={() => setModalShow(false)} />
+        <CreatePost
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          onPostCreated={(post) => {
+            onPostCreated(post);
+            setModalShow(false);
+          }}
+        />
       </Card.Body>
     </Card>
-  )
+  );
 }
 
-export default CreatePostDesktop
+export default CreatePostDesktop;

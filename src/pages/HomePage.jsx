@@ -1,59 +1,67 @@
-import RightSideBar from "../components/RightSideBar"
-import { Container, Row, Col, Spinner, Alert, Button } from "react-bootstrap"
-import PostAPI from "../assets/js/post-api/PostAPI"
+import RightSideBar from "../components/RightSideBar";
+import { Container, Row, Col, Spinner, Alert, Button } from "react-bootstrap";
+import PostAPI from "../assets/js/post-api/PostAPI";
 
-import Post from "../components/Post"
-import LeftSideBar from "../components/LeftSideBar"
+import Post from "../components/Post";
+import LeftSideBar from "../components/LeftSideBar";
 
-import { useEffect, useState, useRef } from "react"
-import { IoIosSend } from "react-icons/io"
-import Accordion from "react-bootstrap/Accordion"
-import CreatePostDesktop from "../components/CreatePostDesktop"
-import gsap from "gsap"
-import { useGSAP } from "@gsap/react"
-import { Draggable } from "gsap/Draggable"
+import { useEffect, useState, useRef } from "react";
+import { IoIosSend } from "react-icons/io";
+import Accordion from "react-bootstrap/Accordion";
+import CreatePostDesktop from "../components/CreatePostDesktop";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { Draggable } from "gsap/Draggable";
+import { useSelector } from "react-redux";
 
-gsap.registerPlugin(Draggable, useGSAP)
+gsap.registerPlugin(Draggable, useGSAP);
 
 const HomePage = () => {
-  const [posts, setPosts] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState(null)
-
-  const accordionRef = useRef(null)
-  const containerRef = useRef(null)
-  const arrayMessage = ["come va?", "bene tu?", "ciao ragazzi!"]
+  const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const myProfile = useSelector((state) => state.myProfile);
+  const accordionRef = useRef(null);
+  const containerRef = useRef(null);
+  const arrayMessage = ["come va?", "bene tu?", "ciao ragazzi!"];
   const handleClosePost = (postId) => {
-    setPosts((prev) => prev.filter((p) => p._id !== postId)) // NOTA PER ME : tengo nello stato tutti quelli con id diverso
-  }
+    setPosts((prev) => prev.filter((p) => p._id !== postId)); // NOTA PER ME : tengo nello stato tutti quelli con id diverso
+  };
+  const handlePostCreated = (newPost) => {
+    const cleanPost = newPost._doc ? newPost._doc : newPost;
+    if (!cleanPost.user) {
+      cleanPost.user = myProfile.data;
+    }
+    setPosts((prev) => [cleanPost, ...prev]);
+  };
 
   useEffect(() => {
-    const postAPI = new PostAPI()
+    const postAPI = new PostAPI();
 
     postAPI
       .getMostRecentPosts()
       .then((posts) => {
-        console.log(posts)
-        setPosts(posts)
-        setError(null)
-        setIsLoading(false)
+        console.log(posts);
+        setPosts(posts);
+        setError(null);
+        setIsLoading(false);
       })
       .catch((err) => {
-        console.error(err)
-        setError("Errore nel caricamento dei post.")
-        setIsLoading(false)
-      })
-  }, [])
+        console.error(err);
+        setError("Errore nel caricamento dei post.");
+        setIsLoading(false);
+      });
+  }, []);
 
   useGSAP(() => {
     const [draggable] = Draggable.create(accordionRef.current, {
       type: "x,y",
       bounds: containerRef.current,
-    })
+    });
     return () => {
-      draggable.kill()
-    }
-  })
+      draggable.kill();
+    };
+  });
 
   return (
     <main className="sfondo position-relative">
@@ -64,7 +72,7 @@ const HomePage = () => {
             <LeftSideBar />
           </Col>
           <Col xs={12} md={6}>
-            <CreatePostDesktop />
+            <CreatePostDesktop onPostCreated={handlePostCreated} />
             {/* <Post /> */}
 
             {error && (
@@ -79,7 +87,7 @@ const HomePage = () => {
               </div>
             )}
 
-            {!isLoading && !error && posts.map((singlePost) => <Post key={singlePost._id} post={singlePost} onClose={handleClosePost} />)}
+            {!isLoading && !error && posts.map((singlePost) => <Post key={singlePost._id || Math.random()} post={singlePost} onClose={handleClosePost} />)}
           </Col>
 
           <Col className="d-none d-md-block" md={3}>
@@ -95,7 +103,7 @@ const HomePage = () => {
               <p>Team 3 ChatGroup</p>
               <hr />
               {arrayMessage.map((e, i) => {
-                return <p key={i}>{e}</p>
+                return <p key={i}>{e}</p>;
               })}
               <hr />
               <div className="d-flex align-items-center gap-1">
@@ -109,6 +117,6 @@ const HomePage = () => {
         </Accordion.Item>
       </Accordion>
     </main>
-  )
-}
-export default HomePage
+  );
+};
+export default HomePage;
