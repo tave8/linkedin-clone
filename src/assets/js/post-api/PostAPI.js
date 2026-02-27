@@ -99,7 +99,7 @@ export default class PostAPI extends APIHelper {
     }
 
     const profilePosts = posts.filter((post) => {
-      if (Object.hasOwn(post, "user")) {
+      if (!Object.hasOwn(post, "user")) {
         throw new Error(`Post is expected to have "user" property.`)
       }
       return post.user._id === profileId
