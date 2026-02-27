@@ -1,17 +1,17 @@
-import { FaPen } from "react-icons/fa";
-import Modal from "react-bootstrap/Modal";
-import { Button } from "react-bootstrap";
-import { useRef, useState } from "react";
-import ProfileAPI from "../assets/js/profile-api/ProfileAPI";
-import { useDispatch, useSelector } from "react-redux";
-import { setMyProfileDataGlobally } from "../redux/actions";
+import { FaPen } from "react-icons/fa"
+import Modal from "react-bootstrap/Modal"
+import { Button } from "react-bootstrap"
+import { useRef, useState } from "react"
+import ProfileAPI from "../assets/js/profile-api/ProfileAPI"
+import { useDispatch, useSelector } from "react-redux"
+import { setMyProfileDataGlobally } from "../redux/actions"
 
 const InfoProfile = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const myProfile = useSelector((state) => state.myProfile);
-  const [modalShow, setModalShow] = useState(false);
-  const bioRef = useRef("");
+  const myProfile = useSelector((state) => state.myProfile)
+  const [modalShow, setModalShow] = useState(false)
+  const bioRef = useRef("")
   function MyVerticallyCenteredModal(props) {
     return (
       <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
@@ -21,7 +21,7 @@ const InfoProfile = () => {
         <Modal.Body>
           <textarea
             onChange={(event) => {
-              bioRef.current = event.target.value;
+              bioRef.current = event.target.value
             }}
             className="w-100"
             placeholder="Change your info"
@@ -36,30 +36,30 @@ const InfoProfile = () => {
         <Modal.Footer>
           <Button
             onClick={() => {
-              console.log(bioRef.current);
+              console.log(bioRef.current)
               const profileAPI = new ProfileAPI({
                 apiUser: myProfile.apiUser,
-              });
+              })
               const newProfileFields = {
                 bio: bioRef.current,
                 // more fields if needed
-              };
+              }
               profileAPI
                 .updateMyProfile(newProfileFields)
                 .then((profile) => {
-                  dispatch(setMyProfileDataGlobally(profile));
+                  dispatch(setMyProfileDataGlobally(profile))
                 })
                 .catch((err) => {
-                  console.error(err);
-                });
-              setModalShow(false);
+                  console.error(err)
+                })
+              setModalShow(false)
             }}
           >
             Save changes
           </Button>
         </Modal.Footer>
       </Modal>
-    );
+    )
   }
   return (
     <>
@@ -71,9 +71,23 @@ const InfoProfile = () => {
           </Button>
           <MyVerticallyCenteredModal show={modalShow} onHide={() => setModalShow(false)} />
         </div>
-        <p>{myProfile.data.bio}</p>
+        <div>
+          {/* added by giuseppe: allows text whitespace to be displayed correctly */}
+          <pre
+            style={{
+              fontFamily: "Arial, Helvetica, sans-serif",
+              fontSize: "0.9rem",
+              width: "100%",
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-word",
+              overflowWrap: "anywhere",
+            }}
+          >
+            {myProfile.data.bio}
+          </pre>
+        </div>
       </section>
     </>
-  );
-};
-export default InfoProfile;
+  )
+}
+export default InfoProfile
