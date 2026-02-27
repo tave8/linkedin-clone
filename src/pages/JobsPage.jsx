@@ -41,7 +41,7 @@ const JobsPage = function () {
             <p className="text-muted">Posizioni in evidenza aggiornate ogni giorno.</p>
           </Col>
         </Row>
-
+        {/* si */}
         {/* Search */}
         <Row className="mb-4">
           <Col md={8} lg={6}>
