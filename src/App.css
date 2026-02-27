@@ -303,12 +303,17 @@ body {
   width: fit-content;
 }
 /*Side bar destra raffi*/
+/* prima
 .sidebar-d-scroll {
   max-height: calc(100vh - 80px);
   overflow-y: hidden;
   transition: overflow 0.2s ease;
 }
-
+*/
+.sidebar-d-scroll {
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+}
 .sidebar-d-scroll:hover {
   overflow-y: auto;
 }

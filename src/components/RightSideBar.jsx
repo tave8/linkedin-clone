@@ -24,8 +24,8 @@ function SidebarRight() {
   return (
     <>
       {showConfetti && <Confetti width={width} height={height} tweenDuration={3000} />}
-      <div className="d-none d-lg-block sidebar-d-scroll" style={{ position: "sticky", top: "80px" }}>
-        {/* desktop*/}
+      <div className="d-none d-lg-block sidebar-d-scroll">
+        {/* desktop   style={{ position: "sticky", top: "80px" }}   */}
         <Card className="mb-3 shadow-sm">
           <Card.Body>
             <Card.Title className="fw-bold">LinkedIn Notizie</Card.Title>
