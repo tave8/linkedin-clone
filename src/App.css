@@ -321,3 +321,9 @@ body {
 .top-custom-accrodion {
   top: 20px;
 }
+.bottom-custom {
+  bottom: 10%;
+}
+.vh-custom {
+  height: 90vh;
+}
