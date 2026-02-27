@@ -1,10 +1,13 @@
 import { Card, Button, Spinner, Modal, Form } from "react-bootstrap";
 import { BsPlusLg, BsPencil } from "react-icons/bs";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import ExperienceAPI from "./demo/experience-api/ExperienceAPI";
 
-const API_URL = "https://striveschool-api.herokuapp.com/api/profile";
+function ExperiencesProfile() {
+  const myProfile = useSelector((state) => state.myProfile);
+  const profileId = myProfile.data._id;
 
-function ExperiencesProfile({ userId, token }) {
   const [experiences, setExperiences] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -18,18 +21,52 @@ function ExperiencesProfile({ userId, token }) {
     area: "",
   });
 
-  // =========================
   // FETCH GET
-  // =========================
 
-  // =========================
+  useEffect(() => {
+    const experienceAPI = new ExperienceAPI();
+
+    experienceAPI
+      .getExperiencesOfProfile(profileId)
+      .then((data) => {
+        setExperiences(data);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [profileId]);
+
   // FETCH POST
-  // =========================
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    //post
-  };
+    setSaving(true);
 
+    const experienceAPI = new ExperienceAPI({ apiUser: "team" });
+    const body = {
+      ...formData,
+      endDate: formData.endDate || null,
+    };
+
+    experienceAPI
+      .addExperienceToMyProfile(body)
+      .then(() => {
+        return new ExperienceAPI().getExperiencesOfProfile(profileId);
+      })
+      .then((data) => {
+        setExperiences(data);
+        handleCloseModal();
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setSaving(false);
+      });
+  };
   // Modal
 
   const handleOpenModal = () => {
@@ -100,7 +137,7 @@ function ExperiencesProfile({ userId, token }) {
         </Card.Body>
       </Card>
 
-      {/*  FORM */}
+      {/* MODAL FORM */}
       <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Header closeButton>
           <Modal.Title className="fs-6 fw-bold">Aggiungi esperienza</Modal.Title>
