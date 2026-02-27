@@ -11,18 +11,19 @@ import PostAPI from "../assets/js/post-api/PostAPI";
 const ActivityProfile = () => {
   const myProfile = useSelector((state) => state.myProfile);
   const [posts, setPosts] = useState([]);
-
+  console.log(myProfile);
+  console.log("controllo", myProfile.data._id);
   useEffect(() => {
-    const postAPI = new PostAPI();
-    postAPI
-      .getMostRecentPosts()
-      .then((data) => {
-        setPosts(data);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+    if (!myProfile?.data?._id) return;
 
-  const myPosts = posts.filter((el) => el.user?._id === myProfile.data?._id);
+    const postAPI = new PostAPI();
+
+    postAPI
+      .getMostRecentPostsOfProfile(myProfile.data._id)
+      .then((data) => setPosts(data))
+      .catch((err) => console.error(err));
+  }, [myProfile.data._id]);
+  // const myPosts = posts.filter((el) => el.user?._id === myProfile.data?._id);
 
   return (
     <section className="bg-white border border-1 border-secondary-subtle rounded-3 container pt-3 pb-2 mb-3">
@@ -44,10 +45,10 @@ const ActivityProfile = () => {
       <Row className="g-3">
         {posts.length === 0 ? (
           <p>Loading...</p>
-        ) : myPosts.length === 0 ? (
+        ) : posts.length === 0 ? (
           <p>Nessun post recente trovato.</p>
         ) : (
-          myPosts.map((singlePost) => (
+          posts.map((singlePost) => (
             <Col key={singlePost._id} xs={12}>
               <div className="border border-1 border-secondary-subtle rounded-3 p-3 shadow-sm">
                 <div className="d-flex justify-content-between align-items-center mb-2">
