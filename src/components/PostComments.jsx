@@ -2,6 +2,15 @@ import { Form, Button, Image, Row, Col, Dropdown, Spinner, Alert } from "react-b
 import CommentAPI from "../assets/js/comment-api/CommentAPI"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
+// test per immagine associata
+
+const AVATAR_MAP = {
+  "giuseppetavella8+3@gmail.com": "https://i.postimg.cc/8kn0m39H/photo-giuseppe-white-bg-trim.png",
+  "raffaele.baiocco06+1@gmail.com": "https://epicode-testapi-bucket.s3.eu-south-1.amazonaws.com/1772123801589-raffaele.jpg",
+  "giulia.creps2@gmail.com": "https://epicode-testapi-bucket.s3.eu-south-1.amazonaws.com/1772123782853-giulia.png",
+  "optkq@dollicons.com": "https://epicode-testapi-bucket.s3.eu-south-1.amazonaws.com/1772123817604-francesco.jpg",
+  "gi.ravioli@gmail.com": "https://epicode-testapi-bucket.s3.eu-south-1.amazonaws.com/1772123770162-giorgia.jpg",
+}
 
 const PostComments = (props) => {
   const [comments, setComments] = useState([]) //PRENDO
@@ -10,13 +19,9 @@ const PostComments = (props) => {
   const [error, setError] = useState(null)
 
   const myProfile = useSelector((state) => state.myProfile) //per foto profilo redux
-  const profilesList = useSelector((state) => state.myProfiles?.list || []) // finalmente trovata lista profili
 
   const currentEmail = myProfile?.data?.email
-  const findImageByEmail = (email) => {
-    const profile = profilesList.find((p) => p.email === email)
-    return profile?.image
-  }
+
   const handleHideComment = (commentId) => {
     setComments((prev) => prev.filter((c) => c._id !== commentId))
   }
@@ -34,8 +39,13 @@ const PostComments = (props) => {
     commentAPI
       .getMostRecentCommentsOfPost(props.postId)
       .then((commentsFromAPI) => {
-        setComments(commentsFromAPI)
-        console.log(commentsFromAPI)
+        const commentsWithLikes = commentsFromAPI.map((c) => ({
+          ...c,
+          randomLikes: Math.floor(Math.random() * 20),
+          likedByMe: false,
+        }))
+
+        setComments(commentsWithLikes)
         setIsLoading(false)
       })
       .catch((err) => {
@@ -69,8 +79,15 @@ const PostComments = (props) => {
     commentAPI
       .addComment(newCommentFields)
       .then((createdComment) => {
-        // AGGIUNGO DA FUNZIONE GIUSEPPE PER POTER AGGIORNARE LA LISTA
-        setComments((prev) => [createdComment, ...prev])
+        console.log(createdComment)
+        const newCommentWithLikes = {
+          ...createdComment,
+          randomLikes: Math.floor(Math.random() * 20),
+          likedByMe: false,
+          __avatar: myProfile?.data?.image,
+        }
+
+        setComments((prev) => [newCommentWithLikes, ...prev])
         setNewComment("")
       })
       .catch((err) => {
@@ -93,6 +110,25 @@ const PostComments = (props) => {
       })
       .catch((err) => console.error(err))
   }
+
+  // per mi piace commento
+
+  const handleLikeComment = (commentId) => {
+    setComments((prev) =>
+      prev.map((c) => {
+        if (c._id !== commentId) return c
+
+        const newLiked = !c.likedByMe
+        return {
+          ...c,
+          likedByMe: newLiked,
+          randomLikes: newLiked ? c.randomLikes + 1 : Math.max(0, c.randomLikes - 1),
+        }
+      }),
+    )
+  }
+
+  const normalize = (s) => (s || "").trim().toLowerCase()
 
   return (
     <div className="px-3 pb-3 mt-2">
@@ -132,25 +168,14 @@ const PostComments = (props) => {
       {!isLoading &&
         !error &&
         comments.map((comment) => {
-          console.log("CHECK", {
-            me: currentEmail,
-            author: comment?.author,
-            apiUser: myProfile?.apiUser,
-            match: currentEmail?.trim().toLowerCase() === comment?.author?.trim().toLowerCase(),
-            commentKeys: Object.keys(comment || {}),
-          })
+          const emailKey = normalize(comment.author)
+          const avatarSrc = AVATAR_MAP[emailKey] || "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
 
           return (
             <div className="mt-3" key={comment._id}>
               <Row className="align-items-start g-2 flex-nowrap comment-head">
                 <Col xs="auto">
-                  <Image
-                    src={findImageByEmail(comment.author) || "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"}
-                    roundedCircle
-                    width={40}
-                    height={40}
-                    alt="Avatar"
-                  />
+                  <Image src={avatarSrc} roundedCircle width={40} height={40} alt="Avatar" />
                 </Col>
 
                 <Col className="min-w-0">
@@ -195,16 +220,18 @@ const PostComments = (props) => {
                   <div className="small mb-2">{comment.comment}</div>
 
                   <div className="d-flex flex-wrap align-items-center gap-2 text-muted small">
-                    <span className="fw-semibold" role="button">
-                      Consiglia
-                    </span>
-
-                    <span>•</span>
-
-                    <span className="d-flex align-items-center gap-1">
-                      <i className="bi bi-hand-thumbs-up"></i>
-                      <span>3</span>
-                    </span>
+                    <button
+                      type="button"
+                      onClick={() => handleLikeComment(comment._id)}
+                      className={`btn btn-link p-0 d-inline-flex align-items-center gap-2 text-decoration-none ${
+                        comment.likedByMe ? "text-primary" : "text-muted"
+                      }`}
+                    >
+                      <span className="d-inline-flex align-items-center gap-1">
+                        <i className={`bi ${comment.likedByMe ? "bi-hand-thumbs-up-fill" : "bi-hand-thumbs-up"}`}></i>
+                        <span>{comment.randomLikes ?? 0}</span>
+                      </span>
+                    </button>
 
                     <span className="fw-semibold" role="button">
                       Rispondi
