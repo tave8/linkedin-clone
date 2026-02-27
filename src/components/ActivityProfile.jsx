@@ -11,8 +11,7 @@ import PostAPI from "../assets/js/post-api/PostAPI";
 const ActivityProfile = () => {
   const myProfile = useSelector((state) => state.myProfile);
   const [posts, setPosts] = useState([]);
-  console.log(myProfile);
-  console.log("controllo", myProfile.data._id);
+
   useEffect(() => {
     if (!myProfile?.data?._id) return;
 
