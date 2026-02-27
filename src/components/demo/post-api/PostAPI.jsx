@@ -15,10 +15,10 @@ const PostAPIDemo = () => {
       {/* <AddPostWithImage /> */}
       {/* <DeletePostById /> */}
       {/* <GetPosts /> */}
-      {<GetMostRecentPosts />}
+      {/* {<GetMostRecentPosts />} */}
       {/* <GetPostById /> */}
       {/*<UpdatePostById /> */}
-      {/* <GenerateAndAddAIPostsWithRandomProfiles /> */}
+      <GenerateAndAddAIPostsWithRandomProfiles />
     </>
   )
 }

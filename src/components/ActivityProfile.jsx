@@ -1,28 +1,27 @@
-import { FaPen } from "react-icons/fa";
-import { FaArrowRight, FaRecycle, FaLocationArrow } from "react-icons/fa6";
-import { Button, Row, Col } from "react-bootstrap";
-import { BsThreeDots } from "react-icons/bs";
-import { HiArchiveBoxArrowDown } from "react-icons/hi2";
-import { FaRegCommentDots } from "react-icons/fa6";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import PostAPI from "../assets/js/post-api/PostAPI";
+import { FaPen } from "react-icons/fa"
+import { FaArrowRight, FaRecycle, FaLocationArrow } from "react-icons/fa6"
+import { Button, Row, Col } from "react-bootstrap"
+import { BsThreeDots } from "react-icons/bs"
+import { HiArchiveBoxArrowDown } from "react-icons/hi2"
+import { FaRegCommentDots } from "react-icons/fa6"
+import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
+import PostAPI from "../assets/js/post-api/PostAPI"
 
 const ActivityProfile = () => {
-  const myProfile = useSelector((state) => state.myProfile);
-  const [posts, setPosts] = useState([]);
-  console.log(myProfile);
-  console.log("controllo", myProfile.data._id);
-  useEffect(() => {
-    if (!myProfile?.data?._id) return;
+  const myProfile = useSelector((state) => state.myProfile)
+  const [posts, setPosts] = useState([])
 
-    const postAPI = new PostAPI();
+  useEffect(() => {
+    if (!myProfile?.data?._id) return
+
+    const postAPI = new PostAPI()
 
     postAPI
       .getMostRecentPostsOfProfile(myProfile.data._id)
       .then((data) => setPosts(data))
-      .catch((err) => console.error(err));
-  }, [myProfile.data._id]);
+      .catch((err) => console.error(err))
+  }, [myProfile.data._id])
   // const myPosts = posts.filter((el) => el.user?._id === myProfile.data?._id);
 
   return (
@@ -58,12 +57,26 @@ const ActivityProfile = () => {
                       <p className="fw-semibold mb-0">
                         {myProfile.data?.name} {myProfile.data?.surname}
                       </p>
-                      <small className="text-muted">Ha pubblicato questo post</small>
+                      <small className="text-muted">Ha pubblicato questo post - {singlePost.createdAtForUI}</small>
                     </div>
                   </div>
                   <BsThreeDots />
                 </div>
-                <p className="mb-2">{singlePost.text}</p>
+                <div className="mb-2">
+                  {/* added by giuseppe: allows text whitespace to be displayed correctly */}
+                  <pre
+                    style={{
+                      fontFamily: "Arial, Helvetica, sans-serif",
+                      fontSize: "0.9rem",
+                      width: "100%",
+                      whiteSpace: "pre-wrap",
+                      wordBreak: "break-word",
+                      overflowWrap: "anywhere",
+                    }}
+                  >
+                    {singlePost.text}
+                  </pre>
+                </div>
                 {singlePost.image && (
                   <img src={singlePost.image} alt="post" className="w-100 rounded mb-2" style={{ objectFit: "cover", maxHeight: "400px" }} />
                 )}
@@ -100,7 +113,7 @@ const ActivityProfile = () => {
         </p>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default ActivityProfile;
+export default ActivityProfile

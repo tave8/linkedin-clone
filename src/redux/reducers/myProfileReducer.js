@@ -4,7 +4,7 @@ const initialState = {
   // the actual my profile fields
   data: {},
   // the API user, so the current "my profile"
-  apiUser: "giuseppe",
+  apiUser: "team",
   isLoading: false,
   isError: false,
 }

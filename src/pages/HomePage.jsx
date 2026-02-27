@@ -19,6 +19,8 @@ import { useMediaQuery } from "react-responsive";
 gsap.registerPlugin(Draggable, useGSAP);
 
 const HomePage = () => {
+  const messagesTab = useSelector((state) => state.messagesTab);
+  console.log(messagesTab.isOpen);
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -108,7 +110,10 @@ const HomePage = () => {
           </Col>
         </Row>
       </Container>
-      <Accordion ref={accordionRef} className={`position-absolute bottom-custom end-0 w-25 ${isMobile ? "w-50" : "w-25"} position-fixed`}>
+      <Accordion
+        ref={accordionRef}
+        className={` ${messagesTab.isOpen ? "d-block" : "d-none"} position-absolute bottom-custom end-0 w-25 ${isMobile ? "w-50" : "w-25"} position-fixed`}
+      >
         <Accordion.Item eventKey="0">
           <Accordion.Header>Messaggi</Accordion.Header>
           <Accordion.Body>

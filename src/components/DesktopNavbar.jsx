@@ -6,11 +6,13 @@ import { LinkContainer } from "react-router-bootstrap";
 import Form from "react-bootstrap/Form";
 import { InputGroup } from "react-bootstrap";
 import { BellFill, ChatRightDotsFill, HouseDoorFill, PersonFillAdd, Search, BriefcaseFill, Grid3x2GapFill } from "react-bootstrap-icons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { Button, Spinner } from "react-bootstrap";
+import { setMessagesTabIsOpenToggleGlobally } from "../redux/actions";
 
 function MyNavbar() {
+  const dispatch = useDispatch();
   const myProfile = useSelector((state) => state.myProfile);
 
   const isAvatarLoading = myProfile.isLoading || !myProfile.data?.image;
@@ -26,7 +28,6 @@ function MyNavbar() {
     { id: 4, label: "Messaggi", icon: <ChatRightDotsFill />, to: "" },
     { id: 5, label: "Notifiche", icon: <BellFill />, to: "/notifications" },
   ];
-
   return (
     <Navbar expand="lg" className="bg-white border-bottom sticky-top py-0" variant="light">
       <Container>
@@ -57,8 +58,9 @@ function MyNavbar() {
                   className="d-flex flex-column align-items-center px-3 py-2 py-lg-1"
                   onClick={
                     link.id === 4
-                      ? () => {
-                          console.log("mess");
+                      ? (e) => {
+                          e.preventDefault();
+                          dispatch(setMessagesTabIsOpenToggleGlobally());
                         }
                       : undefined
                   }

@@ -1,7 +1,7 @@
 import APIHelper from "../APIHelper"
 
 const defaultParams = {
-  apiUser: "giuseppe",
+  apiUser: "team",
 }
 
 export default class ExperienceAPI extends APIHelper {
@@ -16,6 +16,29 @@ export default class ExperienceAPI extends APIHelper {
     this.constructor.verifyIfExistsApiUser(finalParams.apiUser)
 
     this.apiUser = finalParams.apiUser
+  }
+
+  /**
+   * Get experiences of profile.
+   */
+  async getExperiencesOfProfile(profileId) {
+    if (!profileId) {
+      throw new Error(`Profile id cannot be nully. "${profileId}" given.`)
+    }
+
+    const url = this.constructor.API_URL_PROFILES + `/${profileId}/experiences`
+    const config = this.getFetchConfig()
+    const resp = await fetch(url, config)
+    try {
+      if (!resp.ok) {
+        throw new Error(`Error during fetch. Response status code: ${resp.status}`)
+      }
+    } catch (err) {
+      console.error(resp)
+      throw err
+    }
+    const experiences = await resp.json()
+    return this.constructor.prettifyExperiences(experiences)
   }
 
   /**
@@ -82,7 +105,45 @@ export default class ExperienceAPI extends APIHelper {
   }
 
   static prettifyExperience(experience) {
-    return experience
+    const startDateObj = new Date(experience.startDate)
+    const startDateForUI = startDateObj.toLocaleDateString("it-IT", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    })
+
+    let endDateForUI
+    // if endDate exists, format it
+    if (experience.endDate) {
+      const endDateObj = new Date(experience.endDate)
+      endDateForUI = endDateObj.toLocaleDateString("it-IT", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+    }
+
+    let moreFields = {
+      startDateForUI,
+      // add here more fields. they will appear in each experience resource
+    }
+
+    // if endDate exists, add its additional format to more fields
+    if (experience.endDate) {
+      moreFields = { ...moreFields, endDateForUI }
+    }
+
+    return {
+      ...experience,
+      ...moreFields,
+    }
+  }
+
+  static prettifyExperiences(experiences) {
+    const class_ = this
+    return experiences.map((experience) => {
+      return class_.prettifyExperience(experience)
+    })
   }
 
   /**

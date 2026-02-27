@@ -3,7 +3,7 @@ import PostAPI from "../post-api/PostAPI"
 import ProfileAPI from "../profile-api/ProfileAPI"
 
 const defaultParams = {
-  apiUser: "giuseppe",
+  apiUser: "team",
 }
 
 export default class ImageAPI extends APIHelper {

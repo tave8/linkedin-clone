@@ -17,7 +17,6 @@ export const SET_MY_PROFILES_IS_ERROR = "SET_MY_PROFILES_IS_ERROR"
 export const SET_MESSAGES_TAB_IS_OPEN = "SET_MESSAGES_TAB_IS_OPEN"
 export const SET_MESSAGES_TAB_IS_OPEN_TOGGLE = "SET_MESSAGES_TAB_IS_OPEN_TOGGLE"
 
-
 //***** ACTIONS: FUNCTIONS
 
 // ***** MY PROFILE
@@ -130,7 +129,6 @@ export const setMyProfilesIsErrorGlobally = (isError) => {
   }
 }
 
-
 // MESSAGES TAB
 
 export const setMessagesTabIsOpenGlobally = (isOpen) => {
@@ -142,12 +140,10 @@ export const setMessagesTabIsOpenGlobally = (isOpen) => {
   }
 }
 
-
-export const setMessagesTabIsOpenToggleGlobally = (isOpen) => {
+export const setMessagesTabIsOpenToggleGlobally = () => {
   return (dispatch, getState) => {
     dispatch({
       type: SET_MESSAGES_TAB_IS_OPEN_TOGGLE,
-      payload: isOpen,
     })
   }
 }

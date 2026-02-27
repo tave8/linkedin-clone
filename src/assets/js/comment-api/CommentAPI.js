@@ -1,7 +1,7 @@
 import APIHelper from "../APIHelper"
 
 const defaultParams = {
-  apiUser: "giuseppe",
+  apiUser: "team",
 }
 
 export default class CommentAPI extends APIHelper {
@@ -13,6 +13,7 @@ export default class CommentAPI extends APIHelper {
    * in APIHelper.
    */
   static API_TOKENS = {
+    team: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWExNzhmNTMzOWZkMTAwMTUwZTcwODUiLCJpYXQiOjE3NzIxODk5NzcsImV4cCI6MTc3MzM5OTU3N30.5pgKN_I31e72ie-smI-jgZFC9L__MTnehue0dNmj3L0",
     giuseppe:
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OThjOTRkMTU0NmZiMDAwMTU5NmY0ODIiLCJpYXQiOjE3NzIwMTc0NjEsImV4cCI6MTc3MzIyNzA2MX0.JD29kFlFDQEj61IAhlyEEtHaba6uinMX5MlnPmSBok0",
     giorgia:
