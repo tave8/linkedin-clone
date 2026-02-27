@@ -1,52 +1,14 @@
 import { Card, Button, Spinner } from "react-bootstrap";
 import { BsPlusLg, BsPencil } from "react-icons/bs";
 import { useEffect, useState } from "react";
-import ExperienceAPI from "./demo/experience-api/ExperienceAPI";
 
 function ExperiencesProfile({ userId, token }) {
   const [experiences, setExperiences] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const experienceAPI = ExperienceAPI({ apiUser: userId, token });
-
-  // FETCH GET
-
-  useEffect(() => {
-    setLoading(true);
-
-    experienceAPI
-      .getExperiences(userId)
-      .then((data) => {
-        setExperiences(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
-  }, [userId]);
-
-  // (POST)
-
-  const handleAddExperience = () => {
-    const experienceFields = {
-      role: "Full Stack Web Developer",
-      company: "FizzBuzz",
-      startDate: "2022-06-16",
-      endDate: "2023-06-16",
-      description: "Implementing new features",
-      area: "Milan",
-    };
-
-    experienceAPI
-      .addExperienceToMyProfile(experienceFields)
-      .then((newExperience) => {
-        setExperiences((prev) => [...prev, newExperience]);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+  // =========================
+  // FETCH
+  // =========================
 
   return (
     <Card className="mb-3 shadow-sm">
@@ -55,10 +17,9 @@ function ExperiencesProfile({ userId, token }) {
           <Card.Title className="fw-bold mb-0 fs-5">Esperienza</Card.Title>
 
           <div>
-            <Button variant="link" className="text-dark p-1" onClick={handleAddExperience}>
+            <Button variant="link" className="text-dark p-1">
               <BsPlusLg size={20} />
             </Button>
-
             <Button variant="link" className="text-dark p-1">
               <BsPencil size={18} />
             </Button>
@@ -92,11 +53,15 @@ function ExperiencesProfile({ userId, token }) {
 
                 <div className="flex-grow-1">
                   <div className="fw-bold">{exp.role}</div>
+
                   <div className="text-muted small">{exp.company}</div>
+
                   <div className="text-muted small">
                     {new Date(exp.startDate).toLocaleDateString()} - {exp.endDate ? new Date(exp.endDate).toLocaleDateString() : "Presente"}
                   </div>
+
                   <div className="text-muted small">{exp.area}</div>
+
                   <div className="small mt-1">{exp.description}</div>
                 </div>
               </div>
