@@ -12,6 +12,8 @@ import CreatePostDesktop from "../components/CreatePostDesktop";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Draggable } from "gsap/Draggable";
+// responsive
+import { useMediaQuery } from "react-responsive";
 
 gsap.registerPlugin(Draggable, useGSAP);
 
@@ -23,6 +25,7 @@ const HomePage = () => {
   const accordionRef = useRef(null);
   const containerRef = useRef(null);
   const arrayMessage = ["come va?", "bene tu?", "ciao ragazzi!"];
+  const isMobile = useMediaQuery({ maxWidth: 768 });
   const handleClosePost = (postId) => {
     setPosts((prev) => prev.filter((p) => p._id !== postId)); // NOTA PER ME : tengo nello stato tutti quelli con id diverso
   };
@@ -57,7 +60,7 @@ const HomePage = () => {
 
   return (
     <main className="sfondo position-relative">
-      <div ref={containerRef} className="bg-transparent vh-100 w-100 position-fixed top-custom-accrodion z-n1"></div>
+      <div ref={containerRef} className="bg-transparent vh-custom w-100 position-fixed top-custom-accrodion z-n1"></div>
       <Container className="pt-3" fluid>
         <Row>
           <Col className="d-none d-lg-block" md={3}>
@@ -87,7 +90,7 @@ const HomePage = () => {
           </Col>
         </Row>
       </Container>
-      <Accordion ref={accordionRef} className="position-absolute bottom-0 end-0 w-25 position-fixed">
+      <Accordion ref={accordionRef} className={`position-absolute bottom-custom end-0 w-25 ${isMobile ? "w-50" : "w-25"} position-fixed`}>
         <Accordion.Item eventKey="0">
           <Accordion.Header>Messaggi</Accordion.Header>
           <Accordion.Body>
@@ -99,7 +102,7 @@ const HomePage = () => {
               })}
               <hr />
               <div className="d-flex align-items-center gap-1">
-                <input type="text" placeholder="start messagging" />
+                <input type="text" placeholder="start messagging" className="w-75" />
                 <Button onClick={() => {}} className="px-2 py-1 d-flex align-items-center">
                   <IoIosSend />
                 </Button>

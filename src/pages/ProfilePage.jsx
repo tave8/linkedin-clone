@@ -19,12 +19,15 @@ import Accordion from "react-bootstrap/Accordion";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Draggable } from "gsap/Draggable";
+// responsive
+import { useMediaQuery } from "react-responsive";
 
 const ProfilePage = () => {
   // const myProfile = useSelector((state) => state.myProfile);
   const accordionRef = useRef(null);
   const containerRef = useRef(null);
   const arrayMessage = ["come va?", "bene tu?", "ciao ragazzi!"];
+  const isMobile = useMediaQuery({ maxWidth: 768 });
   useGSAP(() => {
     const [draggable] = Draggable.create(accordionRef.current, {
       type: "x,y",
@@ -58,8 +61,8 @@ const ProfilePage = () => {
               <RightSideBar />
             </Col>
           </Row>
-          <div ref={containerRef} className="bg-transparent vh-100 w-100 position-fixed top-custom-accrodion z-n1"></div>
-          <Accordion ref={accordionRef} className="position-fixed bottom-0 end-0 w-25 ">
+          <div ref={containerRef} className="bg-transparent vh-custom w-100 position-fixed top-custom-accrodion z-n1"></div>
+          <Accordion ref={accordionRef} className={`position-absolute bottom-custom end-0 w-25 ${isMobile ? "w-50" : "w-25"} position-fixed`}>
             <Accordion.Item eventKey="0">
               <Accordion.Header>Messaggi</Accordion.Header>
               <Accordion.Body>
@@ -71,7 +74,7 @@ const ProfilePage = () => {
                   })}
                   <hr />
                   <div className="d-flex align-items-center gap-1">
-                    <input type="text" placeholder="start messagging" />
+                    <input type="text" placeholder="start messagging" className="w-75" />
                     <Button onClick={() => {}} className="px-2 py-1 d-flex align-items-center">
                       <IoIosSend />
                     </Button>
