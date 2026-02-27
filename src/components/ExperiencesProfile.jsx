@@ -3,10 +3,9 @@ import { BsPlusLg, BsPencil } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ExperienceAPI from "../assets/js/experience-api/ExperienceAPI";
-
+import ExPlaceholder from "../../public/Esperienza.jpg";
 function ExperiencesProfile() {
   const myProfile = useSelector((state) => state.myProfile);
-  console.log(myProfile.data._id);
   const profileId = myProfile.data._id;
 
   const [experiences, setExperiences] = useState([]);
@@ -22,9 +21,10 @@ function ExperiencesProfile() {
     area: "",
   });
 
-  // FETCH GET
+  //  GET
 
   useEffect(() => {
+    if (!profileId) return;
     const experienceAPI = new ExperienceAPI();
 
     experienceAPI
@@ -40,10 +40,11 @@ function ExperiencesProfile() {
       });
   }, [profileId]);
 
-  // FETCH POST
+  // POST
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!profileId) return;
     setSaving(true);
 
     const experienceAPI = new ExperienceAPI({ apiUser: "team" });
@@ -68,6 +69,7 @@ function ExperiencesProfile() {
         setSaving(false);
       });
   };
+
   // Modal
 
   const handleOpenModal = () => {
@@ -111,7 +113,7 @@ function ExperiencesProfile() {
               <div key={exp._id}>
                 <div className="d-flex mb-3">
                   <img
-                    src={exp.image || "https://via.placeholder.com/48"}
+                    src={exp.image || ExPlaceholder}
                     alt={exp.company}
                     className="me-3"
                     style={{ width: "48px", height: "48px", objectFit: "cover", borderRadius: "6px", border: "1px solid #e0e0e0" }}
@@ -120,7 +122,7 @@ function ExperiencesProfile() {
                     <div className="fw-bold">{exp.role}</div>
                     <div className="text-muted small">{exp.company}</div>
                     <div className="text-muted small">
-                      {new Date(exp.startDate).toLocaleDateString()} - {exp.endDate ? new Date(exp.endDate).toLocaleDateString() : "Presente"}
+                      {exp.startDateForUI} - {exp.endDateForUI ?? "Presente"}
                     </div>
                     <div className="text-muted small">{exp.area}</div>
                     <div className="small mt-1">{exp.description}</div>
@@ -138,7 +140,7 @@ function ExperiencesProfile() {
         </Card.Body>
       </Card>
 
-      {/* MODAL FORM */}
+      {/* FORM */}
       <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Header closeButton>
           <Modal.Title className="fs-6 fw-bold">Aggiungi esperienza</Modal.Title>
@@ -175,7 +177,7 @@ function ExperiencesProfile() {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label className="small fw-semibold">Descrizione</Form.Label>
+              <Form.Label className="small fw-semibold">Descrizione *</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}
@@ -183,6 +185,7 @@ function ExperiencesProfile() {
                 value={formData.description}
                 onChange={handleChange}
                 placeholder="Descrivi brevemente il tuo ruolo..."
+                required
               />
             </Form.Group>
           </Modal.Body>
