@@ -46,7 +46,7 @@ const JobsPage = function () {
   });
   return (
     <div className="bg-light min-vh-100 py-5">
-      <div ref={containerRef} className="bg-transparent vh-100 w-100 position-fixed top-custom-accrodion"></div>
+      <div ref={containerRef} className="bg-transparent vh-100 w-100 position-fixed top-custom-accrodion z-n1"></div>
       <Container className="position-relative">
         <Row className="mb-4">
           <Col>
@@ -59,7 +59,7 @@ const JobsPage = function () {
             <p className="text-muted">Posizioni in evidenza aggiornate ogni giorno.</p>
           </Col>
         </Row>
-
+        {/* si */}
         {/* Search */}
         <Row className="mb-4">
           <Col md={8} lg={6}>

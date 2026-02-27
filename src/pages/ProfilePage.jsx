@@ -58,7 +58,7 @@ const ProfilePage = () => {
               <RightSideBar />
             </Col>
           </Row>
-          <div ref={containerRef} className="bg-transparent vh-100 w-100 position-fixed top-custom-accrodion"></div>
+          <div ref={containerRef} className="bg-transparent vh-100 w-100 position-fixed top-custom-accrodion z-n1"></div>
           <Accordion ref={accordionRef} className="position-fixed bottom-0 end-0 w-25 ">
             <Accordion.Item eventKey="0">
               <Accordion.Header>Messaggi</Accordion.Header>

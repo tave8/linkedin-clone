@@ -174,6 +174,26 @@ postAPI
   })
 ```
 
+### Get most recent posts of profile
+
+Promise
+
+Default limit: 10
+
+```js
+const postAPI = new PostAPI()
+const profileId = "xxx"
+
+postAPI
+  .getMostRecentPostsOfProfile(profileId)
+  .then((posts) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
 ### Add post
 
 Promise
