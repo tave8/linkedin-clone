@@ -28,7 +28,7 @@ const HomePage = () => {
     setPosts((prev) => prev.filter((p) => p._id !== postId)); // NOTA PER ME : tengo nello stato tutti quelli con id diverso
   };
   const handlePostCreated = (newPost) => {
-    console.log(handlePostCreated);
+    console.log("5. handlePostCreated chiamato:", newPost);
     const cleanPost = newPost._doc ? newPost._doc : newPost;
     if (!cleanPost.user) {
       cleanPost.user = myProfile.data;
@@ -52,6 +52,15 @@ const HomePage = () => {
         setError("Errore nel caricamento dei post.");
         setIsLoading(false);
       });
+  }, []);
+
+  useEffect(() => {
+    const handler = (e) => {
+      console.log("5. evento postCreated ricevuto:", e.detail);
+      handlePostCreated(e.detail);
+    };
+    window.addEventListener("postCreated", handler);
+    return () => window.removeEventListener("postCreated", handler);
   }, []);
 
   useGSAP(() => {

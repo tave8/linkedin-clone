@@ -8,6 +8,7 @@ import { Card, Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
 function CreatePostDesktop({ onPostCreated, show, onHide }) {
+  console.log("onPostCreated ricevuto:", onPostCreated);
   const [modalShow, setModalShow] = React.useState(false);
   const myProfile = useSelector((state) => state.myProfile);
   const isAvatarLoading = myProfile.isLoading || !myProfile.data?.image;
@@ -71,8 +72,9 @@ function CreatePostDesktop({ onPostCreated, show, onHide }) {
           show={isOpen}
           onHide={handleClose}
           onPostCreated={(post) => {
+            console.log("3. CreatePostDesktop riceve:", post);
             onPostCreated(post);
-            handleClose();
+            console.log("4. passato a HomePage");
           }}
         />
       </Card.Body>
