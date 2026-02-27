@@ -1,25 +1,25 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setMyProfileApiUserAndLoadProfileGlobally } from "../redux/actions";
-import { useWindowSize } from "react-use";
-import Confetti from "react-confetti";
-import { Card, Button, Spinner, Alert } from "react-bootstrap";
-import ProfileAPI from "../assets/js/profile-api/ProfileAPI";
+import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { setMyProfileApiUserAndLoadProfileGlobally } from "../redux/actions"
+import { useWindowSize } from "react-use"
+import Confetti from "react-confetti"
+import { Card, Button, Spinner, Alert } from "react-bootstrap"
+import ProfileAPI from "../assets/js/profile-api/ProfileAPI"
 
 function SidebarRight() {
-  const { width, height } = useWindowSize();
-  const [showConfetti, setShowConfetti] = useState(false);
+  const { width, height } = useWindowSize()
+  const [showConfetti, setShowConfetti] = useState(false)
 
   const handleConfetti = () => {
-    setShowConfetti(true);
-    setTimeout(() => setShowConfetti(false), 4000);
-  };
+    setShowConfetti(true)
+    setTimeout(() => setShowConfetti(false), 4000)
+  }
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const currentApiUser = useSelector((state) => state.myProfile.apiUser);
-  const myProfilesData = useSelector((state) => state.myProfiles);
-  const myProfilesExceptCurrent = myProfilesData.list.filter((myProfile) => myProfile._apiUser != currentApiUser);
+  const currentApiUser = useSelector((state) => state.myProfile.apiUser)
+  const myProfilesData = useSelector((state) => state.myProfiles)
+  const myProfilesExceptCurrent = myProfilesData.list.filter((myProfile) => myProfile._apiUser != currentApiUser)
 
   return (
     <>
@@ -67,7 +67,6 @@ function SidebarRight() {
           <Card.Body>
             <Card.Title className="fw-bold">I tuoi Account</Card.Title>
 
-            {/* profiles except current profile */}
             {!myProfilesData.isLoading &&
               !myProfilesData.isError &&
               myProfilesExceptCurrent.map((profile) => {
@@ -89,26 +88,23 @@ function SidebarRight() {
                         variant="link"
                         className="mt-1 border border-secondary text-muted text-decoration-none"
                         onClick={() => {
-                          dispatch(setMyProfileApiUserAndLoadProfileGlobally(profile._apiUser));
-                          handleConfetti();
+                          dispatch(setMyProfileApiUserAndLoadProfileGlobally(profile._apiUser))
+                          handleConfetti()
                         }}
                       >
                         Collegati
                       </Button>
                     </div>
                   </div>
-                );
+                )
               })}
 
-            {/* is loading */}
-            {/* is loading */}
             {myProfilesData.isLoading && (
               <div className="d-flex justify-content-center my-3">
                 <Spinner animation="border" variant="primary" role="status" />
               </div>
             )}
 
-            {/* is error */}
             {myProfilesData.isError && (
               <Alert variant="danger" className="mt-2 mb-0">
                 Errore nel caricamento degli account.
@@ -117,7 +113,6 @@ function SidebarRight() {
           </Card.Body>
         </Card>
 
-        {/* footer */}
         <div className="d text-center p-2" style={{ fontSize: "12px", color: "#666" }}>
           <span className="mx-2">Informazioni</span>
           <span className="mx-2">Accessibilità</span>
@@ -134,7 +129,6 @@ function SidebarRight() {
         </div>
       </div>
 
-      {/* mobile */}
       <div className="d-lg-none">
         <Card className="mb-3 shadow-sm">
           <Card.Body>
@@ -169,7 +163,6 @@ function SidebarRight() {
               I tuoi Account
             </Card.Title>
 
-            {/* profiles except current profile */}
             {!myProfilesData.isLoading &&
               !myProfilesData.isError &&
               myProfilesExceptCurrent.map((profile) => {
@@ -192,24 +185,22 @@ function SidebarRight() {
                         variant="link"
                         className="mt-1 border border-secondary text-muted text-decoration-none px-2 py-0"
                         onClick={() => {
-                          dispatch(setMyProfileApiUserAndLoadProfileGlobally(profile._apiUser));
+                          dispatch(setMyProfileApiUserAndLoadProfileGlobally(profile._apiUser))
                         }}
                       >
                         Collegati
                       </Button>
                     </div>
                   </div>
-                );
+                )
               })}
 
-            {/* is loading */}
             {myProfilesData.isLoading && (
               <div>
                 <p>loading...</p>
               </div>
             )}
 
-            {/* is error */}
             {myProfilesData.isError && (
               <div>
                 <p>error during my profiles fetch!</p>
@@ -218,7 +209,6 @@ function SidebarRight() {
           </Card.Body>
         </Card>
 
-        {/* footer mobile */}
         <div className="d-none d-lg-block text-center p-2" style={{ fontSize: "11px", color: "#666" }}>
           <span className="mx-1">Informazioni</span>
           <span className="mx-1">Privacy</span>
@@ -232,7 +222,7 @@ function SidebarRight() {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default SidebarRight;
+export default SidebarRight

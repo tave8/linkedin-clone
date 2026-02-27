@@ -10,8 +10,6 @@ function ExperiencesProfile({ userId, token }) {
   // FETCH
   // =========================
 
-  useEffect(() => {}, []);
-
   return (
     <Card className="mb-3 shadow-sm">
       <Card.Body>
@@ -72,7 +70,6 @@ function ExperiencesProfile({ userId, token }) {
             </div>
           ))}
 
-        {/* FOOTER */}
         <div className="text-center mt-2">
           <Button variant="link" className="text-muted text-decoration-none small fw-bold">
             Mostra tutto →

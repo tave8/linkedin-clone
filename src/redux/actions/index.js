@@ -13,6 +13,11 @@ export const SET_MY_PROFILES_LIST = "SET_MY_PROFILES_LIST"
 export const SET_MY_PROFILES_IS_LOADING = "SET_MY_PROFILES_IS_LOADING"
 export const SET_MY_PROFILES_IS_ERROR = "SET_MY_PROFILES_IS_ERROR"
 
+// *******  MY MESSAGES
+export const SET_MESSAGES_TAB_IS_OPEN = "SET_MESSAGES_TAB_IS_OPEN"
+export const SET_MESSAGES_TAB_IS_OPEN_TOGGLE = "SET_MESSAGES_TAB_IS_OPEN_TOGGLE"
+
+
 //***** ACTIONS: FUNCTIONS
 
 // ***** MY PROFILE
@@ -121,6 +126,28 @@ export const setMyProfilesIsErrorGlobally = (isError) => {
     dispatch({
       type: SET_MY_PROFILES_IS_ERROR,
       payload: isError,
+    })
+  }
+}
+
+
+// MESSAGES TAB
+
+export const setMessagesTabIsOpenGlobally = (isOpen) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_MESSAGES_TAB_IS_OPEN,
+      payload: isOpen,
+    })
+  }
+}
+
+
+export const setMessagesTabIsOpenToggleGlobally = (isOpen) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_MESSAGES_TAB_IS_OPEN_TOGGLE,
+      payload: isOpen,
     })
   }
 }
