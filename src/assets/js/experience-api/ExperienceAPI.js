@@ -33,13 +33,8 @@ export default class ExperienceAPI extends APIHelper {
       console.error(resp)
       throw err
     }
-    const data = await resp.json()
-    return data
-    // // if limit is a number and is greater than 0, limit the result
-    // if (Number.isFinite(limit) && limit > 0) {
-    //   return this.constructor.prettifyPosts(data.slice(0, limit))
-    // }
-    // return this.constructor.prettifyPosts(data)
+    const experiences = await resp.json()
+    return this.constructor.prettifyExperiences(experiences)
   }
 
   /**
@@ -106,7 +101,45 @@ export default class ExperienceAPI extends APIHelper {
   }
 
   static prettifyExperience(experience) {
-    return experience
+    const startDateObj = new Date(experience.startDate)
+    const startDateForUI = startDateObj.toLocaleDateString("it-IT", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    })
+
+    let endDateForUI
+    // if endDate exists, format it
+    if (experience.endDate) {
+      const endDateObj = new Date(experience.endDate)
+      endDateForUI = endDateObj.toLocaleDateString("it-IT", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+    }
+
+    let moreFields = {
+      startDateForUI,
+      // add here more fields. they will appear in each experience resource
+    }
+
+    // if endDate exists, add its additional format to more fields
+    if (experience.endDate) {
+      moreFields = { ...moreFields, endDateForUI }
+    }
+
+    return {
+      ...experience,
+      ...moreFields,
+    }
+  }
+
+  static prettifyExperiences(experiences) {
+    const class_ = this
+    return experiences.map((experience) => {
+      return class_.prettifyExperience(experience)
+    })
   }
 
   /**

@@ -532,7 +532,7 @@ const experienceAPI = new ExperienceAPI()
 const profileId = "69a178f5339fd100150e7085"
 
 experienceAPI
-  .getExperiencesOfProfile()
+  .getExperiencesOfProfile(profileId)
   .then((experiences) => {
     // your code
   })
