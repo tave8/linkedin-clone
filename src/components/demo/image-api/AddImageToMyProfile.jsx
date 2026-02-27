@@ -7,7 +7,7 @@ const AddImageToMyProfile = () => {
 
   const handleAddImageToProfile = (imageFile) => {
     const imageAPI = new ImageAPI({
-      apiUser: "francesco",
+      apiUser: "team",
     })
     imageAPI
       .addImageToMyProfile(imageFile)
