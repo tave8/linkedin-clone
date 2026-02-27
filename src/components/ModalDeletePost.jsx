@@ -4,12 +4,14 @@ import PostAPI from "../assets/js/post-api/PostAPI";
 import { useSelector } from "react-redux";
 
 function ModalDeletePost(props) {
-  const myProfileId = useSelector((state) => state.myProfile.data?._id);
-  const postAPI = new PostAPI({ apiUser: myProfileId });
+  const currentAPIUser = useSelector((state) => state.myProfile.apiUser);
+  //const myProfileId = useSelector((state) => state.myProfile.apiUser)
+  //data?._id); //myProfileUserdId
+  const postAPI = new PostAPI({ apiUser: currentAPIUser });
   const postId = props.postId;
 
   const handleDelete = () => {
-    if (!myProfileId || !postId) {
+    if (!currentAPIUser || !postId) {
       console.error("Dati mancanti per l'eliminazione!");
       return;
     }
