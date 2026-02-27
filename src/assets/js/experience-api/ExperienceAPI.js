@@ -19,6 +19,30 @@ export default class ExperienceAPI extends APIHelper {
   }
 
   /**
+   * Get experiences of profile.
+   */
+  async getExperiencesOfProfile(profileId) {
+    const url = this.constructor.API_URL_PROFILES + `/${profileId}/experiences`
+    const config = this.getFetchConfig()
+    const resp = await fetch(url, config)
+    try {
+      if (!resp.ok) {
+        throw new Error(`Error during fetch. Response status code: ${resp.status}`)
+      }
+    } catch (err) {
+      console.error(resp)
+      throw err
+    }
+    const data = await resp.json()
+    return data
+    // // if limit is a number and is greater than 0, limit the result
+    // if (Number.isFinite(limit) && limit > 0) {
+    //   return this.constructor.prettifyPosts(data.slice(0, limit))
+    // }
+    // return this.constructor.prettifyPosts(data)
+  }
+
+  /**
    * Add experience to my profile
    */
   async addExperienceToMyProfile(newExperience) {

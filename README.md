@@ -523,7 +523,25 @@ Modello dell'EXPERIENCE
   }
 ```
 
-### Add experience
+### Get experiences of profile ID
+
+Promise
+
+```js
+const experienceAPI = new ExperienceAPI()
+const profileId = "69a178f5339fd100150e7085"
+
+experienceAPI
+  .getExperiencesOfProfile()
+  .then((experiences) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+### Add experience to my profile
 
 Promise
 

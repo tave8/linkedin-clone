@@ -27,7 +27,7 @@ import ExperienceAPIDemoComponent from "./components/demo/experience-api/Experie
 import ChangeProfileDemoComponent from "./components/demo/change-profile/ChangeProfile"
 
 function App() {
-  const [isDemoMode, setIsDemoMode] = useState(false)
+  const [isDemoMode, setIsDemoMode] = useState(true)
 
   return (
     <Provider store={store}>
@@ -56,8 +56,8 @@ function App() {
           {/* <PostAPIDemoComponent /> */}
           {/* <ChangeProfileDemoComponent /> */}
           {/* <CommentAPIDemoComponent /> */}
-          <ImageAPIDemoComponent />
-          {/* <ExperienceAPIDemoComponent /> */}
+          {/* <ImageAPIDemoComponent /> */}
+          <ExperienceAPIDemoComponent />
           {/****** END: DEMO components ********/}
         </>
       )}

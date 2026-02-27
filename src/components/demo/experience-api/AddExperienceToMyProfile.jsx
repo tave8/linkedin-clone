@@ -6,7 +6,7 @@ const AddExperienceToMyProfile = () => {
   const [experience, setExperience] = useState(null)
 
   const experienceFields = {
-    role: "Full Stack Web Developer",
+    role: "Full Stack Web Developer (PROFILE: TEAM 3)",
     company: "FizzBuzz",
     startDate: "2022-06-16",
     endDate: "2023-06-16", // può essere null
@@ -15,7 +15,7 @@ const AddExperienceToMyProfile = () => {
   }
 
   useEffect(() => {
-    const experienceAPI = new ExperienceAPI({ apiUser: "raffaele" })
+    const experienceAPI = new ExperienceAPI({ apiUser: "team" })
     experienceAPI
       .addExperienceToMyProfile(experienceFields)
       .then((updatedExperience) => {

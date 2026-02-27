@@ -1,10 +1,12 @@
 import AddExperienceToMyProfile from "./AddExperienceToMyProfile"
+import GetMyExperiences from "./GetMyExperiences"
 
 const ExperienceAPIDemo = () => {
   return (
     <>
       {/* comment/uncomment the components you're interested in */}
-      <AddExperienceToMyProfile />
+      {/* <AddExperienceToMyProfile /> */}
+      <GetMyExperiences />
     </>
   )
 }
