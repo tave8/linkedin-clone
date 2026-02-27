@@ -7,10 +7,12 @@ import CreatePost from "./CreatePost";
 import { Card, Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
-function CreatePostDesktop({ onPostCreated }) {
+function CreatePostDesktop({ onPostCreated, show, onHide }) {
   const [modalShow, setModalShow] = React.useState(false);
   const myProfile = useSelector((state) => state.myProfile);
   const isAvatarLoading = myProfile.isLoading || !myProfile.data?.image;
+  const isOpen = show !== undefined ? show : modalShow;
+  const handleClose = onHide || (() => setModalShow(false));
 
   return (
     <Card className="mb-3 border-0 shadow-sm d-none d-lg-block">
@@ -66,11 +68,11 @@ function CreatePostDesktop({ onPostCreated }) {
         </Row>
 
         <CreatePost
-          show={modalShow}
-          onHide={() => setModalShow(false)}
+          show={isOpen}
+          onHide={handleClose}
           onPostCreated={(post) => {
             onPostCreated(post);
-            setModalShow(false);
+            handleClose();
           }}
         />
       </Card.Body>

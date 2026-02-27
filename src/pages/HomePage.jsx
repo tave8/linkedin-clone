@@ -28,6 +28,7 @@ const HomePage = () => {
     setPosts((prev) => prev.filter((p) => p._id !== postId)); // NOTA PER ME : tengo nello stato tutti quelli con id diverso
   };
   const handlePostCreated = (newPost) => {
+    console.log(handlePostCreated);
     const cleanPost = newPost._doc ? newPost._doc : newPost;
     if (!cleanPost.user) {
       cleanPost.user = myProfile.data;

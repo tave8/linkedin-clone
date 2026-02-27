@@ -34,6 +34,7 @@ function CreatePost(props) {
       .addPostWithOptionalImage(newPostFields, image)
       .then((post) => {
         console.log("Post pubblicato:", post);
+        props.onPostCreated(post);
         setText("");
         props.onHide();
       })
@@ -44,7 +45,7 @@ function CreatePost(props) {
       });
   };
   return (
-    <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+    <Modal show={props.show} onHide={props.onHide} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
         <div className="d-flex flex-row align-items-center">
           <img src={myProfile.data.image} width={52} height={52} className="rounded-circle border" alt="profile" style={{ objectFit: "cover" }} />
