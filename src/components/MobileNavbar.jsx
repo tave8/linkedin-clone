@@ -1,16 +1,18 @@
-import { useState } from "react"
-import { Container, Nav, Navbar, Form, InputGroup, Spinner } from "react-bootstrap"
-import { BellFill, ChatRightDotsFill, HouseDoorFill, PersonFillAdd, Search, BriefcaseFill, PlusSquareFill } from "react-bootstrap-icons"
-import { LinkContainer } from "react-router-bootstrap"
-import { useSelector } from "react-redux"
-import ProfileOffcanvas from "./ProfileOffcanvas"
-import PublishOffcanvas from "./PublishOffcanvas"
+import { useState } from "react";
+import { Container, Nav, Navbar, Form, InputGroup, Spinner } from "react-bootstrap";
+import { BellFill, ChatRightDotsFill, HouseDoorFill, PersonFillAdd, Search, BriefcaseFill, PlusSquareFill } from "react-bootstrap-icons";
+import { LinkContainer } from "react-router-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import ProfileOffcanvas from "./ProfileOffcanvas";
+import PublishOffcanvas from "./PublishOffcanvas";
+import { setMessagesTabIsOpenToggleGlobally } from "../redux/actions";
 
 function MobileNavabar() {
-  const myProfile = useSelector((state) => state.myProfile)
-  const [showProfile, setShowProfile] = useState(false)
-  const [showPublish, setShowPublish] = useState(false)
-  const isAvatarLoading = myProfile.isLoading || !myProfile.data?.image
+  const dispatch = useDispatch();
+  const myProfile = useSelector((state) => state.myProfile);
+  const [showProfile, setShowProfile] = useState(false);
+  const [showPublish, setShowPublish] = useState(false);
+  const isAvatarLoading = myProfile.isLoading || !myProfile.data?.image;
 
   return (
     <div className="mobile-wrapper">
@@ -30,7 +32,7 @@ function MobileNavabar() {
                 height={34}
                 style={{ objectFit: "cover" }}
                 onError={(e) => {
-                  e.currentTarget.src = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+                  e.currentTarget.src = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png";
                 }}
               />
             )}
@@ -43,7 +45,13 @@ function MobileNavabar() {
               <Form.Control type="search" placeholder="Cerca" className="bg-light border-start-0 shadow-none" />
             </InputGroup>
           </Form>
-          <Nav.Link href="#messages" className="p-0 text-secondary">
+          <Nav.Link
+            href="#messages"
+            className="p-0 text-secondary"
+            onClick={() => {
+              dispatch(setMessagesTabIsOpenToggleGlobally());
+            }}
+          >
             <ChatRightDotsFill size={24} />
           </Nav.Link>
         </Container>
@@ -82,7 +90,7 @@ function MobileNavabar() {
         </Container>
       </nav>
     </div>
-  )
+  );
 }
 
-export default MobileNavabar
+export default MobileNavabar;
