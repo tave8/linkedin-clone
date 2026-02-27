@@ -47,7 +47,7 @@ function ExperiencesProfile() {
     if (!profileId) return;
     setSaving(true);
 
-    const experienceAPI = new ExperienceAPI({ apiUser: "team" });
+    const experienceAPI = new ExperienceAPI({ apiUser: myProfile.apiUser });
     const body = {
       ...formData,
       endDate: formData.endDate || null,
