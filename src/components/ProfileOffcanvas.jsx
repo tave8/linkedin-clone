@@ -84,6 +84,7 @@ function ProfileOffcanvas({ show, handleClose }) {
                           variant="link"
                           className="mt-1 border border-secondary text-muted text-decoration-none"
                           onClick={() => {
+                            localStorage.setItem("activeUserId", profile._apiUser);
                             dispatch(setMyProfileApiUserAndLoadProfileGlobally(profile._apiUser));
                             handleConfetti();
                             handleClose();

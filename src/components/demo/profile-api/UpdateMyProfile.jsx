@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import ProfileAPI from "../../../assets/js/profile-api/ProfileAPI"
+import { useState } from "react";
+import ProfileAPI from "../../../assets/js/profile-api/ProfileAPI";
 
 /**
  * PROFILE model
@@ -19,7 +19,7 @@ import ProfileAPI from "../../../assets/js/profile-api/ProfileAPI"
   }
  */
 const UpdateMyProfile = () => {
-  const [profile, setProfile] = useState(null)
+  const [profile, setProfile] = useState(null);
 
   const newProfile = {
     image: "https://i.postimg.cc/8kn0m39H/photo-giuseppe-white-bg-trim.png",
@@ -56,9 +56,30 @@ Paradigms:
     name: "Giuseppe",
     surname: "Tavella",
     email: "giuseppetavella8@gmail.com",
-  }
+  };
 
-  useEffect(() => {
+  const manualUpdate = () => {
+    const profileAPI = new ProfileAPI();
+    profileAPI
+      .updateMyProfile(newProfile)
+      .then((data) => {
+        setProfile(data);
+        alert("Profilo resettato con successo!");
+      })
+      .catch((err) => console.error(err));
+  };
+  return (
+    <div className="border p-2 m-2">
+      <h6>Strumento di Reset Profilo</h6>
+      <button onClick={manualUpdate} className="btn btn-sm btn-danger">
+        Ripristina dati Giuseppe (tave8)
+      </button>
+      {profile && <p>Username attuale sul server: {profile.username}</p>}
+    </div>
+  );
+};
+
+/*useEffect(() => {
     const profileAPI = new ProfileAPI()
     profileAPI
       .updateMyProfile(newProfile)
@@ -68,8 +89,8 @@ Paradigms:
       .catch((err) => {
         console.error(err)
       })
-  }, [])
-
+  }, [])*/
+/*
   return (
     <>
       <h1>UPDATE MY PROFILE</h1>
@@ -81,7 +102,7 @@ Paradigms:
       )}
       {!profile && <p>Loading...</p>}
     </>
-  )
-}
+  );
+};*/
 
-export default UpdateMyProfile
+export default UpdateMyProfile;

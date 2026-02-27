@@ -1,16 +1,17 @@
-import { useState } from "react"
-import { Container, Nav, Navbar, Form, InputGroup, Spinner } from "react-bootstrap"
-import { BellFill, ChatRightDotsFill, HouseDoorFill, PersonFillAdd, Search, BriefcaseFill, PlusSquareFill } from "react-bootstrap-icons"
-import { LinkContainer } from "react-router-bootstrap"
-import { useSelector } from "react-redux"
-import ProfileOffcanvas from "./ProfileOffcanvas"
-import PublishOffcanvas from "./PublishOffcanvas"
+import { useState } from "react";
+import { Container, Nav, Navbar, Form, InputGroup, Spinner } from "react-bootstrap";
+import { BellFill, ChatRightDotsFill, HouseDoorFill, PersonFillAdd, Search, BriefcaseFill, PlusSquareFill } from "react-bootstrap-icons";
+import { LinkContainer } from "react-router-bootstrap";
+import { useSelector } from "react-redux";
+import ProfileOffcanvas from "./ProfileOffcanvas";
+import PublishOffcanvas from "./PublishOffcanvas";
 
-function MobileNavabar() {
-  const myProfile = useSelector((state) => state.myProfile)
-  const [showProfile, setShowProfile] = useState(false)
-  const [showPublish, setShowPublish] = useState(false)
-  const isAvatarLoading = myProfile.isLoading || !myProfile.data?.image
+function MobileNavabar(props) {
+  const myProfile = useSelector((state) => state.myProfile);
+  const [showProfile, setShowProfile] = useState(false);
+  //const [showPublish, setShowPublish] = useState(false);
+  const isAvatarLoading = myProfile.isLoading || !myProfile.data?.image;
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <div className="mobile-wrapper">
@@ -30,7 +31,7 @@ function MobileNavabar() {
                 height={34}
                 style={{ objectFit: "cover" }}
                 onError={(e) => {
-                  e.currentTarget.src = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+                  e.currentTarget.src = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png";
                 }}
               />
             )}
@@ -50,7 +51,8 @@ function MobileNavabar() {
       </Navbar>
 
       <ProfileOffcanvas show={showProfile} handleClose={() => setShowProfile(false)} />
-      <PublishOffcanvas show={showPublish} handleClose={() => setShowPublish(false)} />
+      {/*<PublishOffcanvas show={showPublish} handleClose={() => setShowPublish(false)} />*/}
+      <PublishOffcanvas show={showModal} onHide={() => setShowModal(false)} onPostCreated={props.onPostCreated} />
 
       <nav className="navbar fixed-bottom bg-white border-top py-2">
         <Container fluid className="px-0">
@@ -64,7 +66,7 @@ function MobileNavabar() {
               <PersonFillAdd className="fs-3" /> <span style={{ fontSize: "12px" }}>Rete</span>
             </Nav.Link>
 
-            <Nav.Link onClick={() => setShowPublish(true)} className="d-flex flex-column align-items-center text-secondary p-1">
+            <Nav.Link onClick={() => setShowModal(true)} className="d-flex flex-column align-items-center text-secondary p-1">
               <PlusSquareFill className="fs-3" /> <span style={{ fontSize: "12px" }}>Pubblica</span>
             </Nav.Link>
 
@@ -82,7 +84,7 @@ function MobileNavabar() {
         </Container>
       </nav>
     </div>
-  )
+  );
 }
 
-export default MobileNavabar
+export default MobileNavabar;

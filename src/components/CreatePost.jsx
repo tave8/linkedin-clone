@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 import PostAPI from "../assets/js/post-api/PostAPI";
 import { useSelector } from "react-redux";
 import { Calendar3, Plus, Image, X } from "react-bootstrap-icons";
-import { Button, Stack } from "react-bootstrap";
+import { Button, Stack, Spinner } from "react-bootstrap";
 
 function CreatePost(props) {
   const [text, setText] = useState("");
@@ -11,6 +11,7 @@ function CreatePost(props) {
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const fileInputRef = useRef(null);
+  const [isLoading, setLoading] = useState(false);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -21,26 +22,43 @@ function CreatePost(props) {
   };
 
   const handlePublish = () => {
-    const postAPI = new PostAPI({
-      // add the post as the current profile
-      apiUser: myProfile.apiUser,
-    });
-    const newPostFields = { text };
+    console.log("volte in cui viene chiamato", handlePublish);
+    const activeUser = myProfile.apiUser || myProfile.data?._id || localStorage.getItem("activeUserId");
+    if (!activeUser) {
+      console.error("Nessun utente attivo trovato!");
+      return;
+    }
 
-    const newPostFields2 = { text }; //per giuseppe
-    if (image) newPostFields2.image = image;
+    const postAPI = new PostAPI({ apiUser: activeUser });
+
+    /*const postAPI = new PostAPI({
+      add the post as the current profile
+      apiUser: myProfile.apiUser,
+    });*/
+    setLoading(true);
+    //const newPostFields = { text };
+
+    /*const newPostFields2 = { text }; //per giuseppe
+    if (image) newPostFields2.image = image;*/
 
     postAPI
-      .addPostWithOptionalImage(newPostFields, image)
+      .addPostWithOptionalImage({ text }, image)
       .then((post) => {
         console.log("Post pubblicato:", post);
         setText("");
+        setImage(null);
+        setPreview(null);
+        props.onPostCreated?.(post);
         props.onHide();
       })
       .catch((err) => {
-        console.error(err);
+        console.error("guarda l'errore", err);
+        alert("Errore del server (500). Controlla il formato dell'immagine o il testo.");
         setImage(null);
         setPreview(null);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
   return (
@@ -95,8 +113,8 @@ function CreatePost(props) {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="primary" size="sm" className="rounded-pill px-3 fw-bold" disabled={!text.trim()} onClick={handlePublish}>
-          Pubblica
+        <Button variant="primary" size="sm" className="rounded-pill px-3 fw-bold" disabled={!text.trim() || isLoading} onClick={handlePublish}>
+          {isLoading ? <Spinner animation="border" size="sm" /> : "Pubblica"}
         </Button>
       </Modal.Footer>
     </Modal>

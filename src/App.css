@@ -53,6 +53,18 @@ body {
   font-weight: 400;
 }
 
+.btn-linkedin-outline-Delete {
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.btn-linkedin-outline-Delete:hover {
+  background-color: #fef1f3 !important;
+  color: #ca0234;
+  font-weight: 400;
+}
+
 /* #808080 → grigio medio
 
 #915907 → marrone caldo / marrone senape scuro

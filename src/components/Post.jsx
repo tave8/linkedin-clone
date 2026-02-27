@@ -1,6 +1,6 @@
-import { Card, Container, Row, Col, Image, Button, Dropdown } from "react-bootstrap"
-import { useState } from "react"
-import PostComments from "./PostComments"
+import { Card, Container, Row, Col, Image, Button, Dropdown } from "react-bootstrap";
+import { useState } from "react";
+import PostComments from "./PostComments";
 
 // qui perche se no ogni volta che renderizza cambiano
 const generateRandomStats = () => {
@@ -8,44 +8,47 @@ const generateRandomStats = () => {
     likes: Math.floor(Math.random() * 500) + 50,
     comments: Math.floor(Math.random() * 100),
     shares: Math.floor(Math.random() * 30),
-  }
-}
+  };
+};
 
 const Post = (props) => {
-  const [liked, setLiked] = useState(false)
+  const [liked, setLiked] = useState(false);
 
   const handleClose = () => {
-    props.onClose(props.post._id)
-  }
+    props.onClose(props.post._id);
+  };
 
   const handleMenuAction = (action) => {
-    console.log("Menu action:", action)
-  }
+    console.log("Menu action:", action);
+  };
 
-  const [stats, setStats] = useState(generateRandomStats())
+  const [stats, setStats] = useState(generateRandomStats());
   const handleLike = () => {
-    const newLiked = !liked
-    setLiked(newLiked)
+    const newLiked = !liked;
+    setLiked(newLiked);
 
     setStats((prev) => ({
       ...prev,
       likes: newLiked ? prev.likes + 1 : prev.likes - 1,
-    }))
-  }
+    }));
+  };
 
-  const [expanded, setExpanded] = useState(false)
+  const [expanded, setExpanded] = useState(false);
 
-  const words = props.post.text.split(" ")
+  const words = props.post?.text?.split(" ") || [];
+  const isLong = words.length > 12;
+  const shortText = words.slice(0, 12).join(" ");
+  /*const words = props.post.text.split(" ")
   const isLong = words.length > 12
-  const shortText = words.slice(0, 12).join(" ")
+  const shortText = words.slice(0, 12).join(" ")*/
 
-  const [showTranslationMsg, setShowTranslationMsg] = useState(false)
+  const [showTranslationMsg, setShowTranslationMsg] = useState(false);
 
-  const [showComments, setShowComments] = useState(false)
+  const [showComments, setShowComments] = useState(false);
 
   const handleToggleComments = () => {
-    setShowComments((prev) => !prev)
-  }
+    setShowComments((prev) => !prev);
+  };
 
   return (
     <Card className="mb-3 ">
@@ -269,7 +272,7 @@ const Post = (props) => {
         </Container>
       </Card.Body>
     </Card>
-  )
-}
+  );
+};
 
-export default Post
+export default Post;

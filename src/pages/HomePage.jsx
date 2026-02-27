@@ -4,7 +4,7 @@ import PostAPI from "../assets/js/post-api/PostAPI";
 
 import Post from "../components/Post";
 import LeftSideBar from "../components/LeftSideBar";
-
+import { useSelector } from "react-redux";
 import { useEffect, useState, useRef } from "react";
 import { IoIosSend } from "react-icons/io";
 import Accordion from "react-bootstrap/Accordion";
@@ -19,12 +19,25 @@ const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const myProfile = useSelector((state) => state.myProfile);
   const accordionRef = useRef(null);
   const containerRef = useRef(null);
   const arrayMessage = ["come va?", "bene tu?", "ciao ragazzi!"];
   const handleClosePost = (postId) => {
     setPosts((prev) => prev.filter((p) => p._id !== postId)); // NOTA PER ME : tengo nello stato tutti quelli con id diverso
+  };
+
+  /*const handlePostCreated = (newPost) => {
+    setPosts((prev) => [newPost, ...prev]);
+  };*/
+
+  const handlePostCreated = (newPost) => {
+    const cleanPost = newPost._doc ? newPost._doc : newPost;
+    if (!cleanPost.user) {
+      cleanPost.user = myProfile.data;
+    }
+
+    setPosts((prev) => [cleanPost, ...prev]);
   };
 
   useEffect(() => {
@@ -64,7 +77,7 @@ const HomePage = () => {
             <LeftSideBar />
           </Col>
           <Col xs={12} md={6}>
-            <CreatePostDesktop />
+            <CreatePostDesktop onPostCreated={handlePostCreated} />
             {/* <Post /> */}
 
             {error && (
@@ -79,7 +92,7 @@ const HomePage = () => {
               </div>
             )}
 
-            {!isLoading && !error && posts.map((singlePost) => <Post key={singlePost._id} post={singlePost} onClose={handleClosePost} />)}
+            {!isLoading && !error && posts.map((singlePost) => <Post key={singlePost._id || Math.random()} post={singlePost} onClose={handleClosePost} />)}
           </Col>
 
           <Col className="d-none d-md-block" md={3}>

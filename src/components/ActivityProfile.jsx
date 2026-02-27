@@ -1,3 +1,4 @@
+import React from "react";
 import { FaPen } from "react-icons/fa";
 import { FaArrowRight, FaRecycle, FaLocationArrow } from "react-icons/fa6";
 import { Button, Row, Col } from "react-bootstrap";
@@ -7,23 +8,29 @@ import { FaRegCommentDots } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import PostAPI from "../assets/js/post-api/PostAPI";
+import ModalModDelPost from "./ModalModDelPost";
 
 const ActivityProfile = () => {
+  const [modalShowChange, setModalShowChange] = React.useState(false);
   const myProfile = useSelector((state) => state.myProfile);
   const [posts, setPosts] = useState([]);
+  const [selectedPostId, setSelectedPostId] = useState(null);
+  const myProfileId = useSelector((state) => state.myProfile.data?._id);
 
   useEffect(() => {
-    const postAPI = new PostAPI();
+    if (!myProfileId) return;
+    const postAPI = new PostAPI({ apiUser: myProfileId });
     postAPI
       .getMostRecentPosts()
       .then((data) => {
         setPosts(data);
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, [myProfileId]);
 
   const myPosts = posts.filter((el) => el.user?._id === myProfile.data?._id);
-
+  const statoCompleto = useSelector((state) => state);
+  console.log("CONTENUTO REDUX:", statoCompleto);
   return (
     <section className="bg-white border border-1 border-secondary-subtle rounded-3 container pt-3 pb-2 mb-3">
       <div className="d-flex justify-content-between align-items-center">
@@ -60,7 +67,16 @@ const ActivityProfile = () => {
                       <small className="text-muted">Ha pubblicato questo post</small>
                     </div>
                   </div>
-                  <BsThreeDots />
+                  <Button
+                    variant="light"
+                    onClick={() => {
+                      setSelectedPostId(singlePost._id);
+                      setModalShowChange(true);
+                    }}
+                  >
+                    {" "}
+                    <BsThreeDots />
+                  </Button>
                 </div>
                 <p className="mb-2">{singlePost.text}</p>
                 {singlePost.image && (
@@ -92,6 +108,7 @@ const ActivityProfile = () => {
           ))
         )}
       </Row>
+      <ModalModDelPost show={modalShowChange} onHide={() => setModalShowChange(false)} postId={selectedPostId} />
 
       <div className="d-flex justify-content-center align-items-center py-3 border-top mt-4">
         <p className="mb-0 fw-semibold">

@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 
 function PublishOffcanvas({ show, handleClose, handleShow, ...props }) {
   const [text, setText] = useState("");
+  const [loading, setLoading] = useState(false);
   const myProfile = useSelector((state) => state.myProfile);
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -19,7 +20,32 @@ function PublishOffcanvas({ show, handleClose, handleShow, ...props }) {
     }
   };
 
-  const handlePublish = () => {
+  const handlePublish = async () => {
+    setLoading(true);
+    try {
+      const postAPI = new PostAPI({
+        apiUser: myProfile.apiUser || localStorage.getItem("activeUserId"),
+      });
+
+      const result = await postAPI.addPostWithOptionalImage({ text }, image);
+      console.log("Post pubblicato:", result);
+
+      // Pulisci tutto subito dopo il successo
+      setText("");
+      setImage(null);
+      if (typeof props.onHide === "function") {
+        props.onHide();
+      } else {
+        console.warn("Attenzione: la prop onHide non è stata passata correttamente!");
+      }
+    } catch (err) {
+      console.error("Errore finale:", err);
+    } finally {
+      setLoading(false); // Sblocca il bottone sempre!
+    }
+  };
+
+  /* const handlePublish = () => {
     const postAPI = new PostAPI();
     const newPostFields = { text };
 
@@ -37,7 +63,7 @@ function PublishOffcanvas({ show, handleClose, handleShow, ...props }) {
         setImage(null);
         setPreview(null);
       });
-  };
+  };*/
 
   return (
     <>
@@ -75,7 +101,7 @@ function PublishOffcanvas({ show, handleClose, handleShow, ...props }) {
             <img src={myProfile.data.image} width={32} height={32} className="rounded-circle border" alt="profile" style={{ objectFit: "cover" }} />
           </div>
 
-          <Button variant="outline-primary" size="sm" className="rounded-pill px-3 fw-bold" disabled={!text.trim()} onClick={handlePublish}>
+          <Button variant="outline-primary" size="sm" className="rounded-pill px-3 fw-bold" disabled={!text.trim() || loading} onClick={handlePublish}>
             Pubblica
           </Button>
         </Offcanvas.Header>

@@ -19,7 +19,6 @@ import Accordion from "react-bootstrap/Accordion";
 //import gsap from "gsap";
 //import { useGSAP } from "@gsap/react";
 //import { Draggable } from "gsap/Draggable";
-import SezioneProfilo from "../components/SezioneProfilo";
 
 const ProfilePage = () => {
   // const myProfile = useSelector((state) => state.myProfile);
@@ -41,7 +40,6 @@ const ProfilePage = () => {
         <Container className="position-relative">
           <Row className="justify-content-center">
             <Col xs={12} md={9}>
-              <SezioneProfilo />
               <FirstSection />
               <AnalisiProfile />
               <InfoProfile />
