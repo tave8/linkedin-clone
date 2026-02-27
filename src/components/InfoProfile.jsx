@@ -11,7 +11,7 @@ const InfoProfile = () => {
 
   const myProfile = useSelector((state) => state.myProfile);
   const [modalShow, setModalShow] = useState(false);
-  const bioRef = useRef(null);
+  const bioRef = useRef("");
   function MyVerticallyCenteredModal(props) {
     return (
       <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>

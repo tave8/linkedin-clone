@@ -174,6 +174,26 @@ postAPI
   })
 ```
 
+### Get most recent posts of profile
+
+Promise
+
+Default limit: 10
+
+```js
+const postAPI = new PostAPI()
+const profileId = "xxx"
+
+postAPI
+  .getMostRecentPostsOfProfile(profileId)
+  .then((posts) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
 ### Add post
 
 Promise
@@ -473,6 +493,54 @@ const postId = "xxx"
 imageAPI
   .addImageToMyPost(imageFile, postId)
   .then((updatedPost) => {
+    // your code
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+```
+
+## ExperienceAPI
+
+Profiles can only add/edit their own experiences.
+
+Modello dell'EXPERIENCE
+
+```
+  {
+    "role": "Full Stack Web Developer",
+    "company": "FizzBuzz",
+    "startDate": "2022-06-16",
+    "endDate": "2023-06-16", // può essere null
+    "description": "Implementing new features",
+    "area": "Milan",
+    "username": "mario88", // SERVER GENERATED
+    "image": ..., // SERVER GENERATED, inizialmente null, modificabile
+    "createdAt": 2023-06-16T19:58:31.019Z", // SERVER GENERATED
+    "updatedAt": "2023-06-16T19:58:31.019Z", // SERVER GENERATED
+    "__v": 0 // SERVER GENERATED
+    "_id": "5d925e677360c41e0046d1f5" // SERVER GENERATED
+  }
+```
+
+### Add experience
+
+Promise
+
+```js
+const experienceAPI = new ExperienceAPI()
+const experienceFields = {
+  role: "Full Stack Web Developer",
+  company: "FizzBuzz",
+  startDate: "2022-06-16",
+  endDate: "2023-06-16", // può essere null
+  description: "Implementing new features",
+  area: "Milan",
+}
+
+experienceAPI
+  .addExperienceToMyProfile(experienceFields)
+  .then((updatedExperience) => {
     // your code
   })
   .catch((err) => {

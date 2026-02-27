@@ -73,6 +73,49 @@ export default class PostAPI extends APIHelper {
   }
 
   /**
+   * Get most recent posts of profile.
+   * Default limit: 10
+   */
+  async getMostRecentPostsOfProfile(profileId, limit = 10) {
+    if (!profileId) {
+      throw new Error(`Profile id is required when getting profile posts. Input profileId is "${profileId}"`)
+    }
+    const url = this.constructor.API_URL_POSTS
+    const config = this.getFetchConfig()
+    const resp = await fetch(url, config)
+    try {
+      if (!resp.ok) {
+        throw new Error(`Error during fetch. Response status code: ${resp.status}`)
+      }
+    } catch (err) {
+      console.error(resp)
+      throw err
+    }
+    const posts = await resp.json()
+
+    // posts is not an array
+    if (!Array.isArray(posts)) {
+      throw new Error(`Posts are expected to be array. Its type is "${typeof posts}" instead.`)
+    }
+
+    const profilePosts = posts.filter((post) => {
+      if (!Object.hasOwn(post, "user")) {
+        throw new Error(`Post is expected to have "user" property.`)
+      }
+      return post.user._id === profileId
+    })
+
+    // if limit is a number and is greater than 0, limit the result
+    if (Number.isFinite(limit) && limit > 0) {
+      // get the last limit result
+      const lastNItems = profilePosts.slice(-limit)
+      // reverse the N items
+      return this.constructor.prettifyPosts(lastNItems.reverse())
+    }
+    return this.constructor.prettifyPosts(profilePosts)
+  }
+
+  /**
    * Get post by ID.
    */
   async getPostById(postId) {
@@ -457,11 +500,10 @@ export default class PostAPI extends APIHelper {
     return this.constructor.API_TOKENS[this.apiUser]
   }
 
-
   /**
-   * Every post will have a new property _userInfo where 
+   * Every post will have a new property _userInfo where
    * all the profile info will be found.
-   * 
+   *
    */
   // async prettifyPostsWithProfileInfo(posts) {
 
