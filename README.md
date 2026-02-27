@@ -1,5 +1,64 @@
 # API Classes
 
+## How it works
+
+Each API resource (profiles, posts, comments, images, experiences) is mapped to a class.
+
+Each class instance can receive an optional config, where we can specify the profile/account we want to authenticate as.
+
+Let's take as an example the ProfileAPI, and realize how "myProfile" means different profiles based on the given (or default) API user.
+
+### Variant 1: default API user (always one profile)
+
+In this variant, all methods on the `profileAPI` instance will use the default API user.
+
+For example, the API user can be a specific team member or a group profile.
+
+```js
+// basic usage means, use the default API user
+const profileAPI = new ProfileAPI()
+
+profileAPI
+  .getMyProfile()
+  .then((myProfile) => {
+    // your code
+  })
+  .catch((err) => {
+    // handle error
+  })
+```
+
+### Variant 2: dynamic API user (multi-profile)
+
+In this variant, all methods on the `profileAPI` instance will use the given API user.
+
+In this example we see how `currentAPIUser` can come from a Redux store; this is exactly what allows the `profileAPI` to dinamically choose API tokens based on the Redux store apiUser.
+
+Simply put, this makes the multi-profile feature possible.
+
+```js
+// pass the apiUser, which is the internal name used to
+// identify a user
+// example: giuseppe, francesco, giulia etc.
+// this example
+const currentAPIUser = useSelector((state) => myProfile.apiUser)
+
+// specify the apiUser
+const profileAPI = new ProfileAPI({
+  apiUser: currentAPIUser, // currentAPIUser can be "giuseppe", "giorgia", "raffaele" etc.
+})
+
+// same usage as Variant 1
+profileAPI
+  .getMyProfile()
+  .then((myProfile) => {
+    // your code
+  })
+  .catch((err) => {
+    // handle error
+  })
+```
+
 ## ProfileAPI
 
 ### Get profile by ID
