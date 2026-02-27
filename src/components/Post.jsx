@@ -1,6 +1,8 @@
 import { Card, Container, Row, Col, Image, Button, Dropdown } from "react-bootstrap"
 import { useState } from "react"
 import PostComments from "./PostComments"
+import { useDispatch, useSelector } from "react-redux"
+import { setMyProfileApiUserAndLoadProfileGlobally } from "../redux/actions"
 
 // qui perche se no ogni volta che renderizza cambiano
 const generateRandomStats = () => {
@@ -46,6 +48,18 @@ const Post = (props) => {
   const handleToggleComments = () => {
     setShowComments((prev) => !prev)
   }
+
+  const myProfile = useSelector((state) => state.myProfile) //per stato redux
+  const myAvatar = myProfile?.data.image || "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+
+  const postMediaSrc = props.post?.image // non mostro foto
+
+  const dispatch = useDispatch() // tutto sotto per cambiare profilo redux
+
+  const currentApiUser = useSelector((state) => state.myProfile.apiUser)
+  const myProfilesData = useSelector((state) => state.myProfiles)
+
+  const myProfilesExceptCurrent = (myProfilesData?.list || []).filter((p) => p._apiUser !== currentApiUser)
 
   return (
     <Card className="mb-3 ">
@@ -145,13 +159,15 @@ const Post = (props) => {
           </Row>
 
           {/* MEDIA */}
-          <Row className="mt-3 g-0">
-            <Col className="p-0">
-              <div className=" overflow-hidden">
-                <Image src={props.post.image || "https://placecats.com/600/400"} alt="Media" fluid className="px-0 w-100 post-media" />
-              </div>
-            </Col>
-          </Row>
+          {postMediaSrc && (
+            <Row className="mt-3 g-0">
+              <Col className="p-0">
+                <div className="overflow-hidden">
+                  <Image src={postMediaSrc} alt="Media" fluid className="px-0 w-100 post-media" />
+                </div>
+              </Col>
+            </Row>
+          )}
 
           {/* LIKES ECC */}
           <Row className="mt-3 align-items-center px-3 d-md-none">
@@ -188,30 +204,35 @@ const Post = (props) => {
               <Dropdown align="start">
                 <Dropdown.Toggle as={Button} variant="link" className="p-0 text-decoration-none avatar-toggle custom-toggle" id="avatar-menu">
                   <div className="d-flex align-items-center">
-                    <Image
-                      src={props.post.image || "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"}
-                      roundedCircle
-                      width={32}
-                      height={32}
-                      alt="User"
-                    />
+                    <Image src={myAvatar} roundedCircle width={32} height={32} alt="User" />
                     <i className="bi bi-caret-down-fill ms-1 small text-muted"></i>
                   </div>
                 </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item onClick={() => console.log("Reazione: BOH")}>
-                    <i className="bi bi-hand-thumbs-up me-2"></i> BOH
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => console.log("Reazione: BOH1")}>
-                    <i className="bi bi-heart me-2"></i> BOH1
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => console.log("Reazione: BOH2")}>
-                    <i className="bi bi-lightbulb me-2"></i> BOH2
-                  </Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item onClick={() => console.log("Cambia account")}>
-                    <i className="bi bi-person me-2"></i> Cambia profilo
-                  </Dropdown.Item>
+                <Dropdown.Menu className="p-2" style={{ minWidth: 260 }}>
+                  <div className="small text-muted px-2 pb-1">Cambia profilo</div>
+
+                  {myProfilesExceptCurrent.map((profile) => (
+                    <Dropdown.Item key={profile._id} className="py-2" onClick={() => dispatch(setMyProfileApiUserAndLoadProfileGlobally(profile._apiUser))}>
+                      <div className="d-flex align-items-center gap-2">
+                        <img
+                          src={profile.image || "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"}
+                          alt="profile"
+                          className="rounded-circle"
+                          style={{ width: 32, height: 32, objectFit: "cover" }}
+                        />
+                        <div className="d-flex flex-column">
+                          <div className="fw-semibold" style={{ fontSize: 13, lineHeight: 1.1 }}>
+                            {profile.name} {profile.surname}
+                          </div>
+                          <div className="text-muted" style={{ fontSize: 12, lineHeight: 1.1 }}>
+                            {profile.title}
+                          </div>
+                        </div>
+                      </div>
+                    </Dropdown.Item>
+                  ))}
+
+                  {myProfilesExceptCurrent.length === 0 && <div className="px-2 py-2 text-muted small">Nessun altro profilo</div>}
                 </Dropdown.Menu>
               </Dropdown>
             </Col>
@@ -259,13 +280,11 @@ const Post = (props) => {
               </Button>
             </Col>
           </Row>
-          {showComments && (
-            <Row className="g-0">
-              <Col xs={12}>
-                <PostComments postId={props.post._id} />
-              </Col>
-            </Row>
-          )}
+          <Row className="g-0" style={{ display: showComments ? "block" : "none" }}>
+            <Col xs={12}>
+              <PostComments postId={props.post._id} />
+            </Col>
+          </Row>
         </Container>
       </Card.Body>
     </Card>

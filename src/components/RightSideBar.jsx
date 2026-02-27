@@ -1,25 +1,25 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setMyProfileApiUserAndLoadProfileGlobally } from "../redux/actions";
-import { useWindowSize } from "react-use";
-import Confetti from "react-confetti";
-import { Card, Button, Spinner, Alert } from "react-bootstrap";
-import ProfileAPI from "../assets/js/profile-api/ProfileAPI";
+import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { setMyProfileApiUserAndLoadProfileGlobally } from "../redux/actions"
+import { useWindowSize } from "react-use"
+import Confetti from "react-confetti"
+import { Card, Button, Spinner, Alert } from "react-bootstrap"
+import ProfileAPI from "../assets/js/profile-api/ProfileAPI"
 
 function SidebarRight() {
-  const { width, height } = useWindowSize();
-  const [showConfetti, setShowConfetti] = useState(false);
+  const { width, height } = useWindowSize()
+  const [showConfetti, setShowConfetti] = useState(false)
 
   const handleConfetti = () => {
-    setShowConfetti(true);
-    setTimeout(() => setShowConfetti(false), 4000);
-  };
+    setShowConfetti(true)
+    setTimeout(() => setShowConfetti(false), 4000)
+  }
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const currentApiUser = useSelector((state) => state.myProfile.apiUser);
-  const myProfilesData = useSelector((state) => state.myProfiles);
-  const myProfilesExceptCurrent = myProfilesData.list.filter((myProfile) => myProfile._apiUser != currentApiUser);
+  const currentApiUser = useSelector((state) => state.myProfile.apiUser)
+  const myProfilesData = useSelector((state) => state.myProfiles)
+  const myProfilesExceptCurrent = myProfilesData.list.filter((myProfile) => myProfile._apiUser != currentApiUser)
 
   return (
     <>
@@ -88,15 +88,15 @@ function SidebarRight() {
                         variant="link"
                         className="mt-1 border border-secondary text-muted text-decoration-none"
                         onClick={() => {
-                          dispatch(setMyProfileApiUserAndLoadProfileGlobally(profile._apiUser));
-                          handleConfetti();
+                          dispatch(setMyProfileApiUserAndLoadProfileGlobally(profile._apiUser))
+                          handleConfetti()
                         }}
                       >
                         Collegati
                       </Button>
                     </div>
                   </div>
-                );
+                )
               })}
 
             {myProfilesData.isLoading && (
@@ -185,14 +185,14 @@ function SidebarRight() {
                         variant="link"
                         className="mt-1 border border-secondary text-muted text-decoration-none px-2 py-0"
                         onClick={() => {
-                          dispatch(setMyProfileApiUserAndLoadProfileGlobally(profile._apiUser));
+                          dispatch(setMyProfileApiUserAndLoadProfileGlobally(profile._apiUser))
                         }}
                       >
                         Collegati
                       </Button>
                     </div>
                   </div>
-                );
+                )
               })}
 
             {myProfilesData.isLoading && (
@@ -222,7 +222,7 @@ function SidebarRight() {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default SidebarRight;
+export default SidebarRight
